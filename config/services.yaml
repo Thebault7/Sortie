@@ -1,30 +1,46 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: argon2i
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
+    providers:
+        user_provider:
+            entity:
+                class: App\Entity\Participant
+                property: pseudo, mail
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
 
-services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
+        main:
+            pattern: ^/
+            provider: user_provider
+            anonymous: ~
+            form_login:
+                login_path: participant_login
+                check_path: participant_login
+            logout_on_user_change: true
+            # pour que la deconnexion soit geree automatiquement
+            logout:
+                path: logout
+                target: participant_login
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            switch_user: true
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+    # attention! c'est ici qu'on defini les accès restraints pour les users/admins
+    # il faut mettre tous les paths qu'il faut sécuriser pour les users authetifies
+    # sinon tout le monde y a accès
+    #       - { path: ^/serie, roles: ROLE_USER } # ^/ ce sont les regex
+    #       - { path: ^/admin, roles: ROLE_ADMIN }
+
+
