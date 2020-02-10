@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class MainController extends Controller
 {
@@ -12,7 +13,7 @@ class MainController extends Controller
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
-/*
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -22,8 +23,7 @@ class MainController extends Controller
         return $this->render('main/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
-        ]);*/
-
+        ]);
 
 
     }
