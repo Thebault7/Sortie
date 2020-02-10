@@ -8,12 +8,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends Controller
 {
     /**
-     * @Route("/main", name="main")
+     * @Route("/login", name="login")
      */
-    public function index()
+    public function login(AuthenticationUtils $authenticationUtils)
     {
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
+/*
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('main/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ]);*/
+
+
+
     }
 }
