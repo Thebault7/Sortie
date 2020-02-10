@@ -1,22 +1,46 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: argon2i
+
     providers:
-        in_memory: { memory: null }
+        user_provider:
+            entity:
+                class: App\Entity\Participant
+                property: pseudo, mail
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
-            anonymous: true
+            pattern: ^/
+            provider: user_provider
+            anonymous: ~
+            form_login:
+                login_path: participant_login
+                check_path: participant_login
+            logout_on_user_change: true
+            # pour que la deconnexion soit geree automatiquement
+            logout:
+                path: logout
+                target: participant_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            switch_user: true
+
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+    # attention! c'est ici qu'on defini les accès restraints pour les users/admins
+    # il faut mettre tous les paths qu'il faut sécuriser pour les users authetifies
+    # sinon tout le monde y a accès
+    #       - { path: ^/serie, roles: ROLE_USER } # ^/ ce sont les regex
+    #       - { path: ^/admin, roles: ROLE_ADMIN }
+
+
