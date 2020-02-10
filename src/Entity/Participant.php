@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,32 @@ class Participant
      * @ORM\Column(type="boolean")
      */
     private $actif;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="participant")
+     */
+    private $site;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="participant")
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", inversedBy="participants")
+     */
+    private $inscrit;
+
+    public function __construct()
+    {
+        $this->organisateur = new ArrayCollection();
+        $this->inscrit = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +147,87 @@ class Participant
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getOrganisateur(): Collection
+    {
+        return $this->organisateur;
+    }
+
+    public function addOrganisateur(Sortie $organisateur): self
+    {
+        if (!$this->organisateur->contains($organisateur)) {
+            $this->organisateur[] = $organisateur;
+            $organisateur->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisateur(Sortie $organisateur): self
+    {
+        if ($this->organisateur->contains($organisateur)) {
+            $this->organisateur->removeElement($organisateur);
+            // set the owning side to null (unless already changed)
+            if ($organisateur->getParticipant() === $this) {
+                $organisateur->setParticipant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getInscrit(): Collection
+    {
+        return $this->inscrit;
+    }
+
+    public function addInscrit(Sortie $inscrit): self
+    {
+        if (!$this->inscrit->contains($inscrit)) {
+            $this->inscrit[] = $inscrit;
+        }
+
+        return $this;
+    }
+
+    public function removeInscrit(Sortie $inscrit): self
+    {
+        if ($this->inscrit->contains($inscrit)) {
+            $this->inscrit->removeElement($inscrit);
+        }
 
         return $this;
     }
