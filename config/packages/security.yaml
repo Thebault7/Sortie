@@ -19,13 +19,13 @@ security:
             provider: user_provider
             anonymous: ~
             form_login:
-                login_path: participant_login
-                check_path: participant_login
+                login_path: login
+                check_path: login
             logout_on_user_change: true
             # pour que la deconnexion soit geree automatiquement
             logout:
                 path: logout
-                target: participant_login
+                target: login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

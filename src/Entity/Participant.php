@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantRepository")
+ * @UniqueEntity(fields={"pseudo, mail"}, message="There is already an account with this pseudo, mail")
  */
 class Participant
 {
@@ -67,6 +69,11 @@ class Participant
      * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", inversedBy="participants")
      */
     private $inscrit;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $password;
 
     public function __construct()
     {
@@ -228,6 +235,18 @@ class Participant
         if ($this->inscrit->contains($inscrit)) {
             $this->inscrit->removeElement($inscrit);
         }
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
