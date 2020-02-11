@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Site;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +13,7 @@ class SiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', Entity::class, ['label' => 'Ville du site ENI '])
+            ->add('nom', TextType::class, ['label' => 'Villes des sites ENI '])
         ;
     }
 
