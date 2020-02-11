@@ -39,7 +39,7 @@ class Lieu
     private $longitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieu")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieu", fetch="EAGER", cascade={"persist"})
      */
     private $ville;
 
