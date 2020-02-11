@@ -1,6 +1,12 @@
-{% extends layout.html.twig %}
+
+{% block title %}
+    <span class="contact1-form-title">
+Connexion
+</span>
+{% endblock %}
 
 {% block body %}
+
     {# app/Resources/views/security/login.html.twig #}
     {# ... you will probably extend your base template, like base.html.twig #}
 
@@ -8,12 +14,35 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Login (mail ou pseudo):</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+<div class = "col-md-12 col-lg-12 col-6 col-sm-6 col-xl-12">
+</div>
 
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="_password"/>
+<div class="container-contact1">
+
+    <form action="{{ path('login') }}" method="post">
+        <div class="d-flex flex-column">
+        <div class="p-2" style="width: 400px">
+
+        <div class="d-inline-flex p-3">
+
+            <div class="p-2 " style="width: 140px">
+                <h4><span class="badge text-left">Login (mail ou pseudo):</span></h4>
+            </div>
+            <div class="p-2 ">
+                <input type="text" id="name" name="user_name"
+                       style="width: 200px;">
+            </div>
+        </div>
+
+        <div class="d-inline-flex p-3 ">
+            <div class="p-2 " style="width: 140px">
+                <h4><span class="badge ">Mot de passe:</span></h4>
+            </div>
+            <div class="p-2 ">
+                <input type="password" id="name" name="user_password"
+                       style="width: 200px;">
+            </div>
+        </div>
 
         {#
             If you want to control the URL the user
@@ -21,11 +50,23 @@
             <input type="hidden" name="_target_path" value="/account"/>
         #}
 
-        <button type="submit">Se connecter</button>
+        <div class="d-inline-flex p-3 ">
+            <div class="p-2 " style="width: 140px">
+                <button type="submit" class="btn btn-primary btn-lg"
+                        name="login" style="float: left;">Se connecter</button>
+            </div>
+            <div class="p-2 " style="">
+                <div style="float: left;width: 200px">
+                    <a
+                            href="<%=request.getContextPath()%>/ServletCheckUserMail">Mot
+                        de passe oublié</a>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
     </form>
+</div>
 {% endblock %}
 
-{% block title %}
-    Connexion
 
-{% endblock %}

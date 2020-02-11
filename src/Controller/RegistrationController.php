@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Form\ParticipantType;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,34 +14,32 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/admin/register", name="register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new Participant();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(ParticipantType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
+            $user->setActif(true);
+            $user->setAdministrateur(false);
+            $user->setPseudo('pseudo');
+            $user->setPassword('eeee');
+            dump($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('');
+            return $this->redirectToRoute('register');
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'ParticipantForm' => $form->createView(),
         ]);
     }
 }

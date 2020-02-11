@@ -35,7 +35,7 @@ class SortieController extends Controller
             $etat = $etatRepository->find(1);
             $sortie
                 ->setEtat($etat);
-       
+
                // ->setIsPublished(true)
           //      ->setDateCreated(new \DateTime('now'));
 
