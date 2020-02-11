@@ -25,11 +25,15 @@ Connexion
 
         <div class="d-inline-flex p-3">
 
+            {% if error %}
+                <div class="alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
             <div class="p-2 " style="width: 140px">
                 <h4><span class="badge text-left">Login (mail ou pseudo):</span></h4>
             </div>
             <div class="p-2 ">
-                <input type="text" id="name" name="user_name"
+                <input type="text" id="name" name="_username" value="{{ last_username }}"
                        style="width: 200px;">
             </div>
         </div>
@@ -39,7 +43,7 @@ Connexion
                 <h4><span class="badge ">Mot de passe:</span></h4>
             </div>
             <div class="p-2 ">
-                <input type="password" id="name" name="user_password"
+                <input type="password" id="name" name="_password"
                        style="width: 200px;">
             </div>
         </div>

@@ -34,7 +34,8 @@ class SortieController extends Controller
             $etatRepository = $entityManager->getRepository(Etat::class);
             $etat = $etatRepository->find(1);
             $sortie
-                ->setEtat($etat);
+                ->setEtat($etat)
+                ->setParticipant($this->getUser());
 
                // ->setIsPublished(true)
           //      ->setDateCreated(new \DateTime('now'));

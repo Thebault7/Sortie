@@ -10,6 +10,8 @@ class MainController extends Controller
 {
     /**
      * @Route("/login", name="login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
