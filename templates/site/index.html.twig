@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionnaire des sites{% endblock %}
+
+{% block body %}
+    <h1>Gérer les sites</h1>
+    <h2>Filtrer les sites</h2>
+
+    <h1>Inscription d'un nouvel utilisateur</h1>
+    {{ form_start(SiteForm) }}
+    {{ form_label(SiteForm.nom) }}
+    {{ form_widget(SiteForm.nom) }}
+    {{ form_errors(SiteForm.nom) }}
+
+    <button class="btn">Register</button>
+
+    {{ form_end(SiteForm) }}
+{% endblock %}

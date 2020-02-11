@@ -5,17 +5,6 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
-<<<<<<< HEAD
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/animate" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/bootstrap" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/css-hamburgers" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/jquery" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/select2" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/tilt" />
-=======
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/css" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/js" />
->>>>>>> 92897ae6c7ee479f67e8b6869ef9b341a7e87368
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
