@@ -11,13 +11,10 @@ Get in touch
 
     <div class="wrap-input1 validate-input" data-validate="Nom est requis">
         {{ form_label(sortieFormView.nom) }}
-        {{ form_widget(sortieFormView.nom, {label_attr: {class: 'input1'} }) }}
+        {{ form_widget(sortieFormView.nom, {'attr': {'class': 'input1', 'placeholder':'Nom de la sortie'} }) }}
         {{ form_errors(sortieFormView.nom) }}
         <span class="shadow-input1"></span>
     </div>
-
-
-
 
         {{ form_label(sortieFormView.dateHeureDebut) }}
         {{ form_widget(sortieFormView.dateHeureDebut) }}
@@ -48,6 +45,8 @@ Get in touch
         {{ form_errors(sortieFormView.lieuListe) }}
 
 
+
+
     {{ form_end(sortieFormView) }}
 
 
@@ -57,6 +56,13 @@ Get in touch
             legendElement.textContent = "";
         }
 
+        let buttonEnregistrer = document.getElementById('sortie_creer');
+        let buttonCreer = document.getElementById('sortie_publier');
+        buttonEnregistrer.setAttribute('class', 'contact1-form-btn');
+        buttonCreer.setAttribute('class', 'contact1-form-btn');
+        let btnAnnuler = document.getElementById('sortie_annuler');
+      //  btnAnnuler.setAttribute("onclick", {{ path('') }})
+// , 'onclick'=> "window.location.href='https://w3docs.com'"
     </script>
 
 {% endblock %}
