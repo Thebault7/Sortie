@@ -1,4 +1,3 @@
-
 {% block title %}
     <span class="contact1-form-title">
 Connexion
@@ -14,59 +13,60 @@ Connexion
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-<div class = "col-md-12 col-lg-12 col-6 col-sm-6 col-xl-12">
-</div>
+    <div class="col-md-12 col-lg-12 col-6 col-sm-6 col-xl-12">
+    </div>
 
-<div class="container-contact1">
+    <div class="container-contact1">
 
-    <form action="{{ path('login') }}" method="post">
-        <div class="d-flex flex-column">
-        <div class="p-2" style="width: 400px">
+        <form action="{{ path('accueil') }}" method="post">
+            <div class="d-flex flex-column">
+                <div class="p-2" style="width: 400px">
 
-        <div class="d-inline-flex p-3">
+                    <div class="d-inline-flex p-3">
 
-            <div class="p-2 " style="width: 140px">
-                <h4><span class="badge text-left">Login (mail ou pseudo):</span></h4>
-            </div>
-            <div class="p-2 ">
-                <input type="text" id="name" name="user_name"
-                       style="width: 200px;">
-            </div>
-        </div>
+                        <div class="p-2 " style="width: 140px">
+                            <h4><span class="badge text-left">Login (mail ou pseudo):</span></h4>
+                        </div>
+                        <div class="p-2 ">
+                            <input type="text" id="name" name="_username"
+                                   style="width: 200px;">
+                        </div>
+                    </div>
 
-        <div class="d-inline-flex p-3 ">
-            <div class="p-2 " style="width: 140px">
-                <h4><span class="badge ">Mot de passe:</span></h4>
-            </div>
-            <div class="p-2 ">
-                <input type="password" id="name" name="user_password"
-                       style="width: 200px;">
-            </div>
-        </div>
+                    <div class="d-inline-flex p-3 ">
+                        <div class="p-2 " style="width: 140px">
+                            <h4><span class="badge ">Mot de passe:</span></h4>
+                        </div>
+                        <div class="p-2 ">
+                            <input type="password" id="name" name="_password"
+                                   style="width: 200px;">
+                        </div>
+                    </div>
 
-        {#
-            If you want to control the URL the user
-            is redirected to on success (more details below)
-            <input type="hidden" name="_target_path" value="/account"/>
-        #}
+                    {#
+                        If you want to control the URL the user
+                        is redirected to on success (more details below)
+                        <input type="hidden" name="_target_path" value="/account"/>
+                    #}
 
-        <div class="d-inline-flex p-3 ">
-            <div class="p-2 " style="width: 140px">
-                <button type="submit" class="btn btn-primary btn-lg"
-                        name="login" style="float: left;">Se connecter</button>
-            </div>
-            <div class="p-2 " style="">
-                <div style="float: left;width: 200px">
-                    <a
-                            href="<%=request.getContextPath()%>/ServletCheckUserMail">Mot
-                        de passe oublié</a>
+                    <div class="d-inline-flex p-3 ">
+                        <div class="p-2 " style="width: 140px">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                    name="login" style="float: left;">Se connecter
+                            </button>
+                        </div>
+                        <div class="p-2 " style="">
+                            <div style="float: left;width: 200px">
+                                <a
+                                        href="#">Mot
+                                    de passe oublié</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 {% endblock %}
 
 
