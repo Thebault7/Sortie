@@ -8,6 +8,7 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -37,7 +38,11 @@ class SortieType extends AbstractType
        //   ->add('rue', TextType::class, ['label' => 'Rue : '])
            // ->add('ville', TextType::class, ['label' => 'Ville : '])
           //  ->add('codePostal', TextType::class, ['label' => 'Code postal : '])
-          ->add('save', SubmitType::class, ['label'=> 'Enregistrer'])
+          ->add('creer', SubmitType::class, ['label'=> 'Enregistrer', 'attr' => ['id'=> 'creer']])
+            ->add('publier', SubmitType::class, ['label'=> 'Publier la sortie', 'attr' => ['id'=> 'publier']])
+            ->add('annuler', ButtonType::class,
+                [ 'label'=> 'Annuler',
+                'attr' => ['class' => 'annuler', 'id'=> 'annuler']])
         ;
     }
 

@@ -31,20 +31,29 @@ class SortieController extends Controller
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
             $etatRepository = $entityManager->getRepository(Etat::class);
             $etat = $etatRepository->find(1);
-            $sortie
-                ->setEtat($etat);
 
-               // ->setIsPublished(true)
+           if($sortieForm->get('creer')->isClicked()){
+               $sortie
+                   ->setEtat($etat)
+                   ->setParticipant($this->getUser());
+
+               $entityManager->persist($sortie);
+               $entityManager->flush();
+           }
+           elseif ($sortieForm->get('publier')->isClicked()){
+
+           }
+
           //      ->setDateCreated(new \DateTime('now'));
 
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+
 
             $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
             die();
-          //  return $this->redirectToRoute("idea_detail", ['id' => $idea->getId()]);
+            return $this->redirectToRoute("accueil");
         }
 
         return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView()]);
