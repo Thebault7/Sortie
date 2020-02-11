@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Enregistrement{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_label(form.nom) }}
+    {{ form_widget(form.nom) }}
+    {{ form_errors(form.nom) }}
+
+    {{ form_label(form.prenom) }}
+    {{ form_widget(form.prenom) }}
+    {{ form_errors(form.prenom) }}
+
+    {{ form_label(form.telephone) }}
+    {{ form_widget(form.telephone) }}
+    {{ form_errors(form.telephone) }}
+
+    {{ form_label(form.mail) }}
+    {{ form_widget(form.mail) }}
+    {{ form_errors(form.mail) }}
+
+    {{ form_label(form.site) }}
+    {{ form_widget(form.site) }}
+    {{ form_errors(form.site) }}
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Participant;
+use App\Entity\Site;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,12 +18,8 @@ class ParticipantType extends AbstractType
             ->add('nom', TextType::class, ['label' => 'Nom'])
             ->add('prenom', TextType::class, ['label' => 'Prénom'])
             ->add('telephone', TextType::class, ['label' => 'Téléphone'])
-            ->add('mail')
-            ->add('administrateur')
-            ->add('actif')
-            ->add('pseudo')
-            ->add('site')
-            ->add('inscrit')
+            ->add('mail', TextType::class, ['label' => 'Email'])
+            ->add('site', EntityType::class, ['class' => Site::class, 'choice_label' => 'nom', 'label' => 'Nom du site : '])
         ;
     }
 
