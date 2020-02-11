@@ -25,6 +25,10 @@
     {{ form_widget(ParticipantForm.site) }}
     {{ form_errors(ParticipantForm.site) }}
 
+    {{ form_label(ParticipantForm.administrateur) }}
+    {{ form_widget(ParticipantForm.administrateur) }}
+    {{ form_errors(ParticipantForm.administrateur) }}
+
     <button class="btn">Register</button>
 
     {{ form_end(ParticipantForm) }}

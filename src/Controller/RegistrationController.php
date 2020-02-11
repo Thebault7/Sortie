@@ -21,21 +21,33 @@ class RegistrationController extends Controller
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user = new Participant();
-        $form = $this->createForm(ParticipantType::class, $user);
+        $participant = new Participant();
+        $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setActif(true);
-            $user->setAdministrateur(false);
-            $user->setPseudo('pseudo');
-            $user->setPassword('eeee');
-            dump($user);
+            $participant->setActif(true);
+            $motDePasse = "";
+
+            // génération d'un mot de passe aléatoire de 10 chiffres
+            for ($i = 0; $i < 10; $i++) {
+                $motDePasse = $motDePasse . rand() % (10);
+            }
+
+            // cryptage du mot de passe
+            $participant->setPassword(
+                $passwordEncoder->encodePassword(
+                    $participant,
+                    $motDePasse
+                )
+            );
+            
+            // mise en base de données
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($participant);
             $entityManager->flush();
 
-            return $this->redirectToRoute('register');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('registration/register.html.twig', [
