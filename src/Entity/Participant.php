@@ -52,7 +52,7 @@ class Participant implements UserInterface
     private $actif;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $pseudo;
 
@@ -276,7 +276,6 @@ class Participant implements UserInterface
      */
     public function getUsername()
     {
-       // return [$this->nom, $this->prenom];
         return $this->mail;
     }
 
