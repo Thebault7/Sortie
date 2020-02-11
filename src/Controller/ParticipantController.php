@@ -20,18 +20,18 @@ class ParticipantController extends Controller
 
 
     /**
+     * @Route("/admin/register", name="register")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/register", nom="register")
      */
     public function register(Request $request) {
         $participant =new Participant();
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
         return $this->render(
-            'participant/register.html.twig',
+            'registration/register.html.twig',
             [
-                'form' => $form->createView(),
+                'registrationForm' => $form->createView(),
             ]
         );
     }
