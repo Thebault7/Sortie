@@ -27,6 +27,16 @@ class MainController extends Controller
             'error'         => $error,
         ]);
 
-
     }
+
+    /**
+     * @Route("/accueil", name="accueil")
+     */
+    public function accueil()
+    {
+        return $this->render('main/accueil.html.twig');
+    }
+
+
+
 }
