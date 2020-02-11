@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionnaire des sites{% endblock %}
+
+{% block body %}
+    <h1>Gérer les sites</h1>
+    <h2>Filtrer les sites</h2>
+    {% set i = 0 %}
+    {% set j = 0 %}
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="background-color: #8959A8">
+                        Villes
+                    </th>
+                    <th style="background-color: #727b84">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="background-color: #00c6ff">
+                        {% for site in Sites %}
+                            {% set i = i + 1 %}
+                            {{ site.nom }}<br>
+                        {% endfor %}
+                        {{ form_start(SiteForm) }}
+                        {{ form_label(SiteForm.nom) }}
+                        {{ form_widget(SiteForm.nom) }}
+                        {{ form_errors(SiteForm.nom) }}
+                        <button class="btn">Register</button>
+                        {{ form_end(SiteForm) }}
+                    </th>
+                    <th style="background-color: #80bdff">
+                        {% for j in 1..i %}
+                            <p><a href="#">Modifier</a> - <a href="#">Supprimer</a><br></p>
+                        {% endfor %}
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
