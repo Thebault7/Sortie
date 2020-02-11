@@ -55,7 +55,7 @@ class Sortie
     private $etat;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie", cascade={"persist"})
      */
     private $lieu;
 

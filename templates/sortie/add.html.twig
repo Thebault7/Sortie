@@ -1,0 +1,67 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+
+    <span class="contact1-form-title">
+Get in touch
+</span>
+
+    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form validate-form'}}) }}
+
+    <div class="wrap-input1 validate-input" data-validate="Nom est requis">
+        {{ form_label(sortieFormView.nom) }}
+        {{ form_widget(sortieFormView.nom, {label_attr: {class: 'input1'} }) }}
+        {{ form_errors(sortieFormView.nom) }}
+        <span class="shadow-input1"></span>
+    </div>
+
+
+
+
+        {{ form_label(sortieFormView.dateHeureDebut) }}
+        {{ form_widget(sortieFormView.dateHeureDebut) }}
+        {{ form_errors(sortieFormView.dateHeureDebut) }}
+
+        {{ form_label(sortieFormView.dateLimiteInscription) }}
+        {{ form_widget(sortieFormView.dateLimiteInscription) }}
+        {{ form_errors(sortieFormView.dateLimiteInscription) }}
+
+        {{ form_label(sortieFormView.duree) }}
+        {{ form_widget(sortieFormView.duree) }}
+        {{ form_errors(sortieFormView.duree) }}
+
+        {{ form_label(sortieFormView.nbInscriptionMax) }}
+        {{ form_widget(sortieFormView.nbInscriptionMax) }}
+        {{ form_errors(sortieFormView.nbInscriptionMax) }}
+
+        {{ form_label(sortieFormView.infosSortie) }}
+        {{ form_widget(sortieFormView.infosSortie) }}
+        {{ form_errors(sortieFormView.infosSortie) }}
+
+        {{ form_label(sortieFormView.site) }}
+        {{ form_widget(sortieFormView.site) }}
+        {{ form_errors(sortieFormView.site) }}
+
+        {{ form_label(sortieFormView.lieuListe) }}
+        {{ form_widget(sortieFormView.lieuListe) }}
+        {{ form_errors(sortieFormView.lieuListe) }}
+
+
+    {{ form_end(sortieFormView) }}
+
+
+    <script>
+        let legend = document.getElementsByTagName("legend");
+        for (let legendElement of legend) {
+            legendElement.textContent = "";
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block title %}
+Créer une sortie
+{% endblock %}
+

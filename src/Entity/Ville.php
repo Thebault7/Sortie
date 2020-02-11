@@ -29,7 +29,7 @@ class Ville
     private $codePostal;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Lieu", mappedBy="ville")
+     * @ORM\OneToMany(targetEntity="App\Entity\Lieu", mappedBy="ville", fetch="EAGER")
      */
     private $lieu;
 
