@@ -30,7 +30,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/accueil", name="accueil")
+     * @Route("/", name="accueil")
      */
     public function accueil()
     {

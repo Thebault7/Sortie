@@ -7,38 +7,80 @@
     <h2>Filtrer les sites</h2>
     {% set i = 0 %}
     {% set j = 0 %}
-    <div>
+    {#    <div>#}
+    {#        <table>#}
+    {#            <thead>#}
+    {#            <tr>#}
+    {#                <th style="background-color: #8959A8">#}
+    {#                    Villes#}
+    {#                </th>#}
+    {#                <th style="background-color: #727b84">#}
+    {#                    Actions#}
+    {#                </th>#}
+    {#            </tr>#}
+    {#            </thead>#}
+    {#            <tbody>#}
+    {#            <tr>#}
+    {#                <th style="background-color: #00c6ff">#}
+    {#                    {% for site in Sites %}#}
+    {#                        {% set i = i + 1 %}#}
+    {#                        {{ site.nom }}<br>#}
+    {#                    {% endfor %}#}
+    {#                    {{ form_start(SiteForm) }}#}
+    {#                    {{ form_label(SiteForm.nom) }}#}
+    {#                    {{ form_widget(SiteForm.nom) }}#}
+    {#                    {{ form_errors(SiteForm.nom) }}#}
+    {#                    <button class="btn">Register</button>#}
+    {#                    {{ form_end(SiteForm) }}#}
+    {#                </th>#}
+    {#                <th style="background-color: #80bdff">#}
+    {#                    {% for j in 1..i %}#}
+    {#                        <p><a href="#">Modifier</a> - <a href="#">Supprimer</a><br></p>#}
+    {#                    {% endfor %}#}
+    {#                </th>#}
+    {#            </tr>#}
+    {#            </tbody>#}
+    {#        </table>#}
+    {#    </div>#}
+
+    {#    <br>#}
+    {#    <hr><br>#}
+    {#    <hr><br>#}
+    {#    <hr><br>#}
+
+    <div style="margin-left: 100px">
         <table>
             <thead>
-                <tr>
-                    <th style="background-color: #8959A8">
-                        Villes
-                    </th>
-                    <th style="background-color: #727b84">
-                        Actions
-                    </th>
-                </tr>
+            <tr>
+                <th style="background-color: #8959A8">
+                    Villes
+                </th>
+                <th style="background-color: #727b84">
+                    Actions
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th style="background-color: #00c6ff">
-                        {% for site in Sites %}
-                            {% set i = i + 1 %}
-                            {{ site.nom }}<br>
-                        {% endfor %}
-                        {{ form_start(SiteForm) }}
-                        {{ form_label(SiteForm.nom) }}
-                        {{ form_widget(SiteForm.nom) }}
-                        {{ form_errors(SiteForm.nom) }}
-                        <button class="btn">Register</button>
-                        {{ form_end(SiteForm) }}
-                    </th>
-                    <th style="background-color: #80bdff">
-                        {% for j in 1..i %}
-                            <p><a href="#">Modifier</a> - <a href="#">Supprimer</a><br></p>
-                        {% endfor %}
-                    </th>
-                </tr>
+            <tr>
+                <th colspan="2" style="overflow: scroll">
+                    {% for site in Sites %}
+                        {% if (i % 2) is same as (0) %}
+                            <div style="background-color: #80bdff">
+                                {{ site.nom }}<a href="#"> Modifier</a> - <a href="#">Supprimer</a><br>
+                            </div>
+                        {% else %}
+                            {{ site.nom }}<a href="#"> Modifier</a> - <a href="#">Supprimer</a><br>
+                        {% endif %}
+
+                        {% set i = i + 1 %}
+                    {% endfor %}
+                    {{ form_start(SiteForm) }}
+                    {{ form_label(SiteForm.nom) }}
+                    {{ form_widget(SiteForm.nom) }}
+                    {{ form_errors(SiteForm.nom) }}
+                    {{ form_end(SiteForm) }}
+                </th>
+            </tr>
             </tbody>
         </table>
     </div>
