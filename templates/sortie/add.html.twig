@@ -6,76 +6,151 @@
         <span class="contact1-form-title">
     Get in touch
     </span>-->
-
-    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form validate-form'}}) }}
+    <!--<div class="container-contact1" style=" margin: auto; padding-top: 10px; background-color: yellow;"> background-color: yellow; -->
+    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form validate-form align-items-sm-center justify-content-center'}}) }}
 
     <div class="row">
-        <div class="col-sm-12 col-md-6">
 
+     <!--   <div class="col-sm-10 offset-sm-1 col-md-4 offset-sm-1"> -->
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 offset-lg-1">
+            <div class="row">
+                <div class="col-12" >
             <div class="wrap-input1 validate-input" data-validate="Date limite d'inscrptions est requise">
-                {{ form_label(sortieFormView.dateLimiteInscription) }}
-                {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1', 'placeholder':'Date limite'} }) }}
-                {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1', 'placeholder':'Date limite'} }) }}
-                {{ form_errors(sortieFormView.dateLimiteInscription) }}
-                <span class="shadow-input1"></span>
-            </div>
+
                 {{ form_label(sortieFormView.nom) }}
                 {{ form_widget(sortieFormView.nom, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.nom) }}
             <span class="shadow-input1"></span>
-
-            <div class="wrap-input1 validate-input" data-validate="Date limite d'inscrptions est requise">
-                {{ form_label(sortieFormView.dateLimiteInscription) }}
-                {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1', 'placeholder':'Date limite'} }) }}
-                {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1', 'placeholder':'Date limite'} }) }}
-                {{ form_errors(sortieFormView.dateLimiteInscription) }}
+            </div>
+            <div class="wrap-input1 validate-input" data-validate="Date de sortie est requise" >
+                {{ form_label(sortieFormView.dateHeureDebut) }}
+                {{ form_widget(sortieFormView.dateHeureDebut, {'attr': {'class': 'input1'} }) }}
+                {{ form_errors(sortieFormView.dateHeureDebut) }}
                 <span class="shadow-input1"></span>
             </div>
+            <div class="wrap-input1 validate-input" data-validate="Date limite d'inscrptions est requise" >
                 {{ form_label(sortieFormView.dateLimiteInscription) }}
                 {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.dateLimiteInscription) }}
             <span class="shadow-input1"></span>
-
+            </div>
             <div class="wrap-input1 validate-input" data-validate="Le champ durée est requis">
                 {{ form_label(sortieFormView.duree) }}
-                {{ form_widget(sortieFormView.duree, {'attr': {'class': 'input1', 'placeholder':'Durée'} }) }}
+                {{ form_widget(sortieFormView.duree, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.duree) }}
                 <span class="shadow-input1"></span>
+                <span class="shadow-input1"></span>
             </div>
+
+
             <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
                 {{ form_label(sortieFormView.nbInscriptionMax) }}
-                {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': 'input1', 'placeholder':'Nombre maximal d\'inscriptions'} }) }}
+                {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.nbInscriptionMax) }}
                 <span class="shadow-input1"></span>
             </div>
             <div class="wrap-input1 validate-input">
                 {{ form_label(sortieFormView.infosSortie) }}
-                {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': 'input1', 'rows': '100', 'cols': '50'} }) }}
+                {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': 'input1', 'rows': '10', 'cols': '5'} }) }}
                 {{ form_errors(sortieFormView.infosSortie) }}
                 <span class="shadow-input1"></span>
             </div>
+
+
+        </div>
+            </div>
+
         </div>
 
 
 
-    <div class="col-sm-12 col-md-6">
+    <!--<div class="col-sm-10 col-md-4 offset-sm-1 ">-->
+        <div class=" col-12 col-sm-12 col-md-12 col-lg-4">
+            <div class="row" style="">
+                <div class=" col-12" >
+        <div style="margin: 20px 5px 10px 5px">
+            <h6><b>Choisissez lieu et ville de la liste déroulante ou définissez un nouveau lieu de sortie</b></h6>
+        </div>
+
+        <div class="wrap-input1 validate-input">
+            <p>ville organisatrice :</p>
+    {#        {{ form_label(sortieFormView.lieuListe) }}
+            {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1', 'disabled':'true'} }) }}#}
+            <span class="shadow-input1"></span>
+        </div>
+
+        <div class="wrap-input1 validate-input">
+            {{ form_label(sortieFormView.lieuListe) }}
+            {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1'} }) }}
+            {{ form_errors(sortieFormView.lieuListe) }}
+            <span class="shadow-input1"></span>
+        </div>
+
+        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+            {{ form_label(sortieFormView.lieu.villeListe) }}
+            {{ form_widget(sortieFormView.lieu.villeListe, {'attr': {'class': 'input1'} }) }}
+            {{ form_errors(sortieFormView.lieu.villeListe) }}
+            <span class="shadow-input1"></span>
+        </div>
 
 
+        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+            {{ form_label(sortieFormView.lieu.nom) }}
+            {{ form_widget(sortieFormView.lieu.nom, {'attr': {'class': 'input1'} }) }}
+            {{ form_errors(sortieFormView.lieu.nom) }}
+            <span class="shadow-input1"></span>
+        </div>
+
+        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+            {{ form_label(sortieFormView.lieu.rue) }}
+            {{ form_widget(sortieFormView.lieu.rue, {'attr': {'class': 'input1'} }) }}
+            {{ form_errors(sortieFormView.lieu.rue) }}
+            <span class="shadow-input1"></span>
+        </div>
+
+
+
+        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+            {{ form_label(sortieFormView.lieu.ville.nom) }}
+            {{ form_widget(sortieFormView.lieu.ville.nom, {'attr': {'class': 'input1'} }) }}
+            {{ form_errors(sortieFormView.lieu.ville.nom) }}
+            <span class="shadow-input1"></span>
+        </div>
+
+        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+            {{ form_label(sortieFormView.lieu.ville.codePostal) }}
+            {{ form_widget(sortieFormView.lieu.ville.codePostal, {'attr': {'class': 'input1'} }) }}
+            {{ form_errors(sortieFormView.lieu.ville.codePostal) }}
+            <span class="shadow-input1"></span>
+        </div>
     </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="container-contact1-form-btn" style="margin-top: 20px" >
+        {{ form_widget(sortieFormView.creer, { 'label': 'Créer', 'attr': {'class': 'contact1-form-btn btn-creer', 'style': ''}  }) }}
+        <span class="espace"></span>
+        {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'contact1-form-btn btn-publier', 'style' : ''}  }) }}
+        <span class="espace"></span>
+        <a href="{{ path('accueil') }}" class="contact1-form-btn btn-annuler">Annuler</a>
     </div>
 
 
 
+</div>
+<!--
+  <button class="contact1-form-btn">
+            <span>
+            Send Email
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </span>
+        </button>
+ -->
 
 
 
-
-    <div class="wrap-input1 validate-input">
-        {{ form_label(sortieFormView.lieuListe) }}
-        {{ form_widget(sortieFormView.lieuListe) }}
-        {{ form_errors(sortieFormView.lieuListe) }}
-        <span class="shadow-input1"></span>
-    </div>
 
 
 
@@ -87,7 +162,7 @@
         for (let legendElement of legend) {
             legendElement.textContent = "";
         }
-
+/*
         let buttonEnregistrer = document.getElementById('sortie_creer');
         let buttonCreer = document.getElementById('sortie_publier');
         buttonEnregistrer.setAttribute('class', 'contact1-form-btn');
@@ -96,7 +171,9 @@
         let route = "{{ path('accueil') }}";
         btnAnnuler.setAttribute("onclick", route);
         // , 'onclick'=> "window.location.href='https://w3docs.com'"
+*/
 
+        /*
         let formControlClass = document.getElementsByClassName('form-control');
         for (let formControlElt of formControlClass) {
             formControlElt.classList += " input1"; //wrap-input1  / wrap-input1
@@ -111,7 +188,7 @@
         divSortieLieu.setAttribute('class', 'wrap-input1');
 
         let divSortieSite = document.getElementById('sortie_site');
-        // divSortieSite.setAttribute('class', 'wrap-input1');
+        // divSortieSite.setAttribute('class', 'wrap-input1');*/
     </script>
 
 {% endblock %}

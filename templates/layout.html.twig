@@ -22,17 +22,19 @@
 <body>
 <nav class="navbar navbar-light" style="background-color: dodgerblue;">
 
-    <a class="navbar-brand" href="{{ path('accueil') }}">Accueil</a>
+    <a class="navbar-brand " href="{{ path('accueil') }}">Accueil</a>
 
     {% if app.user %}
-        <a class="navbar-brand" href="{{ path('logout') }}">Se déconnecter</a>
+
+        <a class="navbar-brand " href="{{ path('logout') }}">Se déconnecter</a>
      {% else %}
         <a class="navbar-brand" href="{{ path('login') }}">Se connecter</a>
     {% endif %}
 </nav>
 <main>
-
+<div class="container-fluid">
     {% block body %}Layout{% endblock %}
+</div>
 </main>
 </body>
 </html>
