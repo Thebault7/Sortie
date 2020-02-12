@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,6 +27,11 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
        // $idea->getAuthor($this->getUser()->getUsername());
+        $site = $this->getUser()->getSite();
+      //  $participantRepository = $entityManager->getRepository(Participant::class);
+
+            //->getSite();
+
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -36,9 +42,26 @@ class SortieController extends Controller
             $etat = $etatRepository->find(1);
 
            if($sortieForm->get('creer')->isClicked()){
+            $site = $this->getUser()->getSite();
+
+            dump($sortie->getLieu());
+
+               $lieu = $sortieForm->get('lieuListe')->getData();
+
+               dump($lieu);
+
+               if($lieu !== null){
+                  dump('est null');
+                        $sortie->setLieu($lieu);
+               }
+
+
                $sortie
                    ->setEtat($etat)
-                   ->setParticipant($this->getUser());
+                   ->setParticipant($this->getUser())
+                   ->setSite($site);
+
+               dump($sortie);
 
                $entityManager->persist($sortie);
                $entityManager->flush();
@@ -56,7 +79,7 @@ class SortieController extends Controller
             return $this->redirectToRoute("accueil");
         }
 
-        return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView()]);
+        return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
 
     }
 }

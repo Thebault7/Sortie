@@ -24,26 +24,17 @@ class SortieType extends AbstractType
         $builder
             ->add('nom', TextType::class, ['label' => 'Nom de la sortie: ', 'attr'=>['autofocus' => true]])
             ->add('dateHeureDebut',DateTimeType::class, ['label' => 'Date et heure de la sortie : ', 'widget' => 'single_text'])
-            ->add('duree', IntegerType::class, ['label' => 'Durée : '])
+            ->add('duree', IntegerType::class, ['label' => 'Durée (minutes) : '])
             ->add('dateLimiteInscription',DateTimeType::class, ['label' => "Date limite d'inscription : ", 'widget' => 'single_text'])
             ->add('nbInscriptionMax', IntegerType::class, ['label' => 'Nombre de places : '])
             ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : ', 'attr'=>['required'=> false]])
-          //  ->add('etat')
-           // ->add('lieu', TextType::class, ['label'=> 'Lieu : '])
-            //->add('lieu', TextType::class)
-             ->add('lieuListe', EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom', 'label'=> 'Lieu : ', 'mapped' => false])
-             ->add('lieu', LieuType::class)
-             //->add('site', EntityType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : '])
-          //  ->add('participant')
-           // ->add('participants')
-       //   ->add('rue', TextType::class, ['label' => 'Rue : '])
-           // ->add('ville', TextType::class, ['label' => 'Ville : '])
-          //  ->add('codePostal', TextType::class, ['label' => 'Code postal : '])
-          ->add('creer', SubmitType::class, ['label'=> 'Enregistrer', 'attr' => ['id'=> 'creer']])
+
+            ->add('lieuListe', EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom',  'label'=> 'Lieu : ', 'mapped' => false, 'placeholder' => 'Choisir', 'empty_data'  => null, 'attr'=>['required'=> false]]) //,'attr' => ['empty_value' => 'vide!']
+            ->add('lieu', LieuType::class, ['attr'=>['required'=> false]])
+          //  ->add('site', TextType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : ', 'attr'=>['required'=> false]])
+            ->add('site', EntityType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : '])
+            ->add('creer', SubmitType::class, ['label'=> 'Enregistrer', 'attr' => ['id'=> 'creer']])
             ->add('publier', SubmitType::class, ['label'=> 'Publier la sortie', 'attr' => ['id'=> 'publier']])
-          //  ->add('annuler', ButtonType::class,
-           //     [ 'label'=> 'Annuler',
-             //   'attr' => ['class' => 'annuler', 'id'=> 'annuler']])
         ;
     }
 

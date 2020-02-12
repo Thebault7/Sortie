@@ -7,16 +7,25 @@
     Get in touch
     </span>-->
     <!--<div class="container-contact1" style=" margin: auto; padding-top: 10px; background-color: yellow;"> background-color: yellow; -->
-    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form validate-form align-items-sm-center justify-content-center'}}) }}
 
-    <div class="row">
+    <h1>Créer une sortie</h1>
+    <hr>
+
+    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}
+
+    <div class="row" style="margin-bottom: 30px">
 
      <!--   <div class="col-sm-10 offset-sm-1 col-md-4 offset-sm-1"> -->
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-4 offset-lg-1">
             <div class="row">
                 <div class="col-12" >
-            <div class="wrap-input1 validate-input" data-validate="Date limite d'inscrptions est requise">
+
+                    <div style="margin: 20px 5px 10px 5px">
+                        <h6><b>Les détails de la sortie</b></h6>
+                    </div>
+
+            <div class="wrap-input1" data-validate="Date limite d'inscrptions est requise">
 
                 {{ form_label(sortieFormView.nom) }}
                 {{ form_widget(sortieFormView.nom, {'attr': {'class': 'input1'} }) }}
@@ -50,7 +59,7 @@
                 {{ form_errors(sortieFormView.nbInscriptionMax) }}
                 <span class="shadow-input1"></span>
             </div>
-            <div class="wrap-input1 validate-input">
+            <div class="wrap-input1">
                 {{ form_label(sortieFormView.infosSortie) }}
                 {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': 'input1', 'rows': '10', 'cols': '5'} }) }}
                 {{ form_errors(sortieFormView.infosSortie) }}
@@ -73,21 +82,20 @@
             <h6><b>Choisissez lieu et ville de la liste déroulante ou définissez un nouveau lieu de sortie</b></h6>
         </div>
 
-        <div class="wrap-input1 validate-input">
-            <p>ville organisatrice :</p>
-    {#        {{ form_label(sortieFormView.lieuListe) }}
-            {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1', 'disabled':'true'} }) }}#}
+        <div class="wrap-input1">
+            <label>Ville organisatrice: </label>
+             {{ form_widget(sortieFormView.site, {'attr': {'class': 'input1', 'disabled':'true', 'style': 'background-color: #AFEEEE'} }) }}
             <span class="shadow-input1"></span>
         </div>
 
-        <div class="wrap-input1 validate-input">
+        <div class="wrap-input1">
             {{ form_label(sortieFormView.lieuListe) }}
             {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieuListe) }}
             <span class="shadow-input1"></span>
         </div>
 
-        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
             {{ form_label(sortieFormView.lieu.villeListe) }}
             {{ form_widget(sortieFormView.lieu.villeListe, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.villeListe) }}
@@ -95,30 +103,31 @@
         </div>
 
 
-        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
             {{ form_label(sortieFormView.lieu.nom) }}
             {{ form_widget(sortieFormView.lieu.nom, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.nom) }}
             <span class="shadow-input1"></span>
         </div>
 
-        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+
+        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
             {{ form_label(sortieFormView.lieu.rue) }}
-            {{ form_widget(sortieFormView.lieu.rue, {'attr': {'class': 'input1'} }) }}
+            {{ form_widget(sortieFormView.lieu.rue, {'attr': {'class': 'input1', 'value' : 'rue1'} }) }}
             {{ form_errors(sortieFormView.lieu.rue) }}
             <span class="shadow-input1"></span>
         </div>
 
 
 
-        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
             {{ form_label(sortieFormView.lieu.ville.nom) }}
             {{ form_widget(sortieFormView.lieu.ville.nom, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.ville.nom) }}
             <span class="shadow-input1"></span>
         </div>
 
-        <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
+        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
             {{ form_label(sortieFormView.lieu.ville.codePostal) }}
             {{ form_widget(sortieFormView.lieu.ville.codePostal, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.ville.codePostal) }}
@@ -158,37 +167,74 @@
 
 
     <script>
+
+        let listeLieu = document.getElementById('sortie_lieuListe');
+        let villeListe = document.getElementById('sortie_lieu_villeListe');
+        let nomLieu = document.getElementById('sortie_lieu_nom');
+        let rue = document.getElementById('sortie_lieu_rue');
+        let ville = document.getElementById('sortie_lieu_ville_nom');
+        let codePostal = document.getElementById('sortie_lieu_ville_codePostal');
+        let selectElts = document.querySelectorAll('select');
+
+        let bckInputColor = '#e6e6e6';
+
+        listeLieu.setAttribute('onchange', 'disableLieux()')
+        villeListe.setAttribute('onchange', 'disableVille()')
+
+
+        function disableVille() {
+            if(villeListe.options[villeListe.selectedIndex].value==0){
+                ville.disabled=false;
+                ville.setAttribute('style', 'background-color:'+bckInputColor);
+            }else{
+                ville.disabled=true;
+                ville.setAttribute('style', 'background-color: #AFEEEE');
+            }
+        }
+
+
+        function disableLieux() {
+            if(listeLieu.options[listeLieu.selectedIndex].value==0){
+                villeListe.disabled=false;
+                nomLieu.disabled=false;
+                rue.disabled=false;
+                ville.disabled=false;
+                codePostal.disabled=false;
+
+                villeListe.setAttribute('style', 'background-color:'+bckInputColor);
+                nomLieu.setAttribute('style', 'background-color:'+bckInputColor);
+                rue.setAttribute('style', 'background-color:'+bckInputColor);
+                ville.setAttribute('style', 'background-color:'+bckInputColor);
+                codePostal.setAttribute('style', 'background-color:'+bckInputColor);
+            }
+            else{
+                villeListe.disabled=true;
+                nomLieu.disabled=true;
+                rue.disabled=true;
+                ville.disabled=true;
+                codePostal.disabled=true;
+
+                villeListe.setAttribute('style', 'background-color: #AFEEEE');
+                nomLieu.setAttribute('style', 'background-color: #AFEEEE');
+                rue.setAttribute('style', 'background-color: #AFEEEE');
+                ville.setAttribute('style', 'background-color: #AFEEEE');
+                codePostal.setAttribute('style', 'background-color: #AFEEEE');
+            }
+        }
+
+
         let legend = document.getElementsByTagName("legend");
         for (let legendElement of legend) {
             legendElement.textContent = "";
         }
-/*
-        let buttonEnregistrer = document.getElementById('sortie_creer');
-        let buttonCreer = document.getElementById('sortie_publier');
-        buttonEnregistrer.setAttribute('class', 'contact1-form-btn');
-        buttonCreer.setAttribute('class', 'contact1-form-btn');
-        let btnAnnuler = document.getElementById('sortie_annuler');
-        let route = "{{ path('accueil') }}";
-        btnAnnuler.setAttribute("onclick", route);
-        // , 'onclick'=> "window.location.href='https://w3docs.com'"
-*/
 
-        /*
-        let formControlClass = document.getElementsByClassName('form-control');
-        for (let formControlElt of formControlClass) {
-            formControlElt.classList += " input1"; //wrap-input1  / wrap-input1
+        let requiredLieu = document.querySelectorAll('*[id^="sortie_lieu"]');
+        for(let requiredELt of requiredLieu){
+            console.log(requiredELt);
+            if(requiredELt.hasAttribute('required')){
+               requiredELt.removeAttribute('required');
+            }
         }
-
-        let formGroupClass = document.getElementsByClassName('form-group');
-        for (let formGroupElt of formGroupClass) {
-            formGroupElt.classList += " wrap-input1 "; //wrap-input1  / wrap-input1
-        }
-
-        let divSortieLieu = document.getElementById('sortie_lieu');
-        divSortieLieu.setAttribute('class', 'wrap-input1');
-
-        let divSortieSite = document.getElementById('sortie_site');
-        // divSortieSite.setAttribute('class', 'wrap-input1');*/
     </script>
 
 {% endblock %}
