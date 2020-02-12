@@ -33,6 +33,7 @@
         "symfony/debug-pack": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
+        "symfony/var-dumper": "3.4.*",
         "symfony/web-server-bundle": "3.4.*"
     },
     "config": {

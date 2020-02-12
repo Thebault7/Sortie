@@ -1,3 +1,5 @@
+{% extends 'layout.html.twig' %}
+
 {% block title %}
     <span class="contact1-form-title">
 Sorties
@@ -6,80 +8,80 @@ Sorties
 
 
 {% block body %}
-{#    <ul>#}
-{#        <li><a href="{{ path('Villes') }}">Villes</a></li>#}
-{#        <li><a href="{{ path('Sites') }}">Sites</a></li>#}
-{#        <li><a href="{{ path('accueil') }}">Accueil</a></li>#}
-{#        <li><a href="{{ path('monProfil') }}">Mon Profil</a></li>#}
-{#        <li><a href="{{ path('logout') }}">Se déconnecter</a></li>#}
-{#    </ul>#}
+    {#    <ul>#}
+    {#        <li><a href="{{ path('Villes') }}">Villes</a></li>#}
+    {#        <li><a href="{{ path('Sites') }}">Sites</a></li>#}
+    {#        <li><a href="{{ path('accueil') }}">Accueil</a></li>#}
+    {#        <li><a href="{{ path('monProfil') }}">Mon Profil</a></li>#}
+    {#        <li><a href="{{ path('logout') }}">Se déconnecter</a></li>#}
+    {#    </ul>#}
 
     <div class="filtrer" style="float: left;">
-    <h2>Filtrer les sorties</h2>
+        <h2>Filtrer les sorties</h2>
     </div>
     <form action="{{ path('accueil') }}" method="post">
-    <label for="site">Site :</label>
+        <label for="site">Site :</label>
+        <select>
 
-    <select name="site" id="site-select">
-        <option value="">--Please choose an option--</option>
-        <option value="St Herblain">St Herblain</option>
-        <option value="Chartres">Chartres de Bretagne</option>
-        <option value="La Roche">La Roche sur Yon</option>
-    </select>
-    <div class="p-2" style="width: 425px">
-        <label for="nomsortie">Le nom de la sortie contient :</label>
-        <input type="text"
-               placeholder="search" id="Nom"
-               name="nom_sortie"
-               style="width: 400px; float: left;">
-    </div>
-    <div class="date1" style="width: 425px">
-        <label for="datesortie">Entre :</label>
-        <input type="date"
-               id="date_debut"
-               name="date_debut"
-               style="width: 400px; float: left;">
-    </div>
-    <div class="date2" style="width: 425px">
-        <label for="datefinsortie">et :</label>
-        <input type="date"
-               id="date_fin"
-               name="date_fin"
-               style="width: 400px; float: left;">
-    </div>
-    <div class="col">
-        <input type="checkbox" name="organisateur" value="organisateur"> <label for="organisateur">Sorties dont je suis l'organisateur/trice</label><br>
-        <input type="checkbox" name="inscrit" value="inscrit"> <label for="inscrit">Sorties auxquels je suis inscrit/e</label><br>
-        <input type="checkbox" name="pas_inscrit" value="pas_inscrit"> <label for="pas_inscrit">Sorties auxquels je ne suis pas inscrit/e</label><br>
-        <input type="checkbox" name="passees" value="passees"> <label for="passees">Sorties passées</label><br>
-    </div>
-    <div class="rechercher">
-        <button type="submit" class="btn btn-primary btn-lg"
-                name="rechercher" style="float: right; width: 425px;">Rechercher</button>
-    </div>
-
-    <table>
-        <tr>
-            <td>Nom de la sortie</td>
-            <td>Date de la sortie</td>
-            <td>Clôture</td>
-            <td>Inscrits/places</td>
-            <td>Etat</td>
-            <td>Inscrits</td>
-            <td>Organisateur</td>
-            <td>Actions</td>
-        </tr>
+        </select>
 
 
+        <div class="p-2" style="width: 425px">
+            <label for="nomsortie">Le nom de la sortie contient :</label>
+            <input type="text"
+                   placeholder="search" id="Nom"
+                   name="nom_sortie"
+                   style="width: 400px; float: left;">
+        </div>
+        <div class="date1" style="width: 425px">
+            <label for="datesortie">Entre :</label>
+            <input type="date"
+                   id="date_debut"
+                   name="date_debut"
+                   style="width: 400px; float: left;">
+        </div>
+        <div class="date2" style="width: 425px">
+            <label for="datefinsortie">et :</label>
+            <input type="date"
+                   id="date_fin"
+                   name="date_fin"
+                   style="width: 400px; float: left;">
+        </div>
+        <div class="col">
+            <input type="checkbox" name="organisateur" value="organisateur"> <label for="organisateur">Sorties dont je
+                suis l'organisateur/trice</label><br>
+            <input type="checkbox" name="inscrit" value="inscrit"> <label for="inscrit">Sorties auxquels je suis
+                inscrit/e</label><br>
+            <input type="checkbox" name="pas_inscrit" value="pas_inscrit"> <label for="pas_inscrit">Sorties auxquels je
+                ne suis pas inscrit/e</label><br>
+            <input type="checkbox" name="passees" value="passees"> <label for="passees">Sorties passées</label><br>
+        </div>
+        <div class="rechercher">
+            <button type="submit" class="btn btn-primary btn-lg"
+                    name="rechercher" style="float: right; width: 425px;">Rechercher
+            </button>
+        </div>
+
+        <table>
+            <tr>
+                <td>Nom de la sortie</td>
+                <td>Date de la sortie</td>
+                <td>Clôture</td>
+                <td>Inscrits/places</td>
+                <td>Etat</td>
+                <td>Inscrits</td>
+                <td>Organisateur</td>
+                <td>Actions</td>
+            </tr>
 
 
+        </table>
 
-    </table>
-
-    <div class="creer">
-        <button type="submit" class="btn btn-primary btn-lg"
-                name="creer" style="float: left; width: 425px;">Créer une sortie</button>
-    </div>
-</form>
+        <div class="creer">
+            <button type="submit" class="btn btn-primary btn-lg"
+                    name="creer" style="float: left; width: 425px;">Créer une sortie
+            </button>
+        </div>
+    </form>
 
 {% endblock %}
