@@ -19,6 +19,16 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
+    public function findBySite($site)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.site = :val')
+            ->setParameter('val', $site)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Participant[] Returns an array of Participant objects
     //  */

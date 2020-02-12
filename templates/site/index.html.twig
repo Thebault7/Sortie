@@ -1,52 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style type="text/css" src="site.index.css"></style>
+{% endblock %}
+
 {% block title %}Gestionnaire des sites{% endblock %}
 
 {% block body %}
+
     <h1>Gérer les sites</h1>
     <h2>Filtrer les sites</h2>
     {% set i = 0 %}
     {% set j = 0 %}
-    {#    <div>#}
-    {#        <table>#}
-    {#            <thead>#}
-    {#            <tr>#}
-    {#                <th style="background-color: #8959A8">#}
-    {#                    Villes#}
-    {#                </th>#}
-    {#                <th style="background-color: #727b84">#}
-    {#                    Actions#}
-    {#                </th>#}
-    {#            </tr>#}
-    {#            </thead>#}
-    {#            <tbody>#}
-    {#            <tr>#}
-    {#                <th style="background-color: #00c6ff">#}
-    {#                    {% for site in Sites %}#}
-    {#                        {% set i = i + 1 %}#}
-    {#                        {{ site.nom }}<br>#}
-    {#                    {% endfor %}#}
-    {#                    {{ form_start(SiteForm) }}#}
-    {#                    {{ form_label(SiteForm.nom) }}#}
-    {#                    {{ form_widget(SiteForm.nom) }}#}
-    {#                    {{ form_errors(SiteForm.nom) }}#}
-    {#                    <button class="btn">Register</button>#}
-    {#                    {{ form_end(SiteForm) }}#}
-    {#                </th>#}
-    {#                <th style="background-color: #80bdff">#}
-    {#                    {% for j in 1..i %}#}
-    {#                        <p><a href="#">Modifier</a> - <a href="#">Supprimer</a><br></p>#}
-    {#                    {% endfor %}#}
-    {#                </th>#}
-    {#            </tr>#}
-    {#            </tbody>#}
-    {#        </table>#}
-    {#    </div>#}
-
-    {#    <br>#}
-    {#    <hr><br>#}
-    {#    <hr><br>#}
-    {#    <hr><br>#}
 
     <div style="margin-left: 100px">
         <table>
@@ -66,10 +31,12 @@
                     {% for site in Sites %}
                         {% if (i % 2) is same as (0) %}
                             <div style="background-color: #80bdff">
-                                {{ site.nom }}<a href="#"> Modifier</a> - <a href="#">Supprimer</a><br>
+                                {{ site.nom }}<a href="" onclick='openForm("{{ site.nom }}"); return false'> Modifier</a> - <a
+                                        href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a><br>
                             </div>
                         {% else %}
-                            {{ site.nom }}<a href="#"> Modifier</a> - <a href="#">Supprimer</a><br>
+                            {{ site.nom }}<a href="" onclick='openForm("{{ site.nom }}"); return false'> Modifier</a> - <a
+                                href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a><br>
                         {% endif %}
 
                         {% set i = i + 1 %}
@@ -78,11 +45,54 @@
                     {{ form_label(SiteForm.nom) }}
                     {{ form_widget(SiteForm.nom) }}
                     {{ form_errors(SiteForm.nom) }}
+                    <button class="btn">Ajouter</button>
                     {{ form_end(SiteForm) }}
+                    <br>
                 </th>
             </tr>
             </tbody>
         </table>
     </div>
 
+    <br>
+
+    <div class="form-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+
+            <label for="site"><b>Site à modifier : </b></label>
+            <input id="input_form" type="text" name="site" required>
+
+            <input id="input_form_hidden" type="text" name="site" style="display:none">
+
+            <button type="submit" class="btn" onclick="modifierSite.php">Enregistrer</button>
+            <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <br>
+
+    <!-- affichage des messages d'erreur ci-dessous : -->
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function openForm(nom) {
+            document.getElementById("myForm").style.display = "block";
+            document.getElementById("input_form").setAttribute("value", nom);
+            document.getElementById("input_form_hidden").setAttribute("value", nom);
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+        closeForm();
+    </script>
 {% endblock %}
