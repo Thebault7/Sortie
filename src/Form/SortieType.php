@@ -8,9 +8,11 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,24 +22,28 @@ class SortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, ['label' => 'Nom de la sortie: '])
+            ->add('nom', TextType::class, ['label' => 'Nom de la sortie: ', 'attr'=>['autofocus' => true]])
             ->add('dateHeureDebut',DateTimeType::class, ['label' => 'Date et heure de la sortie : ', 'widget' => 'single_text'])
             ->add('duree', IntegerType::class, ['label' => 'Durée : '])
             ->add('dateLimiteInscription',DateTimeType::class, ['label' => "Date limite d'inscription : ", 'widget' => 'single_text'])
             ->add('nbInscriptionMax', IntegerType::class, ['label' => 'Nombre de places : '])
-            ->add('infosSortie', TextType::class, ['label' => 'Description et infos : '])
+            ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : ', 'attr'=>['required'=> false]])
           //  ->add('etat')
            // ->add('lieu', TextType::class, ['label'=> 'Lieu : '])
             //->add('lieu', TextType::class)
              ->add('lieuListe', EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom', 'label'=> 'Lieu : ', 'mapped' => false])
              ->add('lieu', LieuType::class)
-             ->add('site', EntityType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : '])
+             //->add('site', EntityType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : '])
           //  ->add('participant')
            // ->add('participants')
        //   ->add('rue', TextType::class, ['label' => 'Rue : '])
            // ->add('ville', TextType::class, ['label' => 'Ville : '])
           //  ->add('codePostal', TextType::class, ['label' => 'Code postal : '])
-          ->add('save', SubmitType::class, ['label'=> 'Enregistrer'])
+          ->add('creer', SubmitType::class, ['label'=> 'Enregistrer', 'attr' => ['id'=> 'creer']])
+            ->add('publier', SubmitType::class, ['label'=> 'Publier la sortie', 'attr' => ['id'=> 'publier']])
+          //  ->add('annuler', ButtonType::class,
+           //     [ 'label'=> 'Annuler',
+             //   'attr' => ['class' => 'annuler', 'id'=> 'annuler']])
         ;
     }
 

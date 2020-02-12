@@ -281,7 +281,7 @@ class Participant implements UserInterface
      */
     public function getUsername()
     {
-        return [$this->nom, $this->prenom];
+        return $this->mail;
     }
 
     /**

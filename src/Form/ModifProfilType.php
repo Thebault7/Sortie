@@ -33,10 +33,9 @@ class ModifProfilType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password']])
-
             ->add('site',  EntityType::class, ['class' => Site::class, 'choice_label' => 'nom', 'label' => 'Nom du site : '])
             ->add('photo', FileType::class, [
-                'label' => 'Ma photo : ',
+                'label' => 'Ma photo (format .jpg/.jpeg/.png) : ',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -59,8 +58,8 @@ class ModifProfilType extends AbstractType
                     ])
                 ],
             ])
-            ->add('save',    SubmitType::class, ['label' => 'Enregistrer :'])
-            ->add('cancel',    SubmitType::class, ['label' => 'Annuler :'])
+            ->add('save',    SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('cancel',    SubmitType::class, ['label' => 'Annuler'])
 
         ;
     }

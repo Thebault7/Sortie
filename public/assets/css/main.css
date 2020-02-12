@@ -60,7 +60,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-	color: #57b846;
+	color: dodgerblue;/*#57b846;*/
 }
 
 /*---------------------------------------------*/
@@ -182,6 +182,7 @@ iframe {
 [  ]*/
 .contact1-form {
   width: 390px;
+
 }
 
 .contact1-form-title {
@@ -194,10 +195,24 @@ iframe {
   padding-bottom: 44px;
 }
 
+
 input.input1 {
-  height: 50px;
+  height: 35px;
   border-radius: 25px;
   padding: 0 30px;
+  max-width: 400px;
+
+  max-width: 400px;
+  margin: auto
+}
+select.input1 {
+  height: 50px;
+  border-radius: 15px;
+  padding: 0 30px;
+  max-width: 400px;
+
+  max-width: 400px;
+  margin: auto
 }
 input.input1 + .shadow-input1 {
   border-radius: 25px;
@@ -207,6 +222,10 @@ textarea.input1 {
   min-height: 150px;
   border-radius: 25px;
   padding: 12px 30px;
+  max-width: 400px;
+
+  max-width: 400px;
+  margin: auto
 }
 textarea.input1 + .shadow-input1 {
   border-radius: 25px;
@@ -218,15 +237,24 @@ textarea.input1 + .shadow-input1 {
   width: 100%;
   z-index: 1;
   margin-bottom: 20px;
-}
 
+  max-width: 400px;
+  margin: auto;
+
+
+  /*display: flex;
+  flex-direction: row; //////////////////////*/
+}
+label{
+  margin-top: 10px;
+}
 .input1 {
   display: block;
   width: 100%;
   background: #e6e6e6;
   font-family: Montserrat-Bold;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.0;
   color: #666666;
 }
 
@@ -240,7 +268,7 @@ textarea.input1 + .shadow-input1 {
   width: 100%;
   height: 100%;
   box-shadow: 0px 0px 0px 0px;
-  color: rgba(87,184,70, 0.5);
+  color: dodgerblue;/*rgba(87,184,70, 0.5);*/
 }
 
 .input1:focus + .shadow-input1 {
@@ -277,7 +305,7 @@ textarea.input1 + .shadow-input1 {
   min-width: 193px;
   height: 50px;
   border-radius: 25px;
-  background: #57b846;
+  background: dodgerblue;
   font-family: Montserrat-Bold;
   font-size: 15px;
   line-height: 1.5;
@@ -318,13 +346,35 @@ textarea.input1 + .shadow-input1 {
   transform: translateX(10px);
 }
 
+.navbar{
+  padding: 20px;
+  margin-bottom: 40px; ///////////////////////////////
 
+}
+.navbar-brand {
+  color: white !important;
+  font-weight: bold;
+}
 
+main{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.centrer{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.espace{
+  margin: 0 5px 0 5px;
+}
 
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
-@media (max-width: 1200px) {
+@media (max-width: 992px) {
   .contact1-pic {
     width: 33.5%;
   }
@@ -332,11 +382,13 @@ textarea.input1 + .shadow-input1 {
   .contact1-form {
     width: 44%;
   }
-}
 
+
+}
+/*
 @media (max-width: 992px) {
   .container-contact1 {
-    padding: 90px 80px 88px 90px;
+    padding: 90px 50px 88px 50px;
   }
 
   .contact1-pic {
@@ -350,7 +402,8 @@ textarea.input1 + .shadow-input1 {
 
 @media (max-width: 768px) {
   .container-contact1 {
-    padding: 90px 80px 88px 80px;
+    padding: 90px 2px 88px 2px !important;
+    margin-left: 2px !important;
   }
 
   .contact1-pic {
@@ -362,13 +415,63 @@ textarea.input1 + .shadow-input1 {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 576px) and (min-width: 400px){
   .container-contact1 {
-    padding: 90px 15px 88px 15px;
+    padding: 90px 2px 88px 2px !important;
+    margin-left: 2px !important;
+  }
+
+*/
+@media (max-width: 768px) {
+  .container-contact1 {
+    padding: 90px 2px 88px 2px !important;
+    margin-left: 2px !important;
+  }
+
+  .contact1-pic {
+    display: none;
+  }
+
+  .contact1-form {
+    width: 100%;
   }
 }
 
 
+@media (max-width: 768px) and (min-width: 500px){
+  .container-contact1 {
+    padding: 50px 2px 50px 2px !important;
+    margin-left: 2px !important;
+
+  }
+
+  .btn-annuler{
+    margin-top: 10px;
+    max-width: 30px;
+  }
+
+  .btn-publier{
+    margin-top: 10px;
+    max-width: 30px;
+  }
+  .container-contact1-form-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.btn-creer{
+      max-width: 30px;
+    }
+
+.navbar{
+  display: block;
+}
+
+}
+
+html{
+  min-width: 500px;
+}
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
