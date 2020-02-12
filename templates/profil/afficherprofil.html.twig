@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ participant.pseudo }}</h1>
+    <div class="photo">
+        {{ participant.photo }}<br>
+    </div>
+    <div class="infos_profil">
+        Prénom : {{ participant.prenom }}<br>
+        Nom : {{ participant.nom }}<br>
+        Téléphone : {{ participant.telephone }}<br>
+        Mail : {{ participant.mail }}<br>
+        Ville de rattachement : {{ participant.site.nom }}<br>
+
+    </div>
+    <button type="submit">Retour</button>
+
+{% endblock %}
