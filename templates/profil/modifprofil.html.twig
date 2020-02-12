@@ -6,33 +6,55 @@
 
     {{ form_start(ModifProfilForm) }}
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.pseudo) }}
-    {{ form_widget(ModifProfilForm.pseudo) }}
+    {{ form_widget(ModifProfilForm.pseudo, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.pseudo) }}
+        <span class="shadow-input1"></span>
+    </div>
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.nom) }}
-    {{ form_widget(ModifProfilForm.nom) }}
+    {{ form_widget(ModifProfilForm.nom, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.nom) }}
+        <span class="shadow-input1"></span>
+    </div>
 
+
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.prenom) }}
-    {{ form_widget(ModifProfilForm.prenom) }}
+    {{ form_widget(ModifProfilForm.prenom, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.prenom) }}
+        <span class="shadow-input1"></span>
+    </div>
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.telephone) }}
-    {{ form_widget(ModifProfilForm.telephone) }}
+    {{ form_widget(ModifProfilForm.telephone, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.telephone) }}
+        <span class="shadow-input1"></span>
+    </div>
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.mail) }}
-    {{ form_widget(ModifProfilForm.mail) }}
+    {{ form_widget(ModifProfilForm.mail, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.mail) }}
+        <span class="shadow-input1"></span>
+    </div>
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.password) }}
-    {{ form_widget(ModifProfilForm.password) }}
+    {{ form_widget(ModifProfilForm.password, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.password) }}
+        <span class="shadow-input1"></span>
+    </div>
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.site) }}
-    {{ form_widget(ModifProfilForm.site) }}
+    {{ form_widget(ModifProfilForm.site, {'attr': {'class': 'input1'} }) }}
     {{ form_errors(ModifProfilForm.site) }}
+        <span class="shadow-input1"></span>
+    </div>
 
     {{ form_label(ModifProfilForm.photo) }}
     {{ form_widget(ModifProfilForm.photo) }}
