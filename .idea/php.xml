@@ -107,6 +107,9 @@
       <path value="$PROJECT_DIR$/vendor/bootstrap/jquery" />
       <path value="$PROJECT_DIR$/vendor/bootstrap/select2" />
       <path value="$PROJECT_DIR$/vendor/bootstrap/tilt" />
+      <path value="$PROJECT_DIR$/vendor/bootstrap/js" />
+      <path value="$PROJECT_DIR$/vendor/bootstrap/css" />
     </include_path>
   </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
 </project>

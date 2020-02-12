@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -30,9 +32,12 @@ class MainController extends Controller
     /**
      * @Route("/accueil", name="accueil")
      */
-    public function accueil()
+    public function accueil(EntityManagerInterface $entityManager)
     {
-        return $this->render('main/accueil.html.twig');
+        $siteRepository = $entityManager->getRepository(Site::class);
+        $sites = $siteRepository->findAll();
+        return $this->render('main/accueil.html.twig', compact('sites'));
+
     }
 
 
