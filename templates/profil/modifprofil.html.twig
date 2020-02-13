@@ -78,6 +78,14 @@
     {{ form_end(ModifProfilForm) }}
 
 
+    <!-- affichage des messages d'erreur ci-dessous : -->
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 
 
 {% endblock %}
