@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -20,54 +21,92 @@ class Sortie
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage="Le champ 'description et infos' accepte au minimim 2 caractères",
+     *     maxMessage="Le champ 'description et infos' accepte au maximum 50 caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Assert\GreaterThan("+2 minutes")
      */
+
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(
+     *   type="integer",
+     *   message="La valeur du champ 'nombre de places' doit être un nombre entier."
+     * )
+     * @Assert\Range(
+     *      min = 5,
+     *      max = 1440,
+     *      minMessage = "La valeur minimum du champ durée est de {{ limit }} minutes",
+     *      maxMessage = "La valeur max du champ durée est de {{ limit }} minutes"
+     * )
      */
     private $duree;
 
     /**
      * @ORM\Column(type="datetime")
+     *  @Assert\NotBlank
      */
     private $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *   type="integer",
+     *   message="La valeur du champ 'nombre de places' doit être un nombre entier."
+     * )
+     * @Assert\Range(
+     *      min = 1,
+     *      minMessage = "Il y a au moins une personne qui doit pouvoir participer à cette sortie",
+     * )
      */
     private $nbInscriptionMax;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="Le champ 'description et infos' accepte au maximum 255 caractères"
+     * )
      */
     private $infosSortie;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sortie")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie", cascade={"persist"})
+     * @Assert\NotBlank
      */
     private $lieu;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sortie")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $site;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Participant", inversedBy="organisateur")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $participant;
 
