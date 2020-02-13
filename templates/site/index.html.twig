@@ -1,9 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    <style type="text/css" src="site.index.css"></style>
-{% endblock %}
-
 {% block title %}Gestionnaire des sites{% endblock %}
 
 {% block body %}
@@ -13,7 +9,14 @@
     {% set i = 0 %}
     {% set j = 0 %}
 
-    <div style="margin-left: 100px">
+    <div>
+        <form method="POST" action="{{ path('site_filter') }}">
+            <input id="input_filter" type="text" name="site_filter" required>
+            <button type="submit" class="btn">Rechercher</button>
+        </form>
+    </div>
+
+    <div>
         <table>
             <thead>
             <tr>
@@ -57,15 +60,15 @@
     <br>
 
     <div class="form-popup" id="myForm">
-        <form action="/action_page.php" class="form-container">
+        <form action="{{ path('site_modify') }}" method="POST" class="form-container">
 
             <label for="site"><b>Site à modifier : </b></label>
-            <input id="input_form" type="text" name="site" required>
+            <input id="input_form" type="text" name="site_modify" required>
 
-            <input id="input_form_hidden" type="text" name="site" style="display:none">
+            <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
 
-            <button type="submit" class="btn" onclick="modifierSite.php">Enregistrer</button>
-            <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="submit" class="btn">Enregistrer</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
     </div>
     <br>
@@ -85,7 +88,7 @@
     <script>
         function openForm(nom) {
             document.getElementById("myForm").style.display = "block";
-            document.getElementById("input_form").setAttribute("value", nom);
+            document.getElementById("input_form").value = nom;
             document.getElementById("input_form_hidden").setAttribute("value", nom);
         }
 

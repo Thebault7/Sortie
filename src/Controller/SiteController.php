@@ -80,7 +80,7 @@ class SiteController extends Controller
         }
 
         $sortieRepository = $entityManager->getRepository(Sortie::class);
-        for ($i = 0; $i < count($id);  $i++) {
+        for ($i = 0; $i < count($id); $i++) {
             $sorties[$i] = $sortieRepository->findBySite($id[$i]);
         }
 
@@ -90,16 +90,85 @@ class SiteController extends Controller
                     $entityManager->remove($sitesENI[$i]);
                     $entityManager->flush();
                     $this->addFlash("succes", "Suppresion du site réussie.");
+
                     return $this->redirectToRoute('site_index');
                 }
             } else {
-                $this->addFlash("echec", "Une ou plusieurs sorties sont situées sur ce site. On ne peut pas supprimer ce site.");
+                $this->addFlash(
+                    "echec",
+                    "Une ou plusieurs sorties sont situées sur ce site. On ne peut pas supprimer ce site."
+                );
+
                 return $this->redirectToRoute('site_index');
             }
         } else {
-            $this->addFlash("echec", "Un ou plusieurs utilisateurs sont inscrits sur ce site. On ne peut pas supprimer ce site.");
+            $this->addFlash(
+                "echec",
+                "Un ou plusieurs utilisateurs sont inscrits sur ce site. On ne peut pas supprimer ce site."
+            );
+
             return $this->redirectToRoute('site_index');
         }
+
         return $this->redirect($this->generateUrl('site_index'));
+    }
+
+    /**
+     * @Route ("/modify", name="modify")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return
+     */
+    public function modify(Request $request, EntityManagerInterface $entityManager)
+    {
+        $siteModify = $request->request->get('site_modify');
+        $siteHidden = $request->request->get('site_hidden');
+
+        if ($siteModify !== $siteHidden) {
+            // on va chercher le site en base de données grâce à son nom $siteHidden,
+            // puis on le modifie en lui donnant le nouveau nom $siteModify
+            $siteRepository = $entityManager->getRepository(Site::class);
+            $sites = $siteRepository->findByName($siteHidden);
+
+            // on remplace le nom
+            for ($i = 0; $i < count($sites); $i++) {
+                $sites[$i]->setNom($siteModify);
+            }
+            // mise en base de données
+            for ($i = 0; $i < count($sites); $i++) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($sites[$i]);
+                $entityManager->flush();
+            }
+        } else {
+            $this->addFlash("echec", "Le nouveau nom entré est le même que l'ancien. Aucune modification n'a été faite.");
+        }
+
+        return $this->redirect($this->generateUrl('site_index'));
+    }
+
+    /**
+     * @Route("/filter", name="filter")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     */
+    public function filter(Request $request, EntityManagerInterface $entityManager)
+    {
+        // génération du formulaire
+        $site = new Site();
+        $form = $this->createForm(SiteType::class, $site);
+        $form->handleRequest($request);
+
+        $nomAChercher = $request->request->get('site_filter');
+        $siteRepository = $entityManager->getRepository(Site::class);
+        $sites = $siteRepository->findByName($nomAChercher);
+
+        return $this->render(
+            'site/index.html.twig',
+            [
+                'SiteForm' => $form->createView(),
+                'Sites' => $sites,
+            ]
+        );
     }
 }
