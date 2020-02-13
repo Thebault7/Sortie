@@ -26,9 +26,6 @@ class MainController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-//        $loginForm = new Participant();
-//        $form = $this->createForm(RegistrationFormType::class, $loginForm);
-
         return $this->render('main/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,

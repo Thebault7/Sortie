@@ -78,7 +78,7 @@
             <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
 
             <button type="submit" class="btn">Enregistrer</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="button" id="close" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
     </div>
     <br>
@@ -107,6 +107,5 @@
             document.getElementById("myForm").style.display = "none";
         }
 
-        closeForm();
     </script>
 {% endblock %}
