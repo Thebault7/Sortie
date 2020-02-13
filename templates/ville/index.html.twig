@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionnaire des villes{% endblock %}
+
+{% block body %}
+
+    <h1>Gérer les villes</h1>
+    <h2>Filtrer les villes</h2>
+    {% set i = 0 %}
+    {% set j = 0 %}
+
+    <div>
+        <form method="POST" action="{{ path('ville_filter') }}">
+            <input id="input_filter" type="text" name="ville_filter" required>
+            <button type="submit" class="btn">Rechercher</button>
+        </form>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th style="background-color: #8959A8">
+                    Villes
+                </th>
+                <th style="background-color: coral">
+                    Code Postal
+                </th>
+                <th style="background-color: #727b84">
+                    Actions
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th colspan="3" style="overflow: scroll">
+                    {% for ville in villes %}
+                        {% if (i % 2) is same as (0) %}
+                            <div style="background-color: #80bdff">
+                                {{ ville.nom }}{{ ville.codePostal }}<a href="" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false'> Modifier</a> - <a
+                                        href="{{ path('ville_delete', {'nom': ville.nom}) }}">Supprimer</a><br>
+                            </div>
+                        {% else %}
+                            {{ ville.nom }}{{ ville.codePostal }}<a href="" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false'> Modifier</a> - <a
+                                href="{{ path('ville_delete', {'nom': ville.nom}) }}">Supprimer</a><br>
+                        {% endif %}
+
+                        {% set i = i + 1 %}
+                    {% endfor %}
+                    {{ form_start(villeForm) }}
+                    {{ form_label(villeForm.nom) }}
+                    {{ form_widget(villeForm.nom) }}
+                    {{ form_errors(villeForm.nom) }}
+
+                    {{ form_label(villeForm.codePostal) }}
+                    {{ form_widget(villeForm.codePostal) }}
+                    {{ form_errors(villeForm.codePostal) }}
+                    <button class="btn">Ajouter</button>
+                    {{ form_end(villeForm) }}
+                    <br>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <div class="form-popup" id="myForm">
+        <form action="{{ path('ville_modify') }}" method="POST" class="form-container">
+
+            <label for="ville"><b>Ville à modifier : </b></label>
+            <input id="input_nom" type="text" name="ville_modify" required>
+            <input id="input_nom_hidden" type="text" name="ville_hidden" style="display:none">
+
+            <label for="cp"><b>Code postal à modifier : </b></label>
+            <input id="input_cp" type="text" name="cp_modify" required>
+            <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
+
+            <button type="submit" class="btn">Enregistrer</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <br>
+
+    <!-- affichage des messages d'erreur ci-dessous : -->
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function openForm(nom, cp) {
+            document.getElementById("myForm").style.display = "block";
+            document.getElementById("input_nom").value = nom;
+            document.getElementById("input_nom_hidden").setAttribute("value", nom);
+            document.getElementById("input_cp").value = cp;
+            document.getElementById("input_cp_hidden").setAttribute("value", cp);
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+        closeForm();
+    </script>
+{% endblock %}

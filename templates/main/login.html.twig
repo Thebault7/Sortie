@@ -23,7 +23,7 @@ Connexion
     <div class="container-contact1">
 
         <form action="{{ path('login') }}" method="post">
-            <div class="d-flex flex-column">
+
                 <div class="p-2" style="width: 400px">
 
         <div class="d-inline-flex p-3">
@@ -32,24 +32,23 @@ Connexion
                 <div class="alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            <div class="p-2 " style="width: 140px">
-                <h4><span class="badge text-left">Login (mail ou pseudo):</span></h4>
-            </div>
-            <div class="p-2 ">
-                <input type="text" id="name" name="_username" value="{{ last_username }}"
+            <div class="wrap-input1 validate-input">
+                <label for="login">Login (mail ou pseudo) :</label>
+                <input type="text" id="name" name="_username" value="{{ last_username, {'attr': {'class': 'input1'}} }}"
                        style="width: 200px;">
+                <span class="shadow-input1"></span>
             </div>
         </div>
 
-        <div class="d-inline-flex p-3 ">
-            <div class="p-2 " style="width: 140px">
-                <h4><span class="badge ">Mot de passe:</span></h4>
-            </div>
-            <div class="p-2 ">
+
+                    <div class="wrap-input1 validate-input">
+                <label for="mdp">Mot de passe :</label>
                 <input type="password" id="name" name="_password"
                        style="width: 200px;">
+                        <span class="shadow-input1"></span>
             </div>
-        </div>
+
+
 
                     {#
                         If you want to control the URL the user
@@ -57,23 +56,34 @@ Connexion
                         <input type="hidden" name="_target_path" value="/account"/>
                     #}
 
-                    <div class="d-inline-flex p-3 ">
-                        <div class="p-2 " style="width: 140px">
-                            <button type="submit" class="btn btn-primary btn-lg"
-                                    name="login" style="float: left;">Se connecter
-                            </button>
-                        </div>
-                        <div class="p-2 " style="">
-                            <div style="float: left;width: 200px">
-                                <a
-                                        href="#">Mot
-                                    de passe oublié</a>
-                            </div>
-                        </div>
+{#                    {{ form_start(RegistrationForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}#}
+
+{#                   <div class="wrap-input1 validate-input">#}
+{#                        {{ form_label(RegistrationForm.mail) }}#}
+{#                       {{ form_widget(RegistrationForm.mail, {'attr': {'class': 'input1'} }) }}#}
+{#                      {{ form_errors(RegistrationForm.mail) }}#}
+{#                      <span class="shadow-input1"></span>#}
+{#                   </div>#}
+
+{#                    <div class="wrap-input1 validate-input">#}
+{#                        {{ form_label(RegistrationForm.plainPassword) }}#}
+{#                        {{ form_widget(RegistrationForm.plainPassword, {'attr': {'class': 'input1'} }) }}#}
+{#                       {{ form_errors(RegistrationForm.plainPassword) }}#}
+{#                      <span class="shadow-input1"></span>#}
+{#                    </div>#}
+
+{#                    {{ form_end(RegistrationForm) }}#}
+
+                    <div class="container-contact1-form-btn" style="margin: 60px" >
+                        <button class="contact1-form-btn" type="submit">Connexion</button>
                     </div>
-                </div>
-            </div>
-        </form>
+                        </div>
+                            <div style="float: right;width: 200px">
+                                <a href="#">Mot de passe oublié</a>
+                            </div>
+
+    </form>
+
     </div>
 {% endblock %}
 
