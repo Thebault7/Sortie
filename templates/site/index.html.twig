@@ -68,7 +68,7 @@
             <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
 
             <button type="submit" class="btn">Enregistrer</button>
-            <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
     </div>
     <br>
@@ -88,7 +88,7 @@
     <script>
         function openForm(nom) {
             document.getElementById("myForm").style.display = "block";
-            document.getElementById("input_form").setAttribute("value", nom);
+            document.getElementById("input_form").value = nom;
             document.getElementById("input_form_hidden").setAttribute("value", nom);
         }
 

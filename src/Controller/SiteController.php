@@ -115,26 +115,33 @@ class SiteController extends Controller
 
     /**
      * @Route ("/modify", name="modify")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return
      */
     public function modify(Request $request, EntityManagerInterface $entityManager)
     {
         $siteModify = $request->request->get('site_modify');
         $siteHidden = $request->request->get('site_hidden');
 
-        // on va chercher le site en base de données grâce à son nom $siteHidden,
-        // puis on le modifie en lui donnant le nouveau nom $siteModify
-        $siteRepository = $entityManager->getRepository(Site::class);
-        $sites = $siteRepository->findByName($siteHidden);
+        if ($siteModify !== $siteHidden) {
+            // on va chercher le site en base de données grâce à son nom $siteHidden,
+            // puis on le modifie en lui donnant le nouveau nom $siteModify
+            $siteRepository = $entityManager->getRepository(Site::class);
+            $sites = $siteRepository->findByName($siteHidden);
 
-        // on remplace le nom
-        for ($i = 0; $i < count($sites); $i++) {
-            $sites[$i]->setNom($siteModify);
-        }
-        // mise en base de données
-        for ($i = 0; $i < count($sites); $i++) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($sites[$i]);
-            $entityManager->flush();
+            // on remplace le nom
+            for ($i = 0; $i < count($sites); $i++) {
+                $sites[$i]->setNom($siteModify);
+            }
+            // mise en base de données
+            for ($i = 0; $i < count($sites); $i++) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($sites[$i]);
+                $entityManager->flush();
+            }
+        } else {
+            $this->addFlash("echec", "Le nouveau nom entré est le même que l'ancien. Aucune modification n'a été faite.");
         }
 
         return $this->redirect($this->generateUrl('site_index'));
