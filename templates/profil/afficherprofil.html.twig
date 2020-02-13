@@ -1,19 +1,34 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-
+    <div class="pseudo" style="text-align:center; margin: 30px">
     <h1>{{ participant.pseudo }}</h1>
-    <div class="photo">
+    </div>
+
+    <div class="photo" style="text-align:left; margin: 30px">
         {{ participant.photo }}<br>
     </div>
-    <div class="infos_profil">
-        Prénom : {{ participant.prenom }}<br>
-        Nom : {{ participant.nom }}<br>
-        Téléphone : {{ participant.telephone }}<br>
-        Mail : {{ participant.mail }}<br>
-        Ville de rattachement : {{ participant.site.nom }}<br>
 
+    <div class="infos_profil" style="text-align:center; margin: 30px">
+        <div style="text-align:center; margin: 20px">
+            <b>Prénom :</b> {{ participant.prenom }}<br>
     </div>
-    <button type="submit">Retour</button>
+        <div style="text-align:center; margin: 20px">
+            <b>Nom :</b> {{ participant.nom }}<br>
+    </div>
+    <div style="text-align:center; margin: 20px">
+        <b>Téléphone :</b> {{ participant.telephone }}<br>
+    </div>
+        <div style="text-align:center; margin: 20px">
+            <b>Mail :</b> {{ participant.mail }}<br>
+    </div>
+        <div style="text-align:center; margin: 20px">
+            <b>Ville de rattachement :</b> {{ participant.site.nom }}<br>
+    </div>
+    </div>
+
+    <div class="container-contact1-form-btn" style="margin: 60px" >
+        <button class="contact1-form-btn" type="submit">Retour</button>
+    </div>
 
 {% endblock %}

@@ -2,9 +2,12 @@
 
 {% block body %}
 
+    <div style="text-align:center; margin: 30px">
     <h1>Mon profil</h1>
+    </div>
 
-    {{ form_start(ModifProfilForm) }}
+    {{ form_start(ModifProfilForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}
+
 
     <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.pseudo) }}
@@ -56,9 +59,20 @@
         <span class="shadow-input1"></span>
     </div>
 
+    <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.photo) }}
     {{ form_widget(ModifProfilForm.photo) }}
     {{ form_errors(ModifProfilForm.photo) }}
+        <span class="shadow-input1"></span>
+    </div>
+
+    <div class="container-contact1-form-btn" style="margin-top: 20px" >
+        {{ form_widget(ModifProfilForm.save, { 'label': 'Enregistrer', 'attr': {'class': 'contact1-form-btn btn-enregistrer', 'style': ''}  }) }}
+        <span class="espace"></span>
+        {{ form_widget(ModifProfilForm.cancel, { 'label': 'Annuler', 'attr': {'class': 'contact1-form-btn btn-annuler', 'style' : ''}  }) }}
+        <span class="espace"></span>
+    </div>
+
 
 
     {{ form_end(ModifProfilForm) }}
