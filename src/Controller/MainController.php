@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Site;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\MakerBundle\Maker\MakeRegistrationForm;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Entity\Participant;
 
 class MainController extends Controller
 {
@@ -24,9 +26,13 @@ class MainController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        $loginForm = new Participant();
+        $form = $this->createForm(RegistrationFormType::class, $loginForm);
+
         return $this->render('main/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
+            'RegistrationForm' => $form->createView(),
         ]);
 
     }
