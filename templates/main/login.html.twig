@@ -1,4 +1,3 @@
-
 {% extends 'layout.html.twig' %}
 
 
@@ -20,63 +19,62 @@ Connexion
 
     <div class="container-contact1" style="text-align:center">
 
-{#        <form action="{{ path('login') }}" method="post">#}
+
+        <form action="{{ path('login') }}" method="post">
 
 
-{#            {% if error %}#}
-{#                <div class="alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#            {% endif %}#}
-
+            {% if error %}
+                <div class="alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
 
             <div class="wrap-input1 validate-input">
                 <label for="login">Login (mail ou pseudo) :</label>
-                <input class="input1 form-control" type="text" id="name" name="_username" value="{{ last_username}}">
+                <input class="input1 form-control" type="text" id="name" name="_username" value="{{ last_username }}">
+                <span class="shadow-input1"></span>
+            </div>
+
+
+            <div class="wrap-input1 validate-input">
+                <label for="mdp">Mot de passe :</label>
+                <input class="input1 form-control" type="password" id="name" name="_password">
                 <span class="shadow-input1"></span>
             </div>
 
 
 
-    <div class="wrap-input1 validate-input">
-                <label for="mdp">Mot de passe :</label>
-                <input class="input1 form-control" type="password" id="name" name="_password">
-                        <span class="shadow-input1"></span>
-            </div>
+    {#
+        If you want to control the URL the user
+        is redirected to on success (more details below)
+        <input type="hidden" name="_target_path" value="/account"/>
+    #}
+
+    {#                    {{ form_start(RegistrationForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}#}
+
+    {#                   <div class="wrap-input1 validate-input">#}
+    {#                        {{ form_label(RegistrationForm.mail) }}#}
+    {#                       {{ form_widget(RegistrationForm.mail, {'attr': {'class': 'input1'} }) }}#}
+    {#                      {{ form_errors(RegistrationForm.mail) }}#}
+    {#                      <span class="shadow-input1"></span>#}
+    {#                   </div>#}
+
+    {#                    <div class="wrap-input1 validate-input">#}
+    {#                        {{ form_label(RegistrationForm.plainPassword) }}#}
+    {#                        {{ form_widget(RegistrationForm.plainPassword, {'attr': {'class': 'input1'} }) }}#}
+    {#                       {{ form_errors(RegistrationForm.plainPassword) }}#}
+    {#                      <span class="shadow-input1"></span>#}
+    {#                    </div>#}
+
+    {#                    {{ form_end(RegistrationForm) }}#}
+
+    <div class="container-contact1-form-btn" style="margin: 60px">
+        <button class="contact1-form-btn" type="submit">Connexion</button>
+    </div>
+    <div style="float: right;width: 200px">
+        <a href="#">Mot de passe oublié</a>
     </div>
 
-
-                    {#
-                        If you want to control the URL the user
-                        is redirected to on success (more details below)
-                        <input type="hidden" name="_target_path" value="/account"/>
-                    #}
-
-{#                    {{ form_start(RegistrationForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}#}
-
-{#                   <div class="wrap-input1 validate-input">#}
-{#                        {{ form_label(RegistrationForm.mail) }}#}
-{#                       {{ form_widget(RegistrationForm.mail, {'attr': {'class': 'input1'} }) }}#}
-{#                      {{ form_errors(RegistrationForm.mail) }}#}
-{#                      <span class="shadow-input1"></span>#}
-{#                   </div>#}
-
-{#                    <div class="wrap-input1 validate-input">#}
-{#                        {{ form_label(RegistrationForm.plainPassword) }}#}
-{#                        {{ form_widget(RegistrationForm.plainPassword, {'attr': {'class': 'input1'} }) }}#}
-{#                       {{ form_errors(RegistrationForm.plainPassword) }}#}
-{#                      <span class="shadow-input1"></span>#}
-{#                    </div>#}
-
-{#                    {{ form_end(RegistrationForm) }}#}
-
-                    <div class="container-contact1-form-btn" style="margin: 60px" >
-                        <button class="contact1-form-btn" type="submit">Connexion</button>
-                    </div>
-                            <div style="float: right;width: 200px">
-                                <a href="#">Mot de passe oublié</a>
-                            </div>
-
-{#    </form>#}
+    </form>
 
     </div>
 {% endblock %}
