@@ -22,8 +22,8 @@ class SiteRepository extends ServiceEntityRepository
     public function findByName($nom)
     {
         return $this->createQueryBuilder('n')
-            ->andWhere('n.nom = :val')
-            ->setParameter('val', $nom)
+            ->andWhere('n.nom LIKE :val')
+            ->setParameter('val', "%" . $nom . "%")
             ->getQuery()
             ->getResult();
     }

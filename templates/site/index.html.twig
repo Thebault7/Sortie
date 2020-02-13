@@ -10,6 +10,13 @@
     {% set j = 0 %}
 
     <div>
+        <form method="POST" action="{{ path('site_filter') }}">
+            <input id="input_filter" type="text" name="site_filter" required>
+            <button type="submit" class="btn">Rechercher</button>
+        </form>
+    </div>
+
+    <div>
         <table>
             <thead>
             <tr>

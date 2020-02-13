@@ -136,6 +136,32 @@ class SiteController extends Controller
             $entityManager->persist($sites[$i]);
             $entityManager->flush();
         }
+
         return $this->redirect($this->generateUrl('site_index'));
+    }
+
+    /**
+     * @Route("/filter", name="filter")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     */
+    public function filter(Request $request, EntityManagerInterface $entityManager)
+    {
+        // génération du formulaire
+        $site = new Site();
+        $form = $this->createForm(SiteType::class, $site);
+        $form->handleRequest($request);
+
+        $nomAChercher = $request->request->get('site_filter');
+        $siteRepository = $entityManager->getRepository(Site::class);
+        $sites = $siteRepository->findByName($nomAChercher);
+
+        return $this->render(
+            'site/index.html.twig',
+            [
+                'SiteForm' => $form->createView(),
+                'Sites' => $sites,
+            ]
+        );
     }
 }
