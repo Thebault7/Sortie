@@ -28,20 +28,29 @@ class ModifProfilController extends Controller
         $form = $this->createForm(ModifProfilType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() /*&& $form->isValid()*/) {
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $user->getPassword()
-                )
-            );
+        if ($form->isSubmitted() && $form->isValid()) {
+            // on vérifie si le pseudo fourni n'existe pas déjà en base de données
+            $pseudoAChercher = $user->getPseudo();
+            $participantRepository = $entityManager->getRepository(Participant::class);
+            $participant = $participantRepository->findByPseudo($pseudoAChercher);
 
-            // mise en base de données
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            if ($participant === [] || $participant[0]->getPseudo() === $user->getPseudo()) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $user->getPassword()
+                    )
+                );
 
-            $this->addFlash("success", "Modification du profil réussie.");
+                // mise en base de données
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash("success", "Modification du profil réussie.");
+            } else {
+                $this->addFlash("échec", "Ce pseudo existe déjà. Veuillez en choisir un autre.");
+            }
         }
 
         return $this->render('profil/modifprofil.html.twig', [

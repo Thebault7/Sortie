@@ -28,6 +28,15 @@ class ParticipantRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByPseudo($pseudo)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.pseudo = :val')
+            ->setParameter('val', $pseudo)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Participant[] Returns an array of Participant objects

@@ -6,8 +6,16 @@
     <h1>Mon profil</h1>
     </div>
 
-    {{ form_start(ModifProfilForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}
+    <!-- affichage des messages d'erreur ci-dessous : -->
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 
+    {{ form_start(ModifProfilForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}
 
     <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.pseudo) }}
@@ -22,7 +30,6 @@
     {{ form_errors(ModifProfilForm.nom) }}
         <span class="shadow-input1"></span>
     </div>
-
 
     <div class="wrap-input1 validate-input">
     {{ form_label(ModifProfilForm.prenom) }}
@@ -73,19 +80,6 @@
         <span class="espace"></span>
     </div>
 
-
-
     {{ form_end(ModifProfilForm) }}
-
-
-    <!-- affichage des messages d'erreur ci-dessous : -->
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
 
 {% endblock %}

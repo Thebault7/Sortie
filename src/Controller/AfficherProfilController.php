@@ -18,14 +18,6 @@ class AfficherProfilController extends Controller
     {
         $participant = $this->getUser();
 
-        
-//        $participantRepository = $entityManager->getRepository(Participant::class);
-//        $participants = $participantRepository->find($id);
-
-       $siteRepository = $entityManager->getRepository(Site::class);
-       // $sites = $siteRepository->findBy(compact('participant.getSite'));
-
-
         return $this->render
         (
             'profil/afficherprofil.html.twig',
