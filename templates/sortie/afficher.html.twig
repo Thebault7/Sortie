@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig ' %}
+
+{% block title %}
+afficher une sortie
+{% endblock %}
+
+{% block body %}
+
+
+ <div class="row">
+     <h1>Détails de la sortie</h1>
+ </div>
+    <hr>
+<div class="row justify-content-center">
+    <h3 class="">{{ sortie.nom }}</h3>
+
+</div>
+<hr>
+ <div class="row">
+
+     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+         <div class="row">
+             <div class="col-6">Date de la sortie : </div>
+             <div class="col-6">{{ sortie.dateHeureDebut|date("d/m/Y") }}</div>
+         </div>
+         <div class="row">
+             <div class="col-6">Date limite d'inscriptions : </div>
+             <div class="col-6">{{ sortie.dateLimiteInscription|date("d/m/Y") }}</div>
+         </div>
+         <div class="row">
+             <div class="col-6">Nombre de places : </div>
+             <div class="col-6">{{ sortie.dateLimiteInscription|date("d/m/Y") }}</div>
+         </div>
+         <div class="row">
+
+         </div>
+         <div class="row">
+
+         </div>
+         <div class="row">
+
+         </div>
+     </div>
+
+     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+         <div class="row">Géolocalisation : </div>
+         <div class="row">Liste des participants inscrits : </div>
+
+     </div>
+
+ </div>
+
+
+    <div class="container-contact1-form-btn" style="margin-top: 20px" >
+        <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}" class="contact1-form-btn">Modifier</a>
+    </div>
+
+{% endblock %}
+
