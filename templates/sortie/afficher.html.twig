@@ -33,18 +33,70 @@ afficher une sortie
              <div class="col-6">{{ sortie.dateLimiteInscription|date("d/m/Y") }}</div>
          </div>
          <div class="row">
-
+             <div class="col-6">Durée : </div>
+             <div class="col-6">{{ sortie.duree }}</div>
          </div>
          <div class="row">
-
+             {% if sortie.infosSortie is not null %}
+                 <div class="col-6">Informations complémentaires : </div>
+                 <div class="col-6">{{ sortie.infosSortie }}</div>
+             {% endif %}
+         </div>
+         <hr>
+         <div class="row">
+             <div class="col-6">Ville organisatrice : </div>
+             <div class="col-6">{{ sortie.site.nom }}</div>
          </div>
          <div class="row">
-
+             <div class="col-6">Lieu : </div>
+             <div class="col-6">{{ sortie.lieu.nom }}</div>
          </div>
+         <div class="row">
+             <div class="col-6">Adresse : </div>
+             <div class="col-6">{{ sortie.lieu.rue }}</div>
+             <div class="col-6"></div>
+             <div class="col-6">{{ sortie.lieu.ville.codePostal }}   {{ sortie.lieu.ville.nom }}</div>
+         </div>
+
+
      </div>
 
      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-         <div class="row">Géolocalisation : </div>
+         <div class="row">
+             <p>Géolocalisation :</p>
+
+             <div id="map" style='width: 400px; height: 300px;'></div>
+             <script>
+                 mapboxgl.accessToken = 'pk.eyJ1Ijoiam9hc2lhcCIsImEiOiJjazZtOTV4bW4wbGxhM2RwNmRlZHBvbjBpIn0.4-XJs7JCPnxZQYslNrwH8A';
+                 var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+                 mapboxClient.geocoding
+                     .forwardGeocode({
+                         query: '{{ sortie.lieu.rue }}, {{ sortie.lieu.ville.nom }}, France',
+                         autocomplete: false,
+                         limit: 1
+                     })
+                     .send()
+                     .then(function(response) {
+                         if (
+                             response &&
+                             response.body &&
+                             response.body.features &&
+                             response.body.features.length
+                         ) {
+                             var feature = response.body.features[0];
+
+                             var map = new mapboxgl.Map({
+                                 container: 'map',
+                                 style: 'mapbox://styles/mapbox/streets-v11',
+                                 center: feature.center,
+                                 zoom: 10
+                             });
+                             new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+                         }
+                     });
+             </script>
+
+         </div>
          <div class="row">Liste des participants inscrits : </div>
 
      </div>
@@ -54,6 +106,7 @@ afficher une sortie
 
     <div class="container-contact1-form-btn" style="margin-top: 20px" >
         <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}" class="contact1-form-btn">Modifier</a>
+        <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="contact1-form-btn">S'inscrire</a>
     </div>
 
 {% endblock %}

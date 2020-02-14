@@ -10,6 +10,7 @@ use App\Form\AccueilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\MakerBundle\Maker\MakeRegistrationForm;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -40,7 +41,7 @@ class MainController extends Controller
      * @param EntityManagerInterface $entityManager
      * @return
      */
-    public function accueil(EntityManagerInterface $entityManager)
+    public function accueil(Request $request, EntityManagerInterface $entityManager)
     {
         $user = $this->getUser();
 
@@ -52,7 +53,17 @@ class MainController extends Controller
         $etatRepository = $entityManager->getRepository(Etat::class);
         $etat = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
         $sortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findBySiteAndEtat($user->getSite(), $etat);
+
+        if($request->query->get('id_site') === null) {
+            $sorties = $sortieRepository->findBySiteAndEtat($user->getSite(), $etat);
+        } else {
+            $sorties = $sortieRepository->findBySiteAndEtat($request->query->get('id_site'), $etat);
+
+            if ($sorties === []) {
+                $this->addFlash("echec", "aucune ville correspondant aux critères de recherche n'a été trouvée.");
+            }
+            return $this->render('main/tableauAccueil.html.twig', compact('sites', 'sorties', 'user'));
+        }
 
         return $this->render('main/accueil.html.twig', compact('sites', 'sorties', 'user'));
     }

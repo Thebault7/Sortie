@@ -1,0 +1,21 @@
+{% for sortie in sorties %}
+    <tr>
+        <td>{{ sortie.nom }}</td>
+        <td>{{ sortie.dateHeureDebut | date('d/m/Y h:i') }}</td>
+        <td>{{ sortie.dateLimiteInscription | date('d/m/Y h:i') }}</td>
+        <td>nbPersonnes / {{ sortie.nbInscriptionMax }}</td>
+        <td>{{ sortie.etat.libelle }}</td>
+        <td>???</td>
+        <td>???</td>
+        <td>???</td>
+    </tr>
+{% endfor %}
+
+<!-- affichage des messages d'erreur ci-dessous : -->
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}

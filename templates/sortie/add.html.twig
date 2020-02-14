@@ -83,7 +83,7 @@
         </div>
 
         <div class="wrap-input1">
-            <label>Ville organisatrice: </label>
+            {{ form_label(sortieFormView.site) }}
              {{ form_widget(sortieFormView.site, {'attr': {'class': 'input1', 'disabled':'true', 'style': 'background-color: #AFEEEE'} }) }}
             <span class="shadow-input1"></span>
         </div>
@@ -234,7 +234,6 @@
 
         let requiredLieu = document.querySelectorAll('*[id^="sortie_lieu"]');
         for(let requiredELt of requiredLieu){
-            console.log(requiredELt);
             if(requiredELt.hasAttribute('required')){
                requiredELt.removeAttribute('required');
             }
