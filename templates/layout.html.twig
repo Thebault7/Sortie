@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -15,28 +16,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/util.css') }}">
-
+    <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <title>{% block title %}Layout{% endblock %}</title>
-    <style>
-
-
-    </style>
 </head>
 <body>
-<nav class="navbar navbar-light" style="background-color: dodgerblue;">
+{% include 'includes/navbar.html.twig' %}
 
-    <a class="navbar-brand " href="{{ path('accueil') }}">Accueil</a>
-
-    {% if app.user %}
-
-        <a class="navbar-brand " href="{{ path('logout') }}">Se déconnecter</a>
-    {% else %}
-        <a class="navbar-brand" href="{{ path('login') }}">Se connecter</a>
-    {% endif %}
-</nav>
 <main>
     <div class="container-fluid">
         {% block body %}Layout{% endblock %}
@@ -44,11 +35,7 @@
 </main>
 
 <div>
-    <footer class="page-footer font-small blue">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a id="a_footer" href="https://www.eni-ecole.fr/"> www.eni-ecole.fr </a>
-        </div>
-    </footer>
+
 </div>
 
 {% block javascripts %}{% endblock %}
