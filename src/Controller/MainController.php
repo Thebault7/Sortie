@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Site;
+use App\Entity\Sortie;
+use App\Entity\Participant;
+use App\Entity\Etat;
+use App\Form\AccueilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\MakerBundle\Maker\MakeRegistrationForm;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Entity\Participant;
+
 
 class MainController extends Controller
 {
@@ -28,7 +32,7 @@ class MainController extends Controller
 
         return $this->render('main/login.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ]);
 
     }
@@ -38,12 +42,26 @@ class MainController extends Controller
      */
     public function accueil(EntityManagerInterface $entityManager)
     {
-        $siteRepository = $entityManager->getRepository(Site::class);
-        $sites = $siteRepository->findAll();
-        return $this->render('main/accueil.html.twig', compact('sites'));
+
+//
+//        $siteRepository = $entityManager->getRepository(Site::class);
+//        $sites = $siteRepository->findAll($id);
+//
+//        $sortieRepository = $entityManager->getRepository(Sortie::class);
+//        $sorties = $sortieRepository->find($id);
+//
+//        $participantRepository = $entityManager->getRepository(Participant::class);
+//        $participants = $participantRepository->find($id);
+//
+//        $etatRepository = $entityManager->getRepository(Etat::class);
+//        $etats = $etatRepository->find($id);
+
+        return $this->render('main/accueil.html.twig'
+//            'AccueilForm' => $form->createView()],
+//        compact('sites')
+);
 
     }
-
 
 
 }
