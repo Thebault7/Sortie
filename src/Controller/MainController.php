@@ -45,8 +45,11 @@ class MainController extends Controller
         $siteRepository = $entityManager->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
+        // on recherche en base de données les sorties qui sont actuellement ouvertes
+        $etatRepository = $entityManager->getRepository(Etat::class);
+        $etat = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
         $sortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findByEtat($etat);
 
         return $this->render('main/accueil.html.twig', compact('sites', 'sorties'));
     }
