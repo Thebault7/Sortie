@@ -12,7 +12,9 @@
         <label for="site">Site :</label>
         <select>
             {% for site in sites %}
-                <option value="{{ site.id }}">{{ site.nom }}</option>
+                <option id="site_{{ site.id }}" value="{{ site.id }}">
+                    {{ site.nom }}
+                </option>
             {% endfor %}
         </select>
 
@@ -97,4 +99,14 @@
         </div>
     </form>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function selected() {
+            document.getElementById("site_{{ user.site.id }}").setAttribute('selected', 'selected')
+        }
+
+        selected();
+    </script>
 {% endblock %}

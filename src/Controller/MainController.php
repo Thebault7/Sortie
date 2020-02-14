@@ -42,15 +42,18 @@ class MainController extends Controller
      */
     public function accueil(EntityManagerInterface $entityManager)
     {
+        $user = $this->getUser();
+
         $siteRepository = $entityManager->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
-        // on recherche en base de données les sorties qui sont actuellement ouvertes
+        // on recherche en base de données les sorties qui sont actuellement ouvertes et qui
+        // correspondent au site de l'utilisateur
         $etatRepository = $entityManager->getRepository(Etat::class);
         $etat = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
         $sortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findByEtat($etat);
+        $sorties = $sortieRepository->findBySiteAndEtat($user->getSite(), $etat);
 
-        return $this->render('main/accueil.html.twig', compact('sites', 'sorties'));
+        return $this->render('main/accueil.html.twig', compact('sites', 'sorties', 'user'));
     }
 }

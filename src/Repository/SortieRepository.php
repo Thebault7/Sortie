@@ -28,11 +28,12 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByEtat($etat)
+    public function findBySiteAndEtat($site, $etat)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.etat = :val')
-            ->setParameter('val', $etat)
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.site = :val1', 'f.etat = :val2')
+            ->setParameter('val1', $site)
+            ->setParameter('val2', $etat)
             ->getQuery()
             ->getResult();
     }
