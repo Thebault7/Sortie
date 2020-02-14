@@ -43,9 +43,9 @@ class MainController extends Controller
     public function accueil(EntityManagerInterface $entityManager)
     {
 
-//
-//        $siteRepository = $entityManager->getRepository(Site::class);
-//        $sites = $siteRepository->findAll($id);
+
+        $siteRepository = $entityManager->getRepository(Site::class);
+        $sites = $siteRepository->findAll();
 //
 //        $sortieRepository = $entityManager->getRepository(Sortie::class);
 //        $sorties = $sortieRepository->find($id);
@@ -56,10 +56,8 @@ class MainController extends Controller
 //        $etatRepository = $entityManager->getRepository(Etat::class);
 //        $etats = $etatRepository->find($id);
 
-        return $this->render('main/accueil.html.twig'
-//            'AccueilForm' => $form->createView()],
-//        compact('sites')
-);
+        return $this->render('main/accueil.html.twig', compact('sites'));
+
 
     }
 

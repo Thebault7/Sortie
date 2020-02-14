@@ -22,7 +22,9 @@ Sorties
     <form action="{{ path('accueil') }}" method="post">
         <label for="site">Site :</label>
         <select>
-
+            {% for site in sites %}
+                <option value="{{ site.id }}">{{ site.nom }}</option>
+            {% endfor %}
         </select>
 
 

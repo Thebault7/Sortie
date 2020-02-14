@@ -16,6 +16,7 @@ footer {
   background-color: dodgerblue;
   color: white;
   text-align: center;
+  margin-top: 40px !important;
 }
 
 #a_footer{
