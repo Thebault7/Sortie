@@ -23,7 +23,6 @@ class MainController extends Controller
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -34,32 +33,21 @@ class MainController extends Controller
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
-
     }
 
     /**
      * @Route("/", name="accueil")
+     * @param EntityManagerInterface $entityManager
+     * @return
      */
     public function accueil(EntityManagerInterface $entityManager)
     {
-
-
         $siteRepository = $entityManager->getRepository(Site::class);
         $sites = $siteRepository->findAll();
-//
-//        $sortieRepository = $entityManager->getRepository(Sortie::class);
-//        $sorties = $sortieRepository->find($id);
-//
-//        $participantRepository = $entityManager->getRepository(Participant::class);
-//        $participants = $participantRepository->find($id);
-//
-//        $etatRepository = $entityManager->getRepository(Etat::class);
-//        $etats = $etatRepository->find($id);
 
-        return $this->render('main/accueil.html.twig', compact('sites'));
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sorties = $sortieRepository->findAll();
 
-
+        return $this->render('main/accueil.html.twig', compact('sites', 'sorties'));
     }
-
-
 }

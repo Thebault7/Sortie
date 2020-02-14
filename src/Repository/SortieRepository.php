@@ -28,6 +28,15 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByEtat($etat)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.etat = :val')
+            ->setParameter('val', $etat)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

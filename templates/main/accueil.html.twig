@@ -1,21 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-    <span class="contact1-form-title">
-Sorties
-</span>
+    Page d'accueil
 {% endblock %}
 
-
 {% block body %}
-    {#    <ul>#}
-    {#        <li><a href="{{ path('Villes') }}">Villes</a></li>#}
-    {#        <li><a href="{{ path('Sites') }}">Sites</a></li>#}
-    {#        <li><a href="{{ path('accueil') }}">Accueil</a></li>#}
-    {#        <li><a href="{{ path('monProfil') }}">Mon Profil</a></li>#}
-    {#        <li><a href="{{ path('logout') }}">Se déconnecter</a></li>#}
-    {#    </ul>#}
-
     <div class="filtrer" style="float: left;">
         <h5>Filtrer les sorties</h5>
     </div>
@@ -27,32 +16,28 @@ Sorties
             {% endfor %}
         </select>
 
-
         <div class="wrap-input1" style="width: 425px">
-            <label for="nomsortie">Le nom de la sortie contient :</label>
+            <label for="nom_sortie">Le nom de la sortie contient :</label>
             <input type="text"
                    class="input1 form-control"
-                   placeholder="search" id="Nom"
-                   name="nom_sortie"
-                   style="width: 400px; float: left;">
+                   placeholder="search" id="nom"
+                   name="nom_sortie">
             <span class="shadow-input1"></span>
         </div>
         <div class="wrap-input1" style="width: 425px">
-            <label for="datesortie">Entre :</label>
+            <label for="date_debut">Entre :</label>
             <input type="date"
                    class="input1 form-control"
                    id="date_debut"
-                   name="date_debut"
-                   style="width: 400px; float: left;">
+                   name="date_debut">
             <span class="shadow-input1"></span>
         </div>
         <div class="wrap-input1" style="width: 425px">
-            <label for="datefinsortie">et :</label>
+            <label for="date_fin">et :</label>
             <input type="date"
                    class="input1 form-control"
                    id="date_fin"
-                   name="date_fin"
-                   style="width: 400px; float: right;">
+                   name="date_fin">
             <span class="shadow-input1"></span>
         </div>
         <div class="col">
@@ -70,9 +55,10 @@ Sorties
             </button>
         </div>
 
-
         <div class="container table-wrapper-scroll-y my-custom-scrollbar"
              style="position: relative; height: 200px; width: 100%; overflow: auto">
+
+            <br>
 
             <table class="table table-striped">
                 <thead>
@@ -88,30 +74,21 @@ Sorties
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                </tr>
-                <tr>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                    <th>xxxxx</th>
-                </tr>
+                {% for sortie in sorties %}
+                    <tr>
+                        <td>{{ sortie.nom }}</td>
+                        <td>{{ sortie.dateHeureDebut | date('d/m/Y h:i') }}</td>
+                        <td>{{ sortie.dateLimiteInscription | date('d/m/Y h:i') }}</td>
+                        <td>nbPersonnes / {{ sortie.nbInscriptionMax }}</td>
+                        <td>{{ sortie.etat.libelle }}</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
-
 
         <div class="container-contact1-form-btn">
             <button type="submit" class="contact1-form-btn"

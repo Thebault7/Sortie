@@ -98,27 +98,27 @@ class Sortie
     private $infosSortie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sortie")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sortie", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
     private $etat;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie", cascade={"persist"}, fetch="EAGER")
      * @Assert\NotBlank
      */
     private $lieu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sortie")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sortie", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
     private $site;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Participant", inversedBy="organisateur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Participant", inversedBy="organisateur", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
