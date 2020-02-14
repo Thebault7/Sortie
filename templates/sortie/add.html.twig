@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout.html.twig ' %}
 
 {% block body %}
 
@@ -11,7 +11,7 @@
     <h1>Créer une sortie</h1>
     <hr>
 
-    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}
+    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center '}}) }}
 
     <div class="row" style="margin-bottom: 30px">
 
@@ -25,27 +25,28 @@
                         <h6><b>Les détails de la sortie</b></h6>
                     </div>
 
-            <div class="wrap-input1" data-validate="Date limite d'inscrptions est requise">
+            <div class="wrap-input1">
 
-                {{ form_label(sortieFormView.nom) }}
+                <label>Nom de la sortie : </label>
                 {{ form_widget(sortieFormView.nom, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.nom) }}
             <span class="shadow-input1"></span>
             </div>
-            <div class="wrap-input1 validate-input" data-validate="Date de sortie est requise" >
-                {{ form_label(sortieFormView.dateHeureDebut) }}
+            <div class="wrap-input1 validate-input">
+              {#  {{ form_label(sortieFormView.dateHeureDebut) }} #}
+                <label>Date et heure de la sortie : </label>
                 {{ form_widget(sortieFormView.dateHeureDebut, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.dateHeureDebut) }}
                 <span class="shadow-input1"></span>
             </div>
-            <div class="wrap-input1 validate-input" data-validate="Date limite d'inscrptions est requise" >
-                {{ form_label(sortieFormView.dateLimiteInscription) }}
+            <div class="wrap-input1 validate-input">
+                <label>Date limite d'inscription :</label>
                 {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.dateLimiteInscription) }}
             <span class="shadow-input1"></span>
             </div>
-            <div class="wrap-input1 validate-input" data-validate="Le champ durée est requis">
-                {{ form_label(sortieFormView.duree) }}
+            <div class="wrap-input1 validate-input">
+                <label>Durée (minutes) : </label>
                 {{ form_widget(sortieFormView.duree, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.duree) }}
                 <span class="shadow-input1"></span>
@@ -53,14 +54,14 @@
             </div>
 
 
-            <div class="wrap-input1 validate-input" data-validate="Le nombre maximal d'inscriptions est requis">
-                {{ form_label(sortieFormView.nbInscriptionMax) }}
+            <div class="wrap-input1 validate-input">
+                <label>Nombre de places : </label>
                 {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': 'input1'} }) }}
                 {{ form_errors(sortieFormView.nbInscriptionMax) }}
                 <span class="shadow-input1"></span>
             </div>
             <div class="wrap-input1">
-                {{ form_label(sortieFormView.infosSortie) }}
+                <label>Descriptions et infos : </label>
                 {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': 'input1', 'rows': '10', 'cols': '5'} }) }}
                 {{ form_errors(sortieFormView.infosSortie) }}
                 <span class="shadow-input1"></span>
@@ -88,7 +89,7 @@
         </div>
 
         <div class="wrap-input1">
-            {{ form_label(sortieFormView.lieuListe) }}
+            <label>Lieu : </label>
           {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1'} })}}
             {{ form_errors(sortieFormView.lieuListe) }}
 
@@ -96,24 +97,24 @@
             <span class="shadow-input1"></span>
         </div>
 
-        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
-            {{ form_label(sortieFormView.lieu.villeListe) }}
+        <div class="wrap-input1">
+            <label>Ville : </label>
             {{ form_widget(sortieFormView.lieu.villeListe, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.villeListe) }}
             <span class="shadow-input1"></span>
         </div>
 
 
-        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
-            {{ form_label(sortieFormView.lieu.nom) }}
+        <div class="wrap-input1">
+            <label>Nom : </label>
             {{ form_widget(sortieFormView.lieu.nom, {'attr': {'class': 'input1'} }) }} {# sortieFormView.lieuListe.vars.nom  lieuListe.vars.value.nom   , 'placeholder':'{{ 'sortieFormView.lieuListe.nom'}}' #}
             {{ form_errors(sortieFormView.lieu.nom) }}
             <span class="shadow-input1"></span>
         </div>
 
 
-        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
-            {{ form_label(sortieFormView.lieu.rue) }}
+        <div class="wrap-input1">
+            <label>Rue : </label>
             {{ form_widget(sortieFormView.lieu.rue, {'attr': {'class': 'input1', 'value' : 'rue1'} }) }}
             {{ form_errors(sortieFormView.lieu.rue) }}
             <span class="shadow-input1"></span>
@@ -121,15 +122,15 @@
 
 
 
-        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
-            {{ form_label(sortieFormView.lieu.ville.nom) }}
+        <div class="wrap-input1">
+            <label>Ville : </label>
             {{ form_widget(sortieFormView.lieu.ville.nom, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.ville.nom) }}
             <span class="shadow-input1"></span>
         </div>
 
-        <div class="wrap-input1" data-validate="Le nombre maximal d'inscriptions est requis">
-            {{ form_label(sortieFormView.lieu.ville.codePostal) }}
+        <div class="wrap-input1">
+            <label>Code postal : </label>
             {{ form_widget(sortieFormView.lieu.ville.codePostal, {'attr': {'class': 'input1'} }) }}
             {{ form_errors(sortieFormView.lieu.ville.codePostal) }}
             <span class="shadow-input1"></span>
@@ -239,10 +240,26 @@
             }
         }
 
-        $.ajax({
+        let labels = document.getElementsByTagName("label");
+        for(let label of labels){
+            if(label.classList.contains("required")){
+                label.classList.remove("required");
+            }
+
+
+        }
+
+
+
+        let textAreaElt = document.getElementsByTagName("textarea")[0];
+        if(textAreaElt.hasAttribute("required")){
+            textAreaElt.removeAttribute('required');
+        }
+
+      /*  $.ajax({
             url: " " // route qui va utiliser cette ajax, elle va dans un cotnroller, donc il faut créer une fonction dans un URL
         }); //pour faire une requette ajax : param : url a laquelle je veux faire une requette ajax
-
+*/
     </script>
 
 {% endblock %}

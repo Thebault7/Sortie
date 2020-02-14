@@ -1,5 +1,37 @@
 
+html, body {
+  height: 100%;
+  margin: 0; padding: 0;
+}
+body {
 
+  width: 100%;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: dodgerblue;
+  color: white;
+  text-align: center;
+}
+
+#a_footer{
+  color: white;
+  font-weight: bold;
+}
+
+#a_footer:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2) !important;
+  text-shadow: 0 0 11px rgba(33,33,33,.2) !important;
+
+}
+#a_footer:active{
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+
+}
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -31,7 +63,7 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
+	/*margin: 0px; */
 	padding: 0px; 
 	box-sizing: border-box;
 }

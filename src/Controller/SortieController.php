@@ -44,24 +44,16 @@ class SortieController extends Controller
            if($sortieForm->get('creer')->isClicked()){
             $site = $this->getUser()->getSite();
 
-            dump($sortie->getLieu());
-
                $lieu = $sortieForm->get('lieuListe')->getData();
-
-               dump($lieu);
-
                if($lieu !== null){
-                  dump('est null');
                         $sortie->setLieu($lieu);
                }
-
 
                $sortie
                    ->setEtat($etat)
                    ->setParticipant($this->getUser())
                    ->setSite($site);
 
-               dump($sortie);
 
                $entityManager->persist($sortie);
                $entityManager->flush();

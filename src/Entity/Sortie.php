@@ -34,10 +34,19 @@ class Sortie
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank
-     * @Assert\GreaterThan("+2 minutes")
+     * @Assert\Type(
+     *      type = "\DateTime",
+     *      message = "Date et heure de la sortie doit être conforme au format date",
+     * )
+     * @Assert\GreaterThan("+3 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ value }}")
+     * @Assert\Expression(
+     *     "this.getDateLimiteInscription() < this.getDateHeureDebut()",
+     *     message="La date limite d'incriptions doit être inférieure à la date de début de la sortie"
+     * )
+     *
      */
 
-    private $dateHeureDebut;
+    private $dateHeureDebut; //
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -56,7 +65,12 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
-     *  @Assert\NotBlank
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *      type = "\DateTime",
+     *      message = "Date et heure de la limite d'inscriptions doit être conforme au format date",
+     * )
+     * @Assert\GreaterThan("+2 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ value }}")
      */
     private $dateLimiteInscription;
 
