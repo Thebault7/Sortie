@@ -70,9 +70,9 @@ class Sortie
      *      type = "\DateTime",
      *      message = "Date et heure de la limite d'inscriptions doit être conforme au format date",
      * )
-     * @Assert\GreaterThan("+2 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ value }}")
+
      */
-    private $dateLimiteInscription;
+    private $dateLimiteInscription; //* @Assert\GreaterThan("+2 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ value }}")
 
     /**
      * @ORM\Column(type="integer")
@@ -100,27 +100,23 @@ class Sortie
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sortie", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
      */
     private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie", cascade={"persist"}, fetch="EAGER")
-     * @Assert\NotBlank
      */
     private $lieu;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sortie", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
      */
     private $site;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Participant", inversedBy="organisateur", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
      */
     private $participant;
 

@@ -37,6 +37,7 @@ class SortieController extends Controller
             $etat = $etatRepository->find(1);
 
            if($sortieForm->get('creer')->isClicked()){
+
             $site = $this->getUser()->getSite();
 
                $lieu = $sortieForm->get('lieuListe')->getData();
@@ -57,7 +58,7 @@ class SortieController extends Controller
            }
 
             $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
-            die();
+
             return $this->redirectToRoute("accueil");
         }
         return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
@@ -68,7 +69,7 @@ class SortieController extends Controller
      */
     public function afficherSortie($id, EntityManagerInterface $entityManager){
             $sortieRepository = $entityManager->getRepository(Sortie::class);
-            $sortie = $sortieRepository->find(13); //find($id);
+            $sortie = $sortieRepository->find(21); //find($id);
 
             return $this->render('sortie/afficher.html.twig', compact('sortie'));
     }
@@ -81,4 +82,16 @@ class SortieController extends Controller
         $sortie = $sortieRepository->find($id);
         return $this->render('sortie/modifier.html.twig', compact('sortie'));
     }
+
+
+    /**
+     * @Route("/inscription/{id}", name="inscription", requirements={"id": "\d+"})
+     */
+    public function sinscrire($id, EntityManagerInterface $entityManager){
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+        return $this->render('sortie/modifier.html.twig', compact('sortie'));
+    }
+
+
 }
