@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Gestionnaire des villes{% endblock %}
 
@@ -6,60 +6,75 @@
 
     <h1>Gérer les villes</h1>
     <h2>Filtrer les villes</h2>
-    {% set i = 0 %}
-    {% set j = 0 %}
 
-    <div>
+    <div class="container-contact1-form-btn">
         <form method="POST" action="{{ path('ville_filter') }}">
-            <input id="input_filter" type="text" name="ville_filter" required>
-            <button type="submit" class="btn">Rechercher</button>
+            <div class="row">
+                <div class="col-7">
+                    <input id="input_filter" type="text" name="ville_filter" class="input1" style="margin-top: 6px" required>
+                </div>
+                <div class="col-5">
+                    <button type="submit" class="btn contact1-form-btn">Rechercher</button>
+                </div>
+            </div>
         </form>
     </div>
 
-    <div>
-        <table>
+    <br>
+
+    <div class="container table-wrapper-scroll-y my-custom-scrollbar"
+         style="position: relative; height: 200px; width: 700px; overflow: auto">
+
+        <table class="table table-striped">
             <thead>
             <tr>
-                <th style="background-color: #8959A8">
-                    Villes
-                </th>
-                <th style="background-color: coral">
-                    Code Postal
-                </th>
-                <th style="background-color: #727b84">
-                    Actions
-                </th>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th colspan="3" style="overflow: scroll">
-                    {% for ville in villes %}
-                        {% if (i % 2) is same as (0) %}
-                            <div style="background-color: #80bdff">
-                                {{ ville.nom }}{{ ville.codePostal }}<a href="" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false'> Modifier</a> - <a
-                                        href="{{ path('ville_delete', {'nom': ville.nom}) }}">Supprimer</a><br>
-                            </div>
-                        {% else %}
-                            {{ ville.nom }}{{ ville.codePostal }}<a href="" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false'> Modifier</a> - <a
-                                href="{{ path('ville_delete', {'nom': ville.nom}) }}">Supprimer</a><br>
-                        {% endif %}
-
-                        {% set i = i + 1 %}
-                    {% endfor %}
-                    {{ form_start(villeForm) }}
-                    {{ form_label(villeForm.nom) }}
-                    {{ form_widget(villeForm.nom) }}
-                    {{ form_errors(villeForm.nom) }}
-
-                    {{ form_label(villeForm.codePostal) }}
-                    {{ form_widget(villeForm.codePostal) }}
-                    {{ form_errors(villeForm.codePostal) }}
-                    <button class="btn">Ajouter</button>
-                    {{ form_end(villeForm) }}
-                    <br>
-                </th>
-            </tr>
+            {% if villes is same as([]) %}
+                <tr>
+                    <td colspan="3">
+                        <p>Aucune ville correspondant aux critères de recherche n'a été trouvée.</p>
+                    </td>
+                </tr>
+            {% else %}
+                {% for ville in villes %}
+                    <tr>
+                        <td>
+                            {{ ville.nom }}
+                        </td>
+                        <td>
+                            {{ ville.codePostal }}
+                        </td>
+                        <td>
+                            <a href="" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false'>
+                                Modifier</a> - <a
+                                    href="{{ path('ville_delete', {'nom': ville.nom}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        {{ form_start(villeForm) }}
+                        {{ form_label(villeForm.nom) }}
+                        {{ form_widget(villeForm.nom, {'attr': {'class': 'input1'} }) }}
+                        {{ form_errors(villeForm.nom) }}
+                    </td>
+                    <td>
+                        {{ form_label(villeForm.codePostal) }}
+                        {{ form_widget(villeForm.codePostal, {'attr': {'class': 'input1'} }) }}
+                        {{ form_errors(villeForm.codePostal) }}
+                    </td>
+                    <td>
+                        <button class="btn contact1-form-btn" style="margin-top: 27px; margin-left: 20px">Ajouter
+                        </button>
+                        {{ form_end(villeForm) }}
+                    </td>
+                </tr>
+            {% endif %}
             </tbody>
         </table>
     </div>
@@ -68,17 +83,18 @@
 
     <div class="form-popup" id="myForm">
         <form action="{{ path('ville_modify') }}" method="POST" class="form-container">
+            <div class="row">
+                <label for="ville"><b>Ville à modifier : </b></label>
+                <input id="input_nom" type="text" name="ville_modify" class="input1" required>
+                <input id="input_nom_hidden" type="text" name="ville_hidden" style="display:none">
 
-            <label for="ville"><b>Ville à modifier : </b></label>
-            <input id="input_nom" type="text" name="ville_modify" required>
-            <input id="input_nom_hidden" type="text" name="ville_hidden" style="display:none">
+                <label for="cp"><b>Code postal à modifier : </b></label>
+                <input id="input_cp" type="text" name="cp_modify" class="input1" required>
+                <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
 
-            <label for="cp"><b>Code postal à modifier : </b></label>
-            <input id="input_cp" type="text" name="cp_modify" required>
-            <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
-
-            <button type="submit" class="btn">Enregistrer</button>
-            <button type="button" id="close" class="btn cancel" onclick="closeForm()">Close</button>
+                <button type="submit" class="btn contact1-form-btn">Enregistrer</button>
+                <button type="button" id="close" class="btn contact1-form-btn" style="margin-left: 10px" onclick="closeForm()">Close</button>
+            </div>
         </form>
     </div>
     <br>
@@ -107,5 +123,6 @@
             document.getElementById("myForm").style.display = "none";
         }
 
+        closeForm();
     </script>
 {% endblock %}
