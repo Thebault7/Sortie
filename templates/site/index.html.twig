@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Gestionnaire des sites{% endblock %}
 
@@ -6,69 +6,83 @@
 
     <h1>Gérer les sites</h1>
     <h2>Filtrer les sites</h2>
-    {% set i = 0 %}
-    {% set j = 0 %}
 
-    <div>
-        <form method="POST" action="{{ path('site_filter') }}">
-            <input id="input_filter" type="text" name="site_filter" required>
-            <button type="submit" class="btn">Rechercher</button>
+    <div class="container-contact1-form-btn">
+        <form method="POST" action="{{ path('site_filter') }}" class="wrap-input1" >
+            <div class="row">
+                <div class="col-7">
+                    <input id="input_filter" type="text" name="site_filter" class="input1" style="margin-top: 6px" required>
+                </div>
+                <div class="col-5">
+                    <button type="submit" class="btn contact1-form-btn">Rechercher</button>
+                </div>
+            </div>
+            <span class="shadow-input1"></span>
         </form>
     </div>
 
-    <div>
-        <table>
+    <br>
+
+    <div class="container table-wrapper-scroll-y my-custom-scrollbar"
+         style="position: relative; height: 200px; width: 500px; overflow: auto">
+
+        <table class="table table-striped">
             <thead>
             <tr>
-                <th style="background-color: #8959A8">
-                    Villes
-                </th>
-                <th style="background-color: #727b84">
-                    Actions
-                </th>
+                <th>Ville</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th colspan="2" style="overflow: scroll">
-                    {% for site in Sites %}
-                        {% if (i % 2) is same as (0) %}
-                            <div style="background-color: #80bdff">
-                                {{ site.nom }}<a href="" onclick='openForm("{{ site.nom }}"); return false'> Modifier</a> - <a
-                                        href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a><br>
-                            </div>
-                        {% else %}
-                            {{ site.nom }}<a href="" onclick='openForm("{{ site.nom }}"); return false'> Modifier</a> - <a
-                                href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a><br>
-                        {% endif %}
-
-                        {% set i = i + 1 %}
-                    {% endfor %}
-                    {{ form_start(SiteForm) }}
-                    {{ form_label(SiteForm.nom) }}
-                    {{ form_widget(SiteForm.nom) }}
-                    {{ form_errors(SiteForm.nom) }}
-                    <button class="btn">Ajouter</button>
-                    {{ form_end(SiteForm) }}
-                    <br>
-                </th>
-            </tr>
+            {% if Sites is same as([]) %}
+                <tr>
+                    <td colspan="2">
+                        <p>Aucune ville correspondant aux critères de recherche n'a été trouvée.</p>
+                    </td>
+                </tr>
+            {% else %}
+                {% for site in Sites %}
+                    <tr>
+                        <td>
+                            {{ site.nom }}
+                        </td>
+                        <td>
+                            <a href="" onclick='openForm("{{ site.nom }}"); return false'> Modifier</a> - <a
+                                    href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        {{ form_start(SiteForm) }}
+                        {{ form_label(SiteForm.nom) }}
+                        {{ form_widget(SiteForm.nom, {'attr': {'class': 'input1'} }) }}
+                        {{ form_errors(SiteForm.nom) }}
+                    </td>
+                    <td>
+                        <button class="contact1-form-btn" style="margin-top: 25px; margin-left: 20px">Ajouter</button>
+                        {{ form_end(SiteForm) }}
+                    </td>
+                </tr>
+            {% endif %}
             </tbody>
         </table>
     </div>
 
     <br>
 
-    <div class="form-popup" id="myForm">
-        <form action="{{ path('site_modify') }}" method="POST" class="form-container">
+    <div class="form-popup container-contact1-form-btn" id="myForm">
+        <form action="{{ path('site_modify') }}" method="POST" class="form-container wrap-input1">
 
+            <div class="row">
             <label for="site"><b>Site à modifier : </b></label>
-            <input id="input_form" type="text" name="site_modify" required>
+            <input id="input_form" type="text" name="site_modify" class="input1" style="margin-bottom: 10px" required>
 
             <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
 
-            <button type="submit" class="btn">Enregistrer</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="submit" class="btn contact1-form-btn">Enregistrer</button>
+            <button type="button" class="btn contact1-form-btn" style="margin-left: 10px" onclick="closeForm()">Close</button>
+            </div>
         </form>
     </div>
     <br>

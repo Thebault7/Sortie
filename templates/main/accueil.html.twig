@@ -17,7 +17,7 @@ Sorties
     {#    </ul>#}
 
     <div class="filtrer" style="float: left;">
-        <h2>Filtrer les sorties</h2>
+        <h5>Filtrer les sorties</h5>
     </div>
     <form action="{{ path('accueil') }}" method="post">
         <label for="site">Site :</label>
@@ -26,26 +26,32 @@ Sorties
         </select>
 
 
-        <div class="p-2" style="width: 425px">
+        <div class="wrap-input1" style="width: 425px">
             <label for="nomsortie">Le nom de la sortie contient :</label>
             <input type="text"
+                   class="input1 form-control"
                    placeholder="search" id="Nom"
                    name="nom_sortie"
                    style="width: 400px; float: left;">
+            <span class="shadow-input1"></span>
         </div>
-        <div class="date1" style="width: 425px">
+        <div class="wrap-input1" style="width: 425px">
             <label for="datesortie">Entre :</label>
             <input type="date"
+                   class="input1 form-control"
                    id="date_debut"
                    name="date_debut"
                    style="width: 400px; float: left;">
+            <span class="shadow-input1"></span>
         </div>
-        <div class="date2" style="width: 425px">
+        <div class="wrap-input1" style="width: 425px">
             <label for="datefinsortie">et :</label>
             <input type="date"
+                   class="input1 form-control"
                    id="date_fin"
                    name="date_fin"
-                   style="width: 400px; float: left;">
+                   style="width: 400px; float: right;">
+            <span class="shadow-input1"></span>
         </div>
         <div class="col">
             <input type="checkbox" name="organisateur" value="organisateur"> <label for="organisateur">Sorties dont je
@@ -56,29 +62,57 @@ Sorties
                 ne suis pas inscrit/e</label><br>
             <input type="checkbox" name="passees" value="passees"> <label for="passees">Sorties passées</label><br>
         </div>
-        <div class="rechercher">
-            <button type="submit" class="btn btn-primary btn-lg"
+        <div class="container-contact1-form-btn">
+            <button type="submit" class="contact1-form-btn"
                     name="rechercher" style="float: right; width: 425px;">Rechercher
             </button>
         </div>
 
-        <table>
-            <tr>
-                <td>Nom de la sortie</td>
-                <td>Date de la sortie</td>
-                <td>Clôture</td>
-                <td>Inscrits/places</td>
-                <td>Etat</td>
-                <td>Inscrits</td>
-                <td>Organisateur</td>
-                <td>Actions</td>
-            </tr>
+
+        <div class="container table-wrapper-scroll-y my-custom-scrollbar"
+             style="position: relative; height: 200px; width: 100%; overflow: auto">
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom de la sortie</th>
+                    <th>Date de la sortie</th>
+                    <th>clôture</th>
+                    <th>Inscrits/places</th>
+                    <th>Etat</th>
+                    <th>Inscrit</th>
+                    <th>Organisateur</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                </tr>
+                <tr>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                    <th>xxxxx</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
 
-        </table>
-
-        <div class="creer">
-            <button type="submit" class="btn btn-primary btn-lg"
+        <div class="container-contact1-form-btn">
+            <button type="submit" class="contact1-form-btn"
                     name="creer" style="float: left; width: 425px;">Créer une sortie
             </button>
         </div>

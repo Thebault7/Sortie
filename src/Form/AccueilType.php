@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Site;
+use App\Entity\Sortie;
+use App\Entity\Participant;
+use App\Entity\Etat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
