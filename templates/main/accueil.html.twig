@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    {% set i = 0 %}
     <div class="filtrer" style="float: left;">
         <h5>Filtrer les sorties</h5>
     </div>
@@ -75,19 +76,8 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody>
-                {% for sortie in sorties %}
-                    <tr>
-                        <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.dateHeureDebut | date('d/m/Y h:i') }}</td>
-                        <td>{{ sortie.dateLimiteInscription | date('d/m/Y h:i') }}</td>
-                        <td>nbPersonnes / {{ sortie.nbInscriptionMax }}</td>
-                        <td>{{ sortie.etat.libelle }}</td>
-                        <td>???</td>
-                        <td>???</td>
-                        <td>???</td>
-                    </tr>
-                {% endfor %}
+                <tbody id="corps_tableau">
+                {% include 'main/tableauAccueil.html.twig' %}
                 </tbody>
             </table>
         </div>
@@ -108,5 +98,15 @@
         }
 
         selected();
+
+        document.querySelector("select").addEventListener("change", function () {
+            $.ajax({
+                url: "http://localhost/sortie/public/",
+                data: {'id_site': this.value}
+            }).done(function (response) {
+                document.getElementById("corps_tableau").innerHTML = response;
+            });
+        }, false);
+
     </script>
 {% endblock %}
