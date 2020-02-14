@@ -74,4 +74,62 @@ class SortieController extends Controller
         return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
 
     }
+
+    /**
+     * @Route("/modifsortie", name="modifsortie")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function modifsortie(Request $request, EntityManagerInterface $entityManager)
+    {
+        $sortie = new Sortie();
+        // $idea->getAuthor($this->getUser()->getUsername());
+        $site = $this->getUser()->getSite();
+        //  $participantRepository = $entityManager->getRepository(Participant::class);
+
+        //->getSite();
+
+
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+            $etatRepository = $entityManager->getRepository(Etat::class);
+            $etat = $etatRepository->find(1);
+
+            if($sortieForm->get('creer')->isClicked()){
+                $site = $this->getUser()->getSite();
+
+                $lieu = $sortieForm->get('lieuListe')->getData();
+                if($lieu !== null){
+                    $sortie->setLieu($lieu);
+                }
+
+                $sortie
+                    ->setEtat($etat)
+                    ->setParticipant($this->getUser())
+                    ->setSite($site);
+
+
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+            elseif ($sortieForm->get('publier')->isClicked()){
+
+            }
+
+            //      ->setDateCreated(new \DateTime('now'));
+
+
+
+            $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
+            die();
+            return $this->redirectToRoute("accueil");
+        }
+
+        return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
+
+    }
 }

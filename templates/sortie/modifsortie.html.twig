@@ -1,0 +1,266 @@
+{% extends 'layout.html.twig ' %}
+
+{% block body %}
+
+<h1>Modifier une sortie</h1>
+<hr>
+
+{{ form_start(sortieFormView, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center '}}) }}
+
+<div class="row" style="margin-bottom: 30px">
+
+    <!--   <div class="col-sm-10 offset-sm-1 col-md-4 offset-sm-1"> -->
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 offset-lg-1">
+        <div class="row">
+            <div class="col-12" >
+
+                <div style="margin: 20px 5px 10px 5px">
+                    <h6><b>Les détails de la sortie</b></h6>
+                </div>
+
+                <div class="wrap-input1">
+
+                    <label>Nom de la sortie : </label>
+                    {{ form_widget(sortieFormView.nom, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.nom) }}
+                    <span class="shadow-input1"></span>
+                </div>
+                <div class="wrap-input1 validate-input">
+                    {#  {{ form_label(sortieFormView.dateHeureDebut) }} #}
+                    <label>Date et heure de la sortie : </label>
+                    {{ form_widget(sortieFormView.dateHeureDebut, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.dateHeureDebut) }}
+                    <span class="shadow-input1"></span>
+                </div>
+                <div class="wrap-input1 validate-input">
+                    <label>Date limite d'inscription :</label>
+                    {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.dateLimiteInscription) }}
+                    <span class="shadow-input1"></span>
+                </div>
+                <div class="wrap-input1 validate-input">
+                    <label>Durée (minutes) : </label>
+                    {{ form_widget(sortieFormView.duree, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.duree) }}
+                    <span class="shadow-input1"></span>
+                    <span class="shadow-input1"></span>
+                </div>
+
+
+                <div class="wrap-input1 validate-input">
+                    <label>Nombre de places : </label>
+                    {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.nbInscriptionMax) }}
+                    <span class="shadow-input1"></span>
+                </div>
+                <div class="wrap-input1">
+                    <label>Descriptions et infos : </label>
+                    {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': 'input1', 'rows': '10', 'cols': '5'} }) }}
+                    {{ form_errors(sortieFormView.infosSortie) }}
+                    <span class="shadow-input1"></span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--<div class="col-sm-10 col-md-4 offset-sm-1 ">-->
+    <div class=" col-12 col-sm-12 col-md-12 col-lg-4">
+        <div class="row" style="">
+            <div class=" col-12" >
+                <div style="margin: 20px 5px 10px 5px">
+                    <h6><b>Choisissez lieu et ville de la liste déroulante ou définissez un nouveau lieu de sortie</b></h6>
+                </div>
+
+                <div class="wrap-input1">
+                    <label>Ville organisatrice: </label>
+                    {{ form_widget(sortieFormView.site, {'attr': {'class': 'input1', 'disabled':'true', 'style': 'background-color: #AFEEEE'} }) }}
+                    <span class="shadow-input1"></span>
+                </div>
+
+                <div class="wrap-input1">
+                    <label>Lieu : </label>
+                    {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1'} })}}
+                    {{ form_errors(sortieFormView.lieuListe) }}
+
+
+                    <span class="shadow-input1"></span>
+                </div>
+
+                <div class="wrap-input1">
+                    <label>Ville : </label>
+                    {{ form_widget(sortieFormView.lieu.villeListe, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.lieu.villeListe) }}
+                    <span class="shadow-input1"></span>
+                </div>
+
+
+                <div class="wrap-input1">
+                    <label>Nom : </label>
+                    {{ form_widget(sortieFormView.lieu.nom, {'attr': {'class': 'input1'} }) }} {# sortieFormView.lieuListe.vars.nom  lieuListe.vars.value.nom   , 'placeholder':'{{ 'sortieFormView.lieuListe.nom'}}' #}
+                    {{ form_errors(sortieFormView.lieu.nom) }}
+                    <span class="shadow-input1"></span>
+                </div>
+
+
+                <div class="wrap-input1">
+                    <label>Rue : </label>
+                    {{ form_widget(sortieFormView.lieu.rue, {'attr': {'class': 'input1', 'value' : 'rue1'} }) }}
+                    {{ form_errors(sortieFormView.lieu.rue) }}
+                    <span class="shadow-input1"></span>
+                </div>
+
+
+
+                <div class="wrap-input1">
+                    <label>Ville : </label>
+                    {{ form_widget(sortieFormView.lieu.ville.nom, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.lieu.ville.nom) }}
+                    <span class="shadow-input1"></span>
+                </div>
+
+                <div class="wrap-input1">
+                    <label>Code postal : </label>
+                    {{ form_widget(sortieFormView.lieu.ville.codePostal, {'attr': {'class': 'input1'} }) }}
+                    {{ form_errors(sortieFormView.lieu.ville.codePostal) }}
+                    <span class="shadow-input1"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-contact1-form-btn" style="margin-top: 20px" >
+    {{ form_widget(sortieFormView.creer, { 'label': 'Enregistrer', 'attr': {'class': 'contact1-form-btn btn-creer', 'style': ''}  }) }}
+    <span class="espace"></span>
+    {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'contact1-form-btn btn-publier', 'style' : ''}  }) }}
+    <span class="espace"></span>
+    <a href="{{ path('accueil') }}" class="contact1-form-btn btn-annuler">Supprimer</a>
+    <span class="espace"></span>
+    <a href="{{ path('accueil') }}" class="contact1-form-btn btn-annuler">Annuler</a>
+</div>
+
+
+
+
+
+</div>
+<!--
+  <button class="contact1-form-btn">
+            <span>
+            Send Email
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </span>
+        </button>
+ -->
+
+
+
+
+
+
+{{ form_end(sortieFormView) }}
+
+
+<script>
+
+    let listeLieu = document.getElementById('sortie_lieuListe');
+    let villeListe = document.getElementById('sortie_lieu_villeListe');
+    let nomLieu = document.getElementById('sortie_lieu_nom');
+    let rue = document.getElementById('sortie_lieu_rue');
+    let ville = document.getElementById('sortie_lieu_ville_nom');
+    let codePostal = document.getElementById('sortie_lieu_ville_codePostal');
+    let selectElts = document.querySelectorAll('select');
+
+    let bckInputColor = '#e6e6e6';
+
+    listeLieu.setAttribute('onchange', 'disableLieux()')
+    villeListe.setAttribute('onchange', 'disableVille()')
+
+
+    function disableVille() {
+        if(villeListe.options[villeListe.selectedIndex].value==0){
+            ville.disabled=false;
+            ville.setAttribute('style', 'background-color:'+bckInputColor);
+        }else{
+            ville.disabled=true;
+            ville.setAttribute('style', 'background-color: #AFEEEE');
+        }
+    }
+
+
+    function disableLieux() {
+        if(listeLieu.options[listeLieu.selectedIndex].value==0){
+            villeListe.disabled=false;
+            nomLieu.disabled=false;
+            rue.disabled=false;
+            ville.disabled=false;
+            codePostal.disabled=false;
+
+            villeListe.setAttribute('style', 'background-color:'+bckInputColor);
+            nomLieu.setAttribute('style', 'background-color:'+bckInputColor);
+            rue.setAttribute('style', 'background-color:'+bckInputColor);
+            ville.setAttribute('style', 'background-color:'+bckInputColor);
+            codePostal.setAttribute('style', 'background-color:'+bckInputColor);
+        }
+        else{
+            villeListe.disabled=true;
+            nomLieu.disabled=true;
+            rue.disabled=true;
+            ville.disabled=true;
+            codePostal.disabled=true;
+
+            villeListe.setAttribute('style', 'background-color: #AFEEEE');
+            nomLieu.setAttribute('style', 'background-color: #AFEEEE');
+            rue.setAttribute('style', 'background-color: #AFEEEE');
+            ville.setAttribute('style', 'background-color: #AFEEEE');
+            codePostal.setAttribute('style', 'background-color: #AFEEEE');
+        }
+    }
+
+
+    let legend = document.getElementsByTagName("legend");
+    for (let legendElement of legend) {
+        legendElement.textContent = "";
+    }
+
+    let requiredLieu = document.querySelectorAll('*[id^="sortie_lieu"]');
+    for(let requiredELt of requiredLieu){
+        console.log(requiredELt);
+        if(requiredELt.hasAttribute('required')){
+            requiredELt.removeAttribute('required');
+        }
+    }
+
+    let labels = document.getElementsByTagName("label");
+    for(let label of labels){
+        if(label.classList.contains("required")){
+            label.classList.remove("required");
+        }
+
+
+    }
+
+
+
+    let textAreaElt = document.getElementsByTagName("textarea")[0];
+    if(textAreaElt.hasAttribute("required")){
+        textAreaElt.removeAttribute('required');
+    }
+
+    /*  $.ajax({
+          url: " " // route qui va utiliser cette ajax, elle va dans un cotnroller, donc il faut créer une fonction dans un URL
+      }); //pour faire une requette ajax : param : url a laquelle je veux faire une requette ajax
+*/
+</script>
+
+{% endblock %}
+
+{% block title %}
+    Modifier une sortie
+{% endblock %}
+
