@@ -145,7 +145,7 @@ class SortieController extends Controller
 
 
 
-            $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
+            $this->addFlash('success', 'La sortie a bien été modifiée!');
             die();
             return $this->redirectToRoute("accueil");
         }
