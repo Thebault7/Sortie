@@ -1,0 +1,11 @@
+<nav class="navbar navbar-light" style="background-color: dodgerblue;">
+
+    <a class="navbar-brand " href="{{ path('accueil') }}">Accueil</a>
+
+    {% if app.user %}
+
+        <a class="navbar-brand " href="{{ path('logout') }}">Se déconnecter</a>
+    {% else %}
+        <a class="navbar-brand" href="{{ path('login') }}">Se connecter</a>
+    {% endif %}
+</nav>

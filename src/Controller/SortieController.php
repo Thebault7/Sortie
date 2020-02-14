@@ -26,12 +26,7 @@ class SortieController extends Controller
     public function add(Request $request, EntityManagerInterface $entityManager)
     {
         $sortie = new Sortie();
-       // $idea->getAuthor($this->getUser()->getUsername());
         $site = $this->getUser()->getSite();
-      //  $participantRepository = $entityManager->getRepository(Participant::class);
-
-            //->getSite();
-
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -54,7 +49,6 @@ class SortieController extends Controller
                    ->setParticipant($this->getUser())
                    ->setSite($site);
 
-
                $entityManager->persist($sortie);
                $entityManager->flush();
            }
@@ -62,16 +56,29 @@ class SortieController extends Controller
 
            }
 
-          //      ->setDateCreated(new \DateTime('now'));
-
-
-
             $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
             die();
             return $this->redirectToRoute("accueil");
         }
-
         return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
+    }
 
+    /**
+     * @Route("/afficher/{id}", name="afficher", requirements={"id": "\d+"})
+     */
+    public function afficherSortie($id, EntityManagerInterface $entityManager){
+            $sortieRepository = $entityManager->getRepository(Sortie::class);
+            $sortie = $sortieRepository->find(13); //find($id);
+
+            return $this->render('sortie/afficher.html.twig', compact('sortie'));
+    }
+
+    /**
+     * @Route("/modifier/{id}", name="modifier", requirements={"id": "\d+"})
+     */
+    public function modifier($id, EntityManagerInterface $entityManager){
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+        return $this->render('sortie/modifier.html.twig', compact('sortie'));
     }
 }
