@@ -71,6 +71,10 @@ class SortieController extends Controller
             $sortieRepository = $entityManager->getRepository(Sortie::class);
             $sortie = $sortieRepository->find(21); //find($id);
 
+
+
+
+
             return $this->render('sortie/afficher.html.twig', compact('sortie'));
     }
 
@@ -78,9 +82,16 @@ class SortieController extends Controller
      * @Route("/inscription/{id}", name="inscription", requirements={"id": "\d+"})
      */
     public function sinscrire($id, EntityManagerInterface $entityManager){
+        $user = $this->getUser();
+
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
-        return $this->render('sortie/modifier.html.twig', compact('sortie'));
+
+        $sortie->addParticipant($user);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        $this->addFlash('success', 'Votre inscription a été prise en compte!');
+        return $this->redirectToRoute('accueil');
     }
 
 
@@ -134,7 +145,7 @@ class SortieController extends Controller
 
 
 
-            $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
+            $this->addFlash('success', 'La sortie a bien été modifiée!');
             die();
             return $this->redirectToRoute("accueil");
         }

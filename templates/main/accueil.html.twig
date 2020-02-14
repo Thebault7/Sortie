@@ -6,6 +6,14 @@
 
 {% block body %}
     {% set i = 0 %}
+<div class="row">
+    {%  for label, messages in app.flashes %}
+        {% for message in messages %}
+
+            <div class="alert-{{ label }}"> {{ message }}</div>
+        {%  endfor %}
+    {%  endfor %}
+</div>
     <div class="filtrer" style="float: left;">
         <h5>Filtrer les sorties</h5>
     </div>

@@ -97,7 +97,43 @@ afficher une sortie
              </script>
 
          </div>
-         <div class="row">Liste des participants inscrits : </div>
+         <div class="row">Liste des participants inscrits :
+
+             <table class="table table-striped">
+                 <thead>
+                 <tr>
+                     <th>Pseudo</th>
+                     <th>Nom</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% if sortie.participants is same as([]) %}
+                     <tr>
+                         <td colspan="2">
+                             <p>Aucun participant inscrit.</p>
+                         </td>
+                     </tr>
+                 {% else %}
+                     {% for participant in sortie.participants %}
+                         <tr>
+                             <td>
+                                 {% if participant.pseudo is not null %}
+                                    {{ participant.pseudo }}
+                                 {% else %}
+                                       -
+                                 {% endif %}
+                             </td>
+                             <td>
+                                 {{ participant.prenom }}  {{ participant.nom }}
+                             </td>
+                         </tr>
+                     {% endfor %}
+                 {% endif %}
+                 </tbody>
+             </table>
+
+
+         </div>
 
      </div>
 
@@ -105,7 +141,7 @@ afficher une sortie
 
 
     <div class="container-contact1-form-btn" style="margin-top: 20px" >
-        <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}" class="contact1-form-btn">Modifier</a>
+        <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}" class="contact1-form-btn">Modifier</a>
         <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="contact1-form-btn">S'inscrire</a>
     </div>
 
