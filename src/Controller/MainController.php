@@ -8,6 +8,10 @@ use App\Entity\Sortie;
 use App\Entity\Participant;
 use App\Entity\Etat;
 use App\Form\AccueilType;
+use App\Services\OrganisateurFilter;
+use App\Services\SortiesPassees;
+use App\Services\SortiesInscrit;
+use App\Services\ContientUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,11 +64,15 @@ class MainController extends Controller
 
         if ($request->query->get('id_site') === null) {
             $sorties = $sortieRepository->findBySiteAndEtat($user->getSite(), $etat);
+        } elseif ($request->query->get('id_site') === 'tous_sites') {
+            $sorties = $sortieRepository->findByEtat($etat);
+
+            return $this->render('main/tableauAccueil.html.twig', compact('sites', 'sorties', 'user'));
         } else {
             $sorties = $sortieRepository->findBySiteAndEtat($request->query->get('id_site'), $etat);
 
             if ($sorties === []) {
-                $this->addFlash("echec", "aucune ville correspondant aux critères de recherche n'a été trouvée.");
+                $this->addFlash("echec", "aucune sortie correspondant aux critères de recherche n'a été trouvée.");
             }
 
             return $this->render('main/tableauAccueil.html.twig', compact('sites', 'sorties', 'user'));
@@ -81,21 +89,47 @@ class MainController extends Controller
      */
     public function recherche(Request $request, EntityManagerInterface $entityManager)
     {
+        // Cette fonction s'occupe de filtrer les sorties en fonction des filtres à appliquer.
+        // Pour ce faire, on charge toutes les sorties de la base de données dans un tableau.
+        // Ensuite, dans ce tableau chaque filtre remplace par 'false' les sorties qui ne
+        // correspondent pas. On fait ça successivement pour chaque filtre. A la fin, la méthode
+        // 'array_filter' de PHP se charge d'enlever tous les 'false' du tableau, ne laissant
+        // que les sorties sélectionnées.
+
         $user = $this->getUser();
 
         $siteRepository = $entityManager->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
         $sortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorttties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findAll();
 
-//        require('organisateurFilter.php');
+        if (isset($_POST['organisateur'])) {
+            // Le service 'OrganisateurFilter' remplace par 'false' toutes les sorties dont
+            // l'utilisateur connecté n'est pas l'organisateur.
+            $organisateur = new OrganisateurFilter($sorties, $user);
+            $sorties = $organisateur->organisateur();
+        }
 
-        $sorties = array_filter($sorttties, "organisateur");
+        if (isset($_POST['passees'])) {
+            // Le service 'sortiesPassees' remplace par 'false' toutes les sorties qui ne sont pas
+            // terminées.
+            $sortiesPassees = new SortiesPassees($sorties);
+            $sorties = $sortiesPassees->sortiesPassees();
+        }
 
-//        if(isset($_POST['organisateur'])) {
-//            $sorties = $sortieRepository->findBy(['participant' => $user->getId()]);
-//        }
+        $sortiesInscrit = new SortiesInscrit($sorties, $user);
+        if ($_POST['inscrit'] === 'inscrit') {
+            // Le service 'sortiesInscrit' remplace par 'false' toutes les sorties où l'utilisateur
+            // n'est pas inscrit.
+            $sorties = $sortiesInscrit->sortiesInscrit($entityManager);
+        } else {
+            // Autrement la méthode 'sortiesNonInscrit' remplace par 'false' toutes les sorties où
+            // l'utilisateur est inscrit.
+            $sorties = $sortiesInscrit->sortiesNonInscrit($entityManager);
+        }
+
+        $sorties = array_filter($sorties);
 
         return $this->render('main/accueil.html.twig', compact('sites', 'sorties', 'user'));
     }

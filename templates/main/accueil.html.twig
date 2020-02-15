@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block body %}
-
     <section class="contact_section layout_padding mt-0 pt-5">
         <div class="container">
 
@@ -35,6 +34,7 @@
                             </div>
                             <div class="col-7">
                                 <select>
+                                    <option id="tous_sites" value="tous_sites">Tous les sites</option>
                                     {% for site in sites %}
                                         <option id="site_{{ site.id }}" value="{{ site.id }}">
                                             {{ site.nom }}
