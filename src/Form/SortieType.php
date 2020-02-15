@@ -30,9 +30,9 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : ', 'attr'=>['required'=> false]])
 
             ->add('lieuListe', EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom',  'label'=> 'Lieu : ', 'mapped' => false, 'placeholder' => 'Choisir', 'empty_data'  => null, 'attr'=>['required'=> false]]) //,'attr' => ['empty_value' => 'vide!']
-            ->add('lieu', LieuType::class, ['attr'=>['required'=> false]])
+          //  ->add('lieu', LieuType::class, ['attr'=>['required'=> false]])
           //  ->add('site', TextType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : ', 'attr'=>['required'=> false]])
-            ->add('site', EntityType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : '])
+           // ->add('site', EntityType::class, ['class'=>Site::class, 'choice_label' => 'nom', 'label'=> 'Site : '])
             ->add('creer', SubmitType::class, ['label'=> 'Enregistrer', 'attr' => ['id'=> 'creer']])
             ->add('publier', SubmitType::class, ['label'=> 'Publier la sortie', 'attr' => ['id'=> 'publier']])
         ;

@@ -5,100 +5,166 @@
 {% endblock %}
 
 {% block body %}
-    {% set i = 0 %}
-<div class="row">
-    {%  for label, messages in app.flashes %}
-        {% for message in messages %}
 
-            <div class="alert-{{ label }}"> {{ message }}</div>
-        {%  endfor %}
-    {%  endfor %}
-</div>
-    <div class="filtrer" style="float: left;">
-        <h5>Filtrer les sorties</h5>
-    </div>
-    <form action="{{ path('recherche') }}" method="post">
-        <label for="site">Site :</label>
-        <select>
-            {% for site in sites %}
-                <option id="site_{{ site.id }}" value="{{ site.id }}">
-                    {{ site.nom }}
-                </option>
-            {% endfor %}
-        </select>
+    <section class="contact_section layout_padding mt-0 pt-5">
+        <div class="container">
 
-        <div class="wrap-input1" style="width: 425px">
-            <label for="nom_sortie">Le nom de la sortie contient :</label>
-            <input type="text"
-                   class="input1 form-control"
-                   placeholder="search" id="nom"
-                   name="nom_sortie">
-            <span class="shadow-input1"></span>
-        </div>
-        <div class="wrap-input1" style="width: 425px">
-            <label for="date_debut">Entre :</label>
-            <input type="date"
-                   class="input1 form-control"
-                   id="date_debut"
-                   name="date_debut">
-            <span class="shadow-input1"></span>
-        </div>
-        <div class="wrap-input1" style="width: 425px">
-            <label for="date_fin">et :</label>
-            <input type="date"
-                   class="input1 form-control"
-                   id="date_fin"
-                   name="date_fin">
-            <span class="shadow-input1"></span>
-        </div>
-        <div class="col">
-            <input type="checkbox" name="organisateur"> <label for="organisateur">Sorties dont je
-                suis l'organisateur/trice</label><br>
-            <input type="checkbox" name="passees" value="passees"> <label for="passees">Sorties passées</label><br>
-        </div>
-        <div class="col">
-            <input type="radio" name="inscrit" value="inscrit" checked> <label for="inscrit">Sorties auxquelles je suis
-                inscrit/e</label><br>
-            <input type="radio" name="inscrit" value="pas_inscrit"> <label for="pas_inscrit">Sorties auxquelles
-                je
-                ne suis pas inscrit/e</label><br>
-        </div>
-        <div class="container-contact1-form-btn">
-            <button type="submit" class="contact1-form-btn"
-                    name="rechercher" style="float: right; width: 425px;">Rechercher
-            </button>
-        </div>
+            <div class="filtrer" style="float: left;">
+                {% set i = 0 %}
+                {%  for label, messages in app.flashes %}
+                    {% for message in messages %}
 
-        <div class="container table-wrapper-scroll-y my-custom-scrollbar"
-             style="position: relative; height: 200px; width: 100%; overflow: auto">
+                        <div class="alert-{{ label }} mx-auto"> {{ message }}</div>
+                    {%  endfor %}
+                {%  endfor %}
+            </div>
 
-            <br>
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Nom de la sortie</th>
-                    <th>Date de la sortie</th>
-                    <th>clôture</th>
-                    <th>Inscrits/places</th>
-                    <th>Etat</th>
-                    <th>Inscrit</th>
-                    <th>Organisateur</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="corps_tableau">
-                {% include 'main/tableauAccueil.html.twig' %}
-                </tbody>
-            </table>
+<section class="contact_section layout_padding mt-0 pt-0">
+            <div class="">
+                <h6 class="text-uppercase font-weight-bold">Filtrer les sorties</h6>
+            </div>
+
+            <form action="{{ path('recherche') }}" method="post">
+                <div class="contact_form-container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                            <div class="col-5">
+                                <label for="site" class="font-weight-bold">Site :</label>
+                            </div>
+                            <div class="col-7">
+                                <select>
+                                    {% for site in sites %}
+                                        <option id="site_{{ site.id }}" value="{{ site.id }}">
+                                            {{ site.nom }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <label for="nom_sortie" class="font-weight-bold">Le nom contient :</label>
+                                </div>
+                                <div class="col-6">
+                                <input type="text"
+                                       id="nom"
+                                       name="nom_sortie">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <span class="font-weight-bold">Entre :</span> <input type="date" id="date_debut" name="date_debut">
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <span class="font-weight-bold">
+                                    et :</span>
+                                    <input type="date" class="input1 form-control" id="date_fin" name="date_fin">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                                <div class="col-2">
+                                    <input type="checkbox" name="organisateur">
+                                </div>
+                                <div class="col-10">
+                                    <label for="organisateur">Sorties dont je suis l'organisateur/trice</label>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <div class="col-2">
+                                <input type="checkbox" name="passees" value="passees">
+                            </div>
+                            <div class="col-10">
+                                <label for="passees">Sorties passées</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2">
+                                <input type="radio" name="inscrit" value="inscrit" checked>
+                            </div>
+                            <div class="col-10">
+                                <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2">
+                                <input type="radio" name="inscrit" value="pas_inscrit">
+                            </div>
+                            <div class="col-10">
+                                <label for="pas_inscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <button type="submit" class="bouton1 mx-auto"
+                                    name="rechercher">Rechercher
+                            </button>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="container table-wrapper-scroll-y my-custom-scrollbar"
+                     style="position: relative; height: 200px; width: 100%; overflow: auto">
+
+                    <br>
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nom de la sortie</th>
+                            <th>Date de la sortie</th>
+                            <th>clôture</th>
+                            <th>Inscrits/places</th>
+                            <th>Etat</th>
+                            <th>Inscrit</th>
+                            <th>Organisateur</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="corps_tableau">
+                        {% include 'main/tableauAccueil.html.twig' %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <button type="submit" class="bouton1" name="creer">Créer une sortie
+                    </button>
+                </div>
+                </div>
+            </form>
+
+</section>
         </div>
-    </form>
+    </section>
 
-    <div class="container-contact1-form-btn">
-        <button type="submit" class="contact1-form-btn"
-                name="creer" style="float: left; width: 425px;">Créer une sortie
-        </button>
-    </div>
+
+
+
+
+
+
+
 
 
 {% endblock %}

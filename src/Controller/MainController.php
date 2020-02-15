@@ -100,4 +100,12 @@ class MainController extends Controller
         return $this->render('main/accueil.html.twig', compact('sites', 'sorties', 'user'));
     }
 
+    /**
+     * @Route("/test", name="test")
+    */
+    public function test(){
+        return $this->render('index.html.twig');
+    }
+
+
 }

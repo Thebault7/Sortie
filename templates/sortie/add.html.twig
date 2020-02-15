@@ -2,175 +2,144 @@
 
 {% block body %}
 
-    <!--
-        <span class="contact1-form-title">
-    Get in touch
-    </span>-->
-    <!--<div class="container-contact1" style=" margin: auto; padding-top: 10px; background-color: yellow;"> background-color: yellow; -->
+<section class="contact_section layout_padding mt-0 pt-5">
+    <div class="container">
 
-    <h1>Créer une sortie</h1>
-    <hr>
+            <!-- titre de la page-->
+            <div class="heading_container mb-0 pb-0">
+                <h2>
+                    Créer une sortie
+                </h2>
+            </div>
 
-    {{ form_start(sortieFormView, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center '}}) }}
+            <div class="">
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        {{ form_start(sortieFormView, {label_attr: {class: ''}}) }}
+                            <div class="contact_form-container">
+                                <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="mt-3">
+                                        <label>Nom de la sortie : </label>
+                                        {{ form_widget(sortieFormView.nom, {'attr': {'class': ''} }) }}
+                                        {{ form_errors(sortieFormView.nom) }}
+                                    </div>
+                                    <div class="mt-3">
+                                        <label>Date limite d'inscription :</label>
+                                        {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': ''} }) }}
+                                        {{ form_errors(sortieFormView.dateLimiteInscription) }}
+                                    </div>
+                                    <div class="mt-3">
+                                        <label>Date et heure de la sortie : </label>
+                                        {{ form_widget(sortieFormView.dateHeureDebut, {'attr': {'class': ''} }) }}
+                                        {{ form_errors(sortieFormView.dateHeureDebut) }}
+                                    </div>
+                                    <div class="mt-3">
+                                        <label>Nombre de places : </label>
+                                        {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': ''} }) }}
+                                        {{ form_errors(sortieFormView.nbInscriptionMax) }}
+                                    </div>
+                                    <div class="mt-3">
+                                        <label>Durée (minutes) : </label>
+                                        {{ form_widget(sortieFormView.duree, {'attr': {'class': ''} }) }}
+                                        {{ form_errors(sortieFormView.duree) }}
+                                    </div>
+                                </div>
 
-    <div class="row" style="margin-bottom: 30px">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="mt-3">
+                                        <label>Ville organisatrice : </label>
+                                        <input type="text" value="{{ site.nom }}" disabled>
+                                    </div>
 
-     <!--   <div class="col-sm-10 offset-sm-1 col-md-4 offset-sm-1"> -->
+                                    <div class="mt-3">
+                                        <label>Lieu : </label>
+                                        <div class="row">
+                                            <div class="col-9">
+                                                {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': ''} })}}
+                                                {{ form_errors(sortieFormView.lieuListe) }}
+                                            </div>
+                                            <div class="col-2">
+                                                <i class="fa fa-plus-square fa-2x" ></i>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-4 offset-lg-1">
-            <div class="row">
-                <div class="col-12" >
+                                    <div class="mt-3">
+                                        <label>Descriptions et infos : </label>
+                                        {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': '', 'rows': '6', 'cols': '5'} }) }}
+                                        {{ form_errors(sortieFormView.infosSortie) }}
+                                    </div>
 
-                    <div style="margin: 20px 5px 10px 5px">
-                        <h6><b>Les détails de la sortie</b></h6>
+                                </div>
+
+                            </div>
+
+                                <div class="d-flex justify-content-center ">
+                                     <!-- boutons -->
+                                        <div class="ml-1 mr-1">
+                                            {{ form_widget(sortieFormView.creer, { 'label': 'Créer', 'attr': {'class': 'bouton1'}  }) }}
+                                        </div>
+                                        <div class="ml-1 mr-1">
+                                            {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'bouton1'}  }) }}
+                                        </div>
+                                        <div class="ml-1 mr-1">
+                                            <a class="bouton1" href="{{ path('accueil') }}">Annuler</a>
+                                        </div>
+
+                                </div>
+
+
+
+                            </div>
+                        {{ form_end(sortieFormView) }}
                     </div>
-
-            <div class="wrap-input1">
-
-                <label>Nom de la sortie : </label>
-                {{ form_widget(sortieFormView.nom, {'attr': {'class': 'input1'} }) }}
-                {{ form_errors(sortieFormView.nom) }}
-            <span class="shadow-input1"></span>
+                </div>
             </div>
-            <div class="wrap-input1 validate-input">
-              {#  {{ form_label(sortieFormView.dateHeureDebut) }} #}
-                <label>Date et heure de la sortie : </label>
-                {{ form_widget(sortieFormView.dateHeureDebut, {'attr': {'class': 'input1'} }) }}
-                {{ form_errors(sortieFormView.dateHeureDebut) }}
-                <span class="shadow-input1"></span>
-            </div>
-            <div class="wrap-input1 validate-input">
-                <label>Date limite d'inscription :</label>
-                {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': 'input1'} }) }}
-                {{ form_errors(sortieFormView.dateLimiteInscription) }}
-            <span class="shadow-input1"></span>
-            </div>
-            <div class="wrap-input1 validate-input">
-                <label>Durée (minutes) : </label>
-                {{ form_widget(sortieFormView.duree, {'attr': {'class': 'input1'} }) }}
-                {{ form_errors(sortieFormView.duree) }}
-                <span class="shadow-input1"></span>
-                <span class="shadow-input1"></span>
-            </div>
-
-
-            <div class="wrap-input1 validate-input">
-                <label>Nombre de places : </label>
-                {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': 'input1'} }) }}
-                {{ form_errors(sortieFormView.nbInscriptionMax) }}
-                <span class="shadow-input1"></span>
-            </div>
-            <div class="wrap-input1">
-                <label>Descriptions et infos : </label>
-                {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': 'input1', 'rows': '10', 'cols': '5'} }) }}
-                {{ form_errors(sortieFormView.infosSortie) }}
-                <span class="shadow-input1"></span>
-            </div>
-
-        </div>
-            </div>
-
-        </div>
-
-
-
-    <!--<div class="col-sm-10 col-md-4 offset-sm-1 ">-->
-        <div class=" col-12 col-sm-12 col-md-12 col-lg-4">
-            <div class="row" style="">
-                <div class=" col-12" >
-        <div style="margin: 20px 5px 10px 5px">
-            <h6><b>Choisissez lieu et ville de la liste déroulante ou définissez un nouveau lieu de sortie</b></h6>
-        </div>
-
-        <div class="wrap-input1">
-            {{ form_label(sortieFormView.site) }}
-             {{ form_widget(sortieFormView.site, {'attr': {'class': 'input1', 'disabled':'true', 'style': 'background-color: #AFEEEE'} }) }}
-            <span class="shadow-input1"></span>
-        </div>
-
-        <div class="wrap-input1">
-            <label>Lieu : </label>
-          {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': 'input1'} })}}
-            {{ form_errors(sortieFormView.lieuListe) }}
-
-
-            <span class="shadow-input1"></span>
-        </div>
-
-        <div class="wrap-input1">
-            <label>Ville : </label>
-            {{ form_widget(sortieFormView.lieu.villeListe, {'attr': {'class': 'input1'} }) }}
-            {{ form_errors(sortieFormView.lieu.villeListe) }}
-            <span class="shadow-input1"></span>
-        </div>
-
-
-        <div class="wrap-input1">
-            <label>Nom : </label>
-            {{ form_widget(sortieFormView.lieu.nom, {'attr': {'class': 'input1'} }) }} {# sortieFormView.lieuListe.vars.nom  lieuListe.vars.value.nom   , 'placeholder':'{{ 'sortieFormView.lieuListe.nom'}}' #}
-            {{ form_errors(sortieFormView.lieu.nom) }}
-            <span class="shadow-input1"></span>
-        </div>
-
-
-        <div class="wrap-input1">
-            <label>Rue : </label>
-            {{ form_widget(sortieFormView.lieu.rue, {'attr': {'class': 'input1', 'value' : 'rue1'} }) }}
-            {{ form_errors(sortieFormView.lieu.rue) }}
-            <span class="shadow-input1"></span>
-        </div>
-
-
-
-        <div class="wrap-input1">
-            <label>Ville : </label>
-            {{ form_widget(sortieFormView.lieu.ville.nom, {'attr': {'class': 'input1'} }) }}
-            {{ form_errors(sortieFormView.lieu.ville.nom) }}
-            <span class="shadow-input1"></span>
-        </div>
-
-        <div class="wrap-input1">
-            <label>Code postal : </label>
-            {{ form_widget(sortieFormView.lieu.ville.codePostal, {'attr': {'class': 'input1'} }) }}
-            {{ form_errors(sortieFormView.lieu.ville.codePostal) }}
-            <span class="shadow-input1"></span>
-        </div>
-    </div>
-        </div>
-        </div>
     </div>
 
-    <div class="container-contact1-form-btn" style="margin-top: 20px" >
-        {{ form_widget(sortieFormView.creer, { 'label': 'Créer', 'attr': {'class': 'contact1-form-btn btn-creer', 'style': ''}  }) }}
-        <span class="espace"></span>
-        {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'contact1-form-btn btn-publier', 'style' : ''}  }) }}
-        <span class="espace"></span>
-        <a href="{{ path('accueil') }}" class="contact1-form-btn btn-annuler">Annuler</a>
-    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+                    <h4 class="modal-title">Ajouter un nouveau lieu</h4>
 
+                </div>
+                <div class="modal-body">
+                    One fine body…
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div> <!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-
-
-
-</div>
-<!--
-  <button class="contact1-form-btn">
-            <span>
-            Send Email
-            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-            </span>
-        </button>
- -->
-
-
-
-
-
-
-    {{ form_end(sortieFormView) }}
+</section>
 
 
     <script>
+
+        $('#ajout_lieu').click(function(e) {
+            e.preventDefault();
+            $('#myModal').modal();
+        });
+
+        $("#g").click(function(){
+           console.log("cliqué");
+
+            $.ajax({
+                //à cette url... voir le contrôleur !
+                url: "{{ url("lieu_ajout")}}"
+            })
+                //lorsque la requête sera terminée, cette fct se déclenchera
+                .done(function(response){
+
+                });
+        });
+
 
         let listeLieu = document.getElementById('sortie_lieuListe');
         let villeListe = document.getElementById('sortie_lieu_villeListe');

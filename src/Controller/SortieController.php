@@ -69,12 +69,7 @@ class SortieController extends Controller
      */
     public function afficherSortie($id, EntityManagerInterface $entityManager){
             $sortieRepository = $entityManager->getRepository(Sortie::class);
-            $sortie = $sortieRepository->find(21); //find($id);
-
-
-
-
-
+            $sortie = $sortieRepository->find(1); //find($id);
             return $this->render('sortie/afficher.html.twig', compact('sortie'));
     }
 
@@ -94,29 +89,30 @@ class SortieController extends Controller
         return $this->redirectToRoute('accueil');
     }
 
-
+    /**
+     * @Route("/supprimer/{id}", name="supprimer", requirements={"id": "\d+"})
+     */
+    public function supprimer($id, EntityManagerInterface $entityManager){
+        return $this->render('sortie/supprimer.html.twig', compact('sortie'));
+    }
 
     /**
-     * @Route("/modifsortie", name="modifsortie")
+     * @Route("/modifsortie/{id}", name="modifsortie", requirements={"id": "\d+"})
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function modifsortie(Request $request, EntityManagerInterface $entityManager)
+    public function modifsortie($id, Request $request, EntityManagerInterface $entityManager)
     {
-        $sortie = new Sortie();
-        // $idea->getAuthor($this->getUser()->getUsername());
         $site = $this->getUser()->getSite();
-        //  $participantRepository = $entityManager->getRepository(Participant::class);
 
-        //->getSite();
-
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-
             $etatRepository = $entityManager->getRepository(Etat::class);
             $etat = $etatRepository->find(1);
 
@@ -140,13 +136,7 @@ class SortieController extends Controller
             elseif ($sortieForm->get('publier')->isClicked()){
 
             }
-
-            //      ->setDateCreated(new \DateTime('now'));
-
-
-
             $this->addFlash('success', 'La sortie a bien été modifiée!');
-            die();
             return $this->redirectToRoute("accueil");
         }
 

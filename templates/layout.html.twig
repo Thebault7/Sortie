@@ -18,15 +18,65 @@
             crossorigin="anonymous"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/util.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
     <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}" />
+
+    <!-- fonts style -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet" />
     <title>{% block title %}Layout{% endblock %}</title>
+    <style>
+        .bouton1{
+            display: inline-block;
+            padding: 12px 50px;
+            background-color: #0fcfdc;
+            color: white;
+            border-radius: 0;
+            margin-top: 35px;
+
+        }
+
+        .bouton1:hover {
+            background-color:#0fcfdc;
+        }
+        #map_box{
+            border: 2px solid #0fcfdc;
+            border-radius: 5px;
+        }
+
+        .detail-box {
+            padding: 20px;
+            border: 1px solid #0fcfdc;
+            margin: 0 25px;
+
+        }
+
+    </style>
 </head>
-<body>
+<body class="sub_page">
+<div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-11 offset-lg-1">
 {% include 'includes/navbar.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
 
 <main>
     <div class="container-fluid">
@@ -34,12 +84,10 @@
     </div>
 </main>
 
-<div>
 
-</div>
 
 {% block javascripts %}{% endblock %}
-
+{% include 'includes/footer.html.twig' %}
 </body>
 </html>
 
