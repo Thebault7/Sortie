@@ -57,6 +57,7 @@
                                     <label>Lieu : </label>
                                     <div class="row">
                                         <div class="col-9">
+                                            {#
                                             <select class="form-control" id="supervisor">
                                                 {% for lieu in sortieFormView.lieuListe %}
                                                     <p>ff</p>
@@ -67,7 +68,7 @@
                                                     <option value="{{ lieu.nom }}" {{ selected }}>--</option>
                                                 {% endfor %}
                                             </select>
-
+#}
                                             {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': ''} })}}
                                             {{ form_errors(sortieFormView.lieuListe) }}
                                         </div>
@@ -126,7 +127,7 @@
     let selectElts = document.querySelectorAll('select');
 
     let bckInputColor = '#e6e6e6';
-
+/*
     listeLieu.setAttribute('onchange', 'disableLieux()')
     villeListe.setAttribute('onchange', 'disableVille()')
 
@@ -140,23 +141,24 @@
             ville.setAttribute('style', 'background-color: #AFEEEE');
         }
     }
-
+*/
 
     function disableLieux() {
         if(listeLieu.options[listeLieu.selectedIndex].value==0){
-            villeListe.disabled=false;
+          /*  villeListe.disabled=false;
             nomLieu.disabled=false;
             rue.disabled=false;
             ville.disabled=false;
-            codePostal.disabled=false;
+            codePostal.disabled=false;*/
 
-            villeListe.setAttribute('style', 'background-color:'+bckInputColor);
+            /*villeListe.setAttribute('style', 'background-color:'+bckInputColor);
             nomLieu.setAttribute('style', 'background-color:'+bckInputColor);
             rue.setAttribute('style', 'background-color:'+bckInputColor);
             ville.setAttribute('style', 'background-color:'+bckInputColor);
-            codePostal.setAttribute('style', 'background-color:'+bckInputColor);
+            codePostal.setAttribute('style', 'background-color:'+bckInputColor);*/
         }
         else{
+            /*
             villeListe.disabled=true;
             nomLieu.disabled=true;
             rue.disabled=true;
@@ -167,7 +169,7 @@
             nomLieu.setAttribute('style', 'background-color: #AFEEEE');
             rue.setAttribute('style', 'background-color: #AFEEEE');
             ville.setAttribute('style', 'background-color: #AFEEEE');
-            codePostal.setAttribute('style', 'background-color: #AFEEEE');
+            codePostal.setAttribute('style', 'background-color: #AFEEEE');*/
         }
     }
 

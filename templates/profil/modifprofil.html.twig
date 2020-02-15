@@ -2,84 +2,127 @@
 
 {% block body %}
 
-    <div style="text-align:center; margin: 30px">
-    <h1>Mon profil</h1>
-    </div>
 
-    <!-- affichage des messages d'erreur ci-dessous : -->
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert-{{ label }}">
-                {{ message }}
+    <section class="contact_section layout_padding mt-0 pt-5">
+        <div class="container">
+
+            <!-- affichage des messages d'erreur ci-dessous : -->
+            <div class="row mt-1 mb-2">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert-{{ label }} mx-auto">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             </div>
-        {% endfor %}
-    {% endfor %}
+            <!-- titre de la page-->
+            <div class="heading_container mb-0 pb-0">
+                <h2>
+                    Modifier mon profil
+                </h2>
+            </div>
 
-    {{ form_start(ModifProfilForm, {label_attr: {class: 'contact1-form align-items-sm-center justify-content-center'}}) }}
+        <div class="">
+        <div class="row">
+        <div class="col-md-8 mx-auto">
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.pseudo) }}
-    {{ form_widget(ModifProfilForm.pseudo, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.pseudo) }}
-        <span class="shadow-input1"></span>
-    </div>
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.nom) }}
-    {{ form_widget(ModifProfilForm.nom, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.nom) }}
-        <span class="shadow-input1"></span>
-    </div>
+            {% if user.photo is not null %}
+                <div class="row mt-1 mb-2">
+                    <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~user.photo) }}" alt="" style="border-radius:50%; width: 200px">
+                </div>
+            {% endif %}
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.prenom) }}
-    {{ form_widget(ModifProfilForm.prenom, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.prenom) }}
-        <span class="shadow-input1"></span>
-    </div>
+        {{ form_start(ModifProfilForm) }}
+            <div class="contact_form-container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.pseudo) }}
+                        {{ form_widget(ModifProfilForm.pseudo) }}
+                        {{ form_errors(ModifProfilForm.pseudo) }}
+                    </div>
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.telephone) }}
-    {{ form_widget(ModifProfilForm.telephone, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.telephone) }}
-        <span class="shadow-input1"></span>
-    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.site) }}
+                        {{ form_widget(ModifProfilForm.site) }}
+                        {{ form_errors(ModifProfilForm.site) }}
+                    </div>
+                </div>
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.mail) }}
-    {{ form_widget(ModifProfilForm.mail, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.mail) }}
-        <span class="shadow-input1"></span>
-    </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.nom) }}
+                        {{ form_widget(ModifProfilForm.nom) }}
+                        {{ form_errors(ModifProfilForm.nom) }}
+                    </div>
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.password) }}
-    {{ form_widget(ModifProfilForm.password, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.password) }}
-        <span class="shadow-input1"></span>
-    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.prenom) }}
+                        {{ form_widget(ModifProfilForm.prenom) }}
+                        {{ form_errors(ModifProfilForm.prenom) }}
+                    </div>
+                </div>
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.site) }}
-    {{ form_widget(ModifProfilForm.site, {'attr': {'class': 'input1'} }) }}
-    {{ form_errors(ModifProfilForm.site) }}
-        <span class="shadow-input1"></span>
-    </div>
+                <div class="row mt-1" >
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.telephone) }}
+                        {{ form_widget(ModifProfilForm.telephone) }}
+                        {{ form_errors(ModifProfilForm.telephone) }}
+                    </div>
 
-    <div class="wrap-input1 validate-input">
-    {{ form_label(ModifProfilForm.photo) }}
-    {{ form_widget(ModifProfilForm.photo) }}
-    {{ form_errors(ModifProfilForm.photo) }}
-        <span class="shadow-input1"></span>
-    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.mail) }}
+                        {{ form_widget(ModifProfilForm.mail) }}
+                        {{ form_errors(ModifProfilForm.mail) }}
+                    </div>
+                </div>
 
-    <div class="container-contact1-form-btn" style="margin-top: 20px" >
-        {{ form_widget(ModifProfilForm.save, { 'label': 'Enregistrer', 'attr': {'class': 'contact1-form-btn btn-enregistrer', 'style': ''}  }) }}
-        <span class="espace"></span>
-        {{ form_widget(ModifProfilForm.cancel, { 'label': 'Annuler', 'attr': {'class': 'contact1-form-btn btn-annuler', 'style' : ''}  }) }}
-        <span class="espace"></span>
-    </div>
+                <div class="row mt-1">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.password.first) }}
+                        {{ form_widget(ModifProfilForm.password.first) }}
+                        {{ form_errors(ModifProfilForm.password.first) }}
+                    </div>
 
-    {{ form_end(ModifProfilForm) }}
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.password.second) }}
+                        {{ form_widget(ModifProfilForm.password.second) }}
+                        {{ form_errors(ModifProfilForm.password.second) }}
+                    </div>
+                </div>
 
+                <div class="row mt-2">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        {{ form_label(ModifProfilForm.photo) }}
+                        {{ form_widget(ModifProfilForm.photo) }}
+                        {{ form_errors(ModifProfilForm.photo) }}
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center ">
+                        <div class="col-5">
+                            <button class="bouton1" type="submit">Enregistrer</button>
+                        </div>
+                        <div class="col-5">
+                       <a class="bouton1" href="{{ path('afficherprofil') }}">Annuler</a>
+                        </div>
+
+                </div>
+            </div>
+        {{ form_end(ModifProfilForm) }}
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+
+    <script>
+        let legend = document.getElementsByTagName('legend')[0];
+        legend.textContent = "";
+
+
+    </script>
 {% endblock %}
+{% block title %}modifier mon profil{% endblock %}
