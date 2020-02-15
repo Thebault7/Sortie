@@ -81,10 +81,16 @@ class Participant implements UserInterface
      */
     private $photo;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participants", mappedBy="participant")
+     */
+    private $participants;
+
     public function __construct()
     {
         $this->organisateur = new ArrayCollection();
         $this->inscrit = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function setId(int $id): self
@@ -307,6 +313,37 @@ class Participant implements UserInterface
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participants[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participants $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participants $participant): self
+    {
+        if ($this->participants->contains($participant)) {
+            $this->participants->removeElement($participant);
+            // set the owning side to null (unless already changed)
+            if ($participant->getParticipant() === $this) {
+                $participant->setParticipant(null);
+            }
+        }
 
         return $this;
     }

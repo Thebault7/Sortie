@@ -20,6 +20,7 @@
     <form action="{{ path('recherche') }}" method="post">
         <label for="site">Site :</label>
         <select>
+            <option id="tous_sites" value="tous_sites">Tous les sites</option>
             {% for site in sites %}
                 <option id="site_{{ site.id }}" value="{{ site.id }}">
                     {{ site.nom }}
