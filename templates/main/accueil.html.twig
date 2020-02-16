@@ -6,14 +6,14 @@
 
 {% block body %}
     {% set i = 0 %}
-<div class="row">
-    {%  for label, messages in app.flashes %}
-        {% for message in messages %}
+    <div class="row">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
 
-            <div class="alert-{{ label }}"> {{ message }}</div>
-        {%  endfor %}
-    {%  endfor %}
-</div>
+                <div class="alert-{{ label }}"> {{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
     <div class="filtrer" style="float: left;">
         <h5>Filtrer les sorties</h5>
     </div>
@@ -53,17 +53,24 @@
             <span class="shadow-input1"></span>
         </div>
         <div class="col">
-            <input type="checkbox" name="organisateur"> <label for="organisateur">Sorties dont je
+            <input type="checkbox" id="organisateur" name="organisateur"> <label for="organisateur">Sorties dont je
                 suis l'organisateur/trice</label><br>
             <input type="checkbox" name="passees" value="passees"> <label for="passees">Sorties passées</label><br>
         </div>
         <div class="col">
-            <input type="radio" name="inscrit" value="inscrit" checked> <label for="inscrit">Sorties auxquelles je suis
-                inscrit/e</label><br>
-            <input type="radio" name="inscrit" value="pas_inscrit"> <label for="pas_inscrit">Sorties auxquelles
-                je
-                ne suis pas inscrit/e</label><br>
+            <fieldset class="border p-2">
+                <legend class="w-auto" style="font-size: 16px">Inscript ?</legend>
+                <input type="checkbox" id="radio_inscript_check" name="inscript_activate" value="inscript_activate">
+                <label for="inscript_activate">Activer l'option ci-dessous ?</label><br></label>
+                <div id="radio_inscript">
+                    <input type="radio" name="inscrit" id="radio_inscript_oui" value="inscrit" disabled checked> <label
+                            for="inscrit">Sorties auxquelles je suis inscrit/e</label><br>
+                    <input type="radio" name="inscrit" id="radio_inscript_non" value="pas_inscrit" disabled> <label
+                            for="pas_inscrit">Sorties auxquelles je ne suis pas inscrit/e</label><br>
+                </div>
+            </fieldset>
         </div>
+        <br>
         <div class="container-contact1-form-btn">
             <button type="submit" class="contact1-form-btn"
                     name="rechercher" style="float: right; width: 425px;">Rechercher
@@ -101,7 +108,6 @@
         </button>
     </div>
 
-
 {% endblock %}
 
 {% block javascripts %}
@@ -120,6 +126,16 @@
                 document.getElementById("corps_tableau").innerHTML = response;
             });
         }, false);
+
+        document.getElementById("radio_inscript_check").addEventListener("change", function () {
+            if (document.getElementById("radio_inscript_check").checked === true) {
+                document.getElementById("radio_inscript_oui").disabled = false;
+                document.getElementById("radio_inscript_non").disabled = false;
+            } else {
+                document.getElementById("radio_inscript_oui").disabled = true;
+                document.getElementById("radio_inscript_non").disabled = true;
+            }
+        });
 
     </script>
 {% endblock %}

@@ -118,15 +118,17 @@ class MainController extends Controller
             $sorties = $sortiesPassees->sortiesPassees();
         }
 
-        $sortiesInscrit = new SortiesInscrit($sorties, $user);
-        if ($_POST['inscrit'] === 'inscrit') {
-            // Le service 'sortiesInscrit' remplace par 'false' toutes les sorties où l'utilisateur
-            // n'est pas inscrit.
-            $sorties = $sortiesInscrit->sortiesInscrit($entityManager);
-        } else {
-            // Autrement la méthode 'sortiesNonInscrit' remplace par 'false' toutes les sorties où
-            // l'utilisateur est inscrit.
-            $sorties = $sortiesInscrit->sortiesNonInscrit($entityManager);
+        if (isset($_POST['inscrit'])) {
+            $sortiesInscrit = new SortiesInscrit($sorties, $user);
+            if ($_POST['inscrit'] === 'inscrit') {
+                // Le service 'sortiesInscrit' remplace par 'false' toutes les sorties où l'utilisateur
+                // n'est pas inscrit.
+                $sorties = $sortiesInscrit->sortiesInscrit($entityManager);
+            } else {
+                // Autrement la méthode 'sortiesNonInscrit' remplace par 'false' toutes les sorties où
+                // l'utilisateur est inscrit.
+                $sorties = $sortiesInscrit->sortiesNonInscrit($entityManager);
+            }
         }
 
         $sorties = array_filter($sorties);

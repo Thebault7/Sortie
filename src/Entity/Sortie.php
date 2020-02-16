@@ -120,11 +120,6 @@ class Sortie
      */
     private $participant;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participants", mappedBy="sortie")
-     */
-    private $participants;
-
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -251,37 +246,6 @@ class Sortie
     public function setParticipant(?Participant $participant): self
     {
         $this->participant = $participant;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Participants[]
-     */
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-
-    public function addParticipant(Participants $participant): self
-    {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->setSortie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Participants $participant): self
-    {
-        if ($this->participants->contains($participant)) {
-            $this->participants->removeElement($participant);
-            // set the owning side to null (unless already changed)
-            if ($participant->getSortie() === $this) {
-                $participant->setSortie(null);
-            }
-        }
 
         return $this;
     }
