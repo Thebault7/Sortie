@@ -84,11 +84,19 @@ class SortieController extends Controller
 
         $participants = $sortie->getParticipants();
 
+        // si le participant essaie de s'incrire une 2eme fois a la sortie
         foreach ($participants as $participant){
             if($participant->getId() === $user->getId()){
                 $this->addFlash('warning', 'Vous êtes déjà inscrit à cette sortie!');
-                return $this->redirectToRoute('accueil');
+                return $this->redirectToRoute('sortie_afficher', compact('id'));
             }
+        }
+
+        //si le nombre d'inscriptions max a été atteint
+        $nbInscripMax = $sortie->getNbInscriptionMax();
+        if(count($participants) >= $nbInscripMax ){
+            $this->addFlash('danger', 'Le nombre maximal d\'inscriptions a dèjà été atteint!');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
         }
 
         $sortie->addParticipant($user);
