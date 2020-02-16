@@ -92,6 +92,7 @@ class ParticipantController extends Controller
                 $entityManager->persist($user);
                 $entityManager->flush();
 
+
                 $this->addFlash("success", "Modification du profil réussie.");
                 return $this->redirectToRoute('afficherprofil');
 

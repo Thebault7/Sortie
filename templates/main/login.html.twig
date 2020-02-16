@@ -24,6 +24,9 @@
 
 
         <form action="{{ path('login') }}" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
             <div class="contact_form-container">
                 <div class="row">
                     <label for="login">Login (mail ou pseudo) :</label>

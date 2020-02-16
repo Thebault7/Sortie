@@ -10,7 +10,7 @@
             <div class="row mt-1 mb-2">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert-{{ label }} mx-auto">
+                    <div class="alert alert-{{ label }} mx-auto" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -28,7 +28,7 @@
         <div class="col-md-8 mx-auto">
 
 
-            {% if user.photo is not empty %}
+            {% if user.photo is not null %}
                 <div class="row mt-1 mb-2">
                     <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~user.photo) }}" alt="" style="border-radius:50%; width: 200px">
                 </div>
@@ -38,13 +38,13 @@
             <div class="contact_form-container">
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.pseudo) }}
+                        <label>Pseudo : </label>
                         {{ form_widget(ModifProfilForm.pseudo) }}
                         {{ form_errors(ModifProfilForm.pseudo) }}
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.site) }}
+                        <label>Nom du site : </label>
                         {{ form_widget(ModifProfilForm.site) }}
                         {{ form_errors(ModifProfilForm.site) }}
                     </div>
@@ -52,13 +52,13 @@
 
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.nom) }}
+                        <label>Nom : </label>
                         {{ form_widget(ModifProfilForm.nom) }}
                         {{ form_errors(ModifProfilForm.nom) }}
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.prenom) }}
+                        <label>Prénom : </label>
                         {{ form_widget(ModifProfilForm.prenom) }}
                         {{ form_errors(ModifProfilForm.prenom) }}
                     </div>
@@ -66,13 +66,13 @@
 
                 <div class="row mt-1" >
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.telephone) }}
+                        <label>Téléphone : </label>
                         {{ form_widget(ModifProfilForm.telephone) }}
                         {{ form_errors(ModifProfilForm.telephone) }}
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.mail) }}
+                        <label>E-mail : </label>
                         {{ form_widget(ModifProfilForm.mail) }}
                         {{ form_errors(ModifProfilForm.mail) }}
                     </div>
@@ -80,13 +80,13 @@
 
                 <div class="row mt-1">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.password.first) }}
+                        <label>Mot de passe : </label>
                         {{ form_widget(ModifProfilForm.password.first) }}
                         {{ form_errors(ModifProfilForm.password.first) }}
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.password.second) }}
+                        <label>Confirmation du mot de passe : </label>
                         {{ form_widget(ModifProfilForm.password.second) }}
                         {{ form_errors(ModifProfilForm.password.second) }}
                     </div>
@@ -94,7 +94,7 @@
 
                 <div class="row mt-2">
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        {{ form_label(ModifProfilForm.photo) }}
+                        <label>Ma photo : </label>
                         {{ form_widget(ModifProfilForm.photo) }}
                         {{ form_errors(ModifProfilForm.photo) }}
                     </div>

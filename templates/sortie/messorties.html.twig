@@ -12,8 +12,9 @@
                 {% set i = 0 %}
                 {%  for label, messages in app.flashes %}
                     {% for message in messages %}
-
-                        <div class="alert-{{ label }} mx-auto"> {{ message }}</div>
+                        <div class="alert alert-{{ label }} mx-auto" role="alert">
+                            {{ message }}
+                        </div>
                     {%  endfor %}
                 {%  endfor %}
             </div>
@@ -21,6 +22,14 @@
 
             <div class="heading_container">
                 <h2>Liste de mes sorties</h2>
+            </div>
+
+
+            <div class="row">
+                <h6><span clas="font-weight-bold">Sortie dont je suis l'organisateur/trice</span></h6>
+            </div>
+            <div class="row">
+                <h6><span clas="font-weight-bold">Sortie auxquelles je suis inscrite</span></h6>
             </div>
 
 
