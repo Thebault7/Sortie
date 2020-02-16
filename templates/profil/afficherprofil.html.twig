@@ -6,6 +6,13 @@
     <section class="contact_section layout_padding mt-0 pt-5">
     <div class="container">
 
+        <!-- titre de la page-->
+        <div class="heading_container mb-0 pb-0">
+            <h2>
+                Mon profil
+            </h2>
+        </div>
+
         {% if participant.photo is not null %}
         <div class="row mt-1 mb-2">
             <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~participant.photo) }}" alt="" style="border-radius:50%; width: 200px">

@@ -68,7 +68,7 @@ afficher une sortie
                                 </thead>
                                 <tbody>
 
-                                {% if sortie.participants is same as ([]) %}
+                                {% if sortie.participants|length is same as(0) %}
                                     <tr>
                                         <td colspan="2">
                                             <p>Aucun participant inscrit.</p>

@@ -42,7 +42,8 @@ class RegistrationController extends Controller
                     $motDePasse
                 )
             );
-            
+
+            $participant->setPhoto(null);
             // mise en base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
