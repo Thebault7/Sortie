@@ -120,6 +120,11 @@ class Sortie
      */
     private $participant;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Participant", mappedBy="inscrit")
+     */
+    private $participants;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -246,6 +251,34 @@ class Sortie
     public function setParticipant(?Participant $participant): self
     {
         $this->participant = $participant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->addInscrit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->contains($participant)) {
+            $this->participants->removeElement($participant);
+            $participant->removeInscrit($this);
+        }
 
         return $this;
     }

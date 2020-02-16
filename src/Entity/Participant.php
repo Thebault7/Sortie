@@ -85,7 +85,6 @@ class Participant implements UserInterface
     {
         $this->organisateur = new ArrayCollection();
         $this->inscrit = new ArrayCollection();
-        $this->participants = new ArrayCollection();
     }
 
     public function setId(int $id): self

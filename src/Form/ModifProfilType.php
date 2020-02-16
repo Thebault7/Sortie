@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,11 +27,11 @@ class ModifProfilType extends AbstractType
             ->add('mail',  EmailType::class, ['label' => 'Email :'])
             ->add('password',   RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les deux mots de passe rentrés sont différents.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password']])
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmation du mot de passe']])
             ->add('site',  EntityType::class, ['class' => Site::class, 'choice_label' => 'nom', 'label' => 'Nom du site : '])
             ->add('photo', FileType::class, [
                 'label' => 'Ma photo (format .jpg/.jpeg/.png) : ',
@@ -58,8 +57,7 @@ class ModifProfilType extends AbstractType
                     ])
                 ],
             ])
-            ->add('save',    SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('cancel',    SubmitType::class, ['label' => 'Annuler'])
+            //->add('save',    SubmitType::class, ['label' => 'Enregistrer'])
 
         ;
     }
