@@ -28,7 +28,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}" />
 
     <!-- fonts style -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 
 
     <!-- Custom styles for this template -->
@@ -59,7 +60,18 @@
             padding: 20px;
             border: 1px solid #0fcfdc;
             margin: 0 25px;
+        }
 
+        .fa-plus-square{
+            color: #0fcfdc;
+        }
+
+        .fa-plus-square:hover {
+            color: #2a2132
+        }
+
+        p{
+            font-family: 'Poppins', sans-serif;
         }
 
     </style>
@@ -74,9 +86,19 @@
 {% include 'includes/navbar.html.twig' %}
                 </div>
             </div>
+
         </div>
     </header>
 </div>
+<div class="row ml-0 mr-0 d.flex flex-row-reverse " style="background-color: #F8F8F8;">
+    {% if app.user %}
+        <p class="mr-1 mb-0 pb-1 pt-1 align-self-center">
+            Bienvenue <span class="font-weight-bold">{{ app.user.prenom }} {{ app.user.nom }}</span>!
+            Date du jour : <span class="font-weight-bold">{{ 'now'|localizeddate('none', 'none', 'fr', null, 'd MMMM Y') }}</span>!
+        </p>
+    {% endif %}
+</div>
+
 
 <main>
     <div class="container-fluid">
