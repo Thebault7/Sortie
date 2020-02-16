@@ -18,8 +18,12 @@ class ContientUser
     {
         $contientUser = false;
 
-        $participantsRepository = $entityManager->getRepository(Participants::class);
-        $listParticipants = $participantsRepository->findAll();
+        $listParticipants = $this->sortie->getParticipants();
+
+        dump($listParticipants);
+        die();
+//        $participantsRepository = $entityManager->getRepository(Participants::class);
+//        $listParticipants = $participantsRepository->findAll();
 
         for ($j = 0; $j < count($listParticipants); $j++) {
             if ($listParticipants[$j]->getSortie()->getId() === $this->sortie->getId()
