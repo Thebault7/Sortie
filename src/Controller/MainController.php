@@ -15,6 +15,7 @@ use App\Services\ContientUser;
 use App\Services\NomSortieFiltre;
 use App\Services\DateDebutFiltre;
 use App\Services\DateFinFiltre;
+use App\Services\SiteFiltre;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -157,6 +158,12 @@ class MainController extends Controller
             // on filtre par date de fin
             $dateFinFiltre = new DateFinFiltre($sorties, $_POST['date_fin']);
             $sorties = $dateFinFiltre->dateFinFiltre();
+        }
+
+        if ($_POST['select_sites'] !== "tous_sites") {
+            // on filtre sur les sites
+            $siteFiltre = new SiteFiltre($sorties, $_POST['select_sites']);
+            $sorties = $siteFiltre->siteFiltre();
         }
 
         $sorties = array_filter($sorties);

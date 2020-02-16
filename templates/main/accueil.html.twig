@@ -31,7 +31,7 @@
                                     <label for="site" class="font-weight-bold">Site :</label>
                                 </div>
                                 <div class="col-7">
-                                    <select>
+                                    <select id="select_sites" name="select_sites">
                                         <option id="tous_sites" value="tous_sites">Tous les sites</option>
                                         {% for site in sites %}
                                             <option id="site_{{ site.id }}" value="{{ site.id }}">
@@ -116,7 +116,7 @@
                             </fieldset>
 
                             <div class="">
-                                <button type="submit" class="bouton1 mx-auto"
+                                <button type="submit" id="rechercher" class="bouton1 mx-auto"
                                         name="rechercher">Rechercher
                                 </button>
                             </div>
@@ -161,12 +161,16 @@
 
 {% block javascripts %}
     <script>
+        // Sélectionne dans la liste déroulante à l'ouverture de la page le site qui correspond
+        // à l'utilisateur.
         function selected() {
             document.getElementById("site_{{ user.site.id }}").setAttribute('selected', 'selected')
         }
 
         selected();
 
+        // Permet de raffraîchir automatiquement la liste des sorties quand l'utilisateur change
+        // de site site sélectionné dans la liste déroulante.
         document.querySelector("select").addEventListener("change", function () {
             $.ajax({
                 url: "http://localhost/sortie/public/",
@@ -176,6 +180,7 @@
             });
         }, false);
 
+        // Partie de JavaScript qui gère les boutons radio, à savoir quand ls sont actifs ou non.
         document.getElementById("radio_inscript_check").addEventListener("change", function () {
             if (document.getElementById("radio_inscript_check").checked === true) {
                 document.getElementById("radio_inscript_oui").disabled = false;
