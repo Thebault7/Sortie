@@ -12,7 +12,7 @@
                 Modifier une sortie
             </h2>
         </div>
-<!--value="{{ sortieFormView.vars.data.nom }}" -->
+
         <div class="">
             <div class="row">
                 <div class="col-md-8 mx-auto">
@@ -97,7 +97,7 @@
                                 {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'bouton1'}  }) }}
                             </div>
                             <div class="ml-1 mr-1">
-                              {#  <a class="bouton1" href="{{ path('sortie_supprimer', {'id': sortieModifiee.id}) }}">Supprimer</a>#}
+                              <a class="bouton1" href="{{ path('sortie_supprimer', {'id': id}) }}">Supprimer</a>
                             </div>
                             <div class="ml-1 mr-1">
                                 <a class="bouton1" href="{{ path('accueil') }}">Annuler</a>

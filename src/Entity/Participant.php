@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantRepository")
- * @UniqueEntity(fields={"mail"}, message="Un compte avec le même email existe déjà.")
+ * @UniqueEntity(fields={"mail", "pseudo"}, message="Un compte avec les mêmes identifiants existe déjà.")
  */
 class Participant implements UserInterface
 {
@@ -38,6 +39,7 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Email
      */
     private $mail;
 
