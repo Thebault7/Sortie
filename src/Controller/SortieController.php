@@ -82,12 +82,49 @@ class SortieController extends Controller
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
 
+        $participants = $sortie->getParticipants();
+
+        foreach ($participants as $participant){
+            if($participant->getId() === $user->getId()){
+                $this->addFlash('warning', 'Vous êtes déjà inscrit à cette sortie!');
+                return $this->redirectToRoute('accueil');
+            }
+        }
+
         $sortie->addParticipant($user);
         $entityManager->persist($sortie);
         $entityManager->flush();
         $this->addFlash('success', 'Votre inscription a été prise en compte!');
-        return $this->redirectToRoute('accueil');
+        return $this->redirectToRoute('sortie_afficher', compact('id'));
     }
+
+    /**
+     * @Route("/desister/{id}", name="desister", requirements={"id": "\d+"})
+     */
+    public function desister($id, EntityManagerInterface $entityManager){
+
+        $user = $this->getUser();
+
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        // verifier si le user est bien inscrit a cette sortie avant de le supprimer de la liste
+        $participants = $sortie->getParticipants();
+
+        if($participants->contains($user)){
+            // suppression de participant
+            $sortie->removeParticipant($user);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre désistement a été pris en compte!');
+        }else{
+            $this->addFlash('danger', 'Vous ne pouvez pas désister car vous ne participez pas à cette sortie!');
+        }
+
+        return $this->redirectToRoute('sortie_afficher', compact('id'));
+    }
+
 
     /**
      * @Route("/supprimer/{id}", name="supprimer", requirements={"id": "\d+"})
@@ -141,7 +178,7 @@ class SortieController extends Controller
             return $this->redirectToRoute("accueil");
         }
 
-        return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site, 'id'=>$id]);
+        return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site, 'sortie'=>$sortie]);
 
     }
 }

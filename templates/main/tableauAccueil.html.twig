@@ -11,6 +11,7 @@
     </tr>
 {% endfor %}
 
+{# commenté car on aurait affiché les erreurs sur la page d'accueil 2 fois
 <!-- affichage des messages d'erreur ci-dessous : -->
 {% for label, messages in app.flashes %}
     {% for message in messages %}
@@ -19,3 +20,4 @@
         </div>
     {% endfor %}
 {% endfor %}
+#}

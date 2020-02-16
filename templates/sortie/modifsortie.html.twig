@@ -27,22 +27,22 @@
                                 </div>
                                 <div class="mt-3">
                                     <label>Date limite d'inscription :</label>
-                                    {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': ''} }) }}
+                                    {{ form_widget(sortieFormView.dateLimiteInscription) }}
                                     {{ form_errors(sortieFormView.dateLimiteInscription) }}
                                 </div>
                                 <div class="mt-3">
                                     <label>Date et heure de la sortie : </label>
-                                    {{ form_widget(sortieFormView.dateHeureDebut, {'attr': {'class': ''} }) }}
+                                    {{ form_widget(sortieFormView.dateHeureDebut) }}
                                     {{ form_errors(sortieFormView.dateHeureDebut) }}
                                 </div>
                                 <div class="mt-3">
                                     <label>Nombre de places : </label>
-                                    {{ form_widget(sortieFormView.nbInscriptionMax, {'attr': {'class': ''} }) }}
+                                    {{ form_widget(sortieFormView.nbInscriptionMax) }}
                                     {{ form_errors(sortieFormView.nbInscriptionMax) }}
                                 </div>
                                 <div class="mt-3">
                                     <label>Durée (minutes) : </label>
-                                    {{ form_widget(sortieFormView.duree, {'attr': {'class': ''} }) }}
+                                    {{ form_widget(sortieFormView.duree) }}
                                     {{ form_errors(sortieFormView.duree) }}
                                 </div>
                             </div>
@@ -58,18 +58,18 @@
                                     <div class="row">
                                         <div class="col-9">
 
-                                            <select class="form-control" id="supervisor">
+
                                                 {% for lieu in sortieFormView.lieuListe %}
-                                                    <p>ff</p>
-                                                    {% set selected = '' %}
+
+                                                    {{ form_label(lieu.nom) }}
+                                                   {# {% set selected = '' %}
                                                     {% if lieu.nom == sortieFormView.nom %}
                                                         {% set selected = 'selected' %}
-                                                    {% endif %}
-                                                    <option value="{{ lieu.nom }}" {{ selected }}>--</option>
+                                                    {% endif %}#}
                                                 {% endfor %}
-                                            </select>
+
                                             {##}
-                                            {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': ''} })}}
+                                            {{ form_widget(sortieFormView.lieuListe)}}
                                             {{ form_errors(sortieFormView.lieuListe) }}
                                         </div>
                                         <div class="col-2">
@@ -80,7 +80,7 @@
 
                                 <div class="mt-3">
                                     <label>Descriptions et infos : </label>
-                                    {{ form_widget(sortieFormView.infosSortie, {'attr': {'class': '', 'rows': '6', 'cols': '5'} }) }}
+                                    {{ form_widget(sortieFormView.infosSortie, {'attr': {'rows': '6', 'cols': '5'} }) }}
                                     {{ form_errors(sortieFormView.infosSortie) }}
                                 </div>
 
@@ -97,7 +97,9 @@
                                 {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'bouton1'}  }) }}
                             </div>
                             <div class="ml-1 mr-1">
-                              <a class="bouton1" href="{{ path('sortie_supprimer', {'id': id}) }}">Supprimer</a>
+                                {% if sortie.participant.mail is same as(app.user.mail) and sortie.etat.libelle is same as("Créé") %}
+                                    <a class="bouton1" href="{{ path('sortie_supprimer', {'id': sortie.id}) }}">Supprimer</a>
+                                {% endif %}
                             </div>
                             <div class="ml-1 mr-1">
                                 <a class="bouton1" href="{{ path('accueil') }}">Annuler</a>
