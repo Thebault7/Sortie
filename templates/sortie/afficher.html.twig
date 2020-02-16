@@ -15,22 +15,29 @@ afficher une sortie
             <div>
                 <div class="row">
                     <div class="col-10 col-sm-10 col-md-6 col-lg-6">
-
+                        <div class="row">
+                            <div class="col-6">Organisateur : </div>
+                            <div class="col-6">{{ sortie.participant.prenom }} {{ sortie.participant.nom }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">Etat : </div>
+                            <div class="col-6">{{ sortie.etat.libelle }}</div>
+                        </div>
                         <div class="row">
                             <div class="col-6">Date de la sortie : </div>
-                            <div class="col-6">{{ sortie.dateHeureDebut|date("d/m/Y") }}</div>
+                            <div class="col-6">{{ sortie.dateHeureDebut|date("d/m/Y H:i:s") }}</div>
                         </div>
                         <div class="row">
                             <div class="col-6">Date limite d'inscriptions : </div>
-                            <div class="col-6">{{ sortie.dateLimiteInscription|date("d/m/Y") }}</div>
+                            <div class="col-6">{{ sortie.dateLimiteInscription|date("d/m/Y H:i:s") }}</div>
                         </div>
                         <div class="row">
                             <div class="col-6">Nombre de places : </div>
-                            <div class="col-6">{{ sortie.nbInscriptionMax}}</div>
+                            <div class="col-6">{{ sortie.nbInscriptionMax}} places</div>
                         </div>
                         <div class="row">
                             <div class="col-6">Durée : </div>
-                            <div class="col-6">{{ sortie.duree }}</div>
+                            <div class="col-6">{{ sortie.duree }} minutes </div>
                         </div>
                         <div class="row">
                             {% if sortie.infosSortie is not null %}
@@ -110,14 +117,21 @@ afficher une sortie
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="mx-auto">
-                <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1">
-                    Modifier
-                </a>
-                <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1 ">
-                    S'inscrire
-                </a>
+                    {% if sortie.participant.mail is same as(app.user.mail) and sortie.etat.libelle is same as("Créé") %}
+                        <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1">
+                            Modifier
+                        </a>
+                    {% endif %}
+                 {% if sortie.dateLimiteInscription|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
+                     and sortie.etat.libelle is same as("Ouvert") and sortie.participant.mail is not same as(app.user.mail)%}
+                    <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1 ">
+                        S'inscrire
+                    </a>
+                {% endif %}
+                    <a href="{{ path('accueil') }}" class="ml-1 mr-1 bouton1">Retour</a>
                 </div>
             </div>
         </div>

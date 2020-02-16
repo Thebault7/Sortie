@@ -69,7 +69,7 @@ class SortieController extends Controller
      */
     public function afficherSortie($id, EntityManagerInterface $entityManager){
             $sortieRepository = $entityManager->getRepository(Sortie::class);
-            $sortie = $sortieRepository->find(1); //find($id);
+            $sortie = $sortieRepository->find(2); //find($id);
             return $this->render('sortie/afficher.html.twig', compact('sortie'));
     }
 
@@ -93,6 +93,7 @@ class SortieController extends Controller
      * @Route("/supprimer/{id}", name="supprimer", requirements={"id": "\d+"})
      */
     public function supprimer($id, EntityManagerInterface $entityManager){
+        die();
         return $this->render('sortie/supprimer.html.twig', compact('sortie'));
     }
 
@@ -140,7 +141,7 @@ class SortieController extends Controller
             return $this->redirectToRoute("accueil");
         }
 
-        return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
+        return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site, 'id'=>$id]);
 
     }
 }
