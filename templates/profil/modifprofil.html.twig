@@ -28,7 +28,7 @@
         <div class="col-md-8 mx-auto">
 
 
-            {% if user.photo is not null %}
+            {% if user.photo is not empty %}
                 <div class="row mt-1 mb-2">
                     <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~user.photo) }}" alt="" style="border-radius:50%; width: 200px">
                 </div>
@@ -117,10 +117,11 @@
         </div>
     </section>
 
-
     <script>
-        let legend = document.getElementsByTagName('legend')[0];
-        legend.textContent = "";
+        /*
+
+    let legend = document.getElementsByTagName('legend')[0];
+   legend.textContent = " ";*/
 
 
     </script>

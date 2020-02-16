@@ -57,7 +57,7 @@
                                     <label>Lieu : </label>
                                     <div class="row">
                                         <div class="col-9">
-                                            {#
+
                                             <select class="form-control" id="supervisor">
                                                 {% for lieu in sortieFormView.lieuListe %}
                                                     <p>ff</p>
@@ -68,7 +68,7 @@
                                                     <option value="{{ lieu.nom }}" {{ selected }}>--</option>
                                                 {% endfor %}
                                             </select>
-#}
+                                            {##}
                                             {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': ''} })}}
                                             {{ form_errors(sortieFormView.lieuListe) }}
                                         </div>

@@ -63,8 +63,6 @@ body {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   z-index: 1;
-  background-image: url(../images/heading-img.png);
-  background-repeat: no-repeat;
 }
 
 /*header section*/

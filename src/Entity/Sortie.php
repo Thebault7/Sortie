@@ -121,7 +121,7 @@ class Sortie
     private $participant;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participants", mappedBy="sortie")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Participant", mappedBy="inscrit")
      */
     private $participants;
 
@@ -256,31 +256,28 @@ class Sortie
     }
 
     /**
-     * @return Collection|Participants[]
+     * @return Collection|Participant[]
      */
     public function getParticipants(): Collection
     {
         return $this->participants;
     }
 
-    public function addParticipant(Participants $participant): self
+    public function addParticipant(Participant $participant): self
     {
         if (!$this->participants->contains($participant)) {
             $this->participants[] = $participant;
-            $participant->setSortie($this);
+            $participant->addInscrit($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participants $participant): self
+    public function removeParticipant(Participant $participant): self
     {
         if ($this->participants->contains($participant)) {
             $this->participants->removeElement($participant);
-            // set the owning side to null (unless already changed)
-            if ($participant->getSortie() === $this) {
-                $participant->setSortie(null);
-            }
+            $participant->removeInscrit($this);
         }
 
         return $this;
