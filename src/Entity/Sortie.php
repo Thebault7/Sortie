@@ -25,8 +25,8 @@ class Sortie
      * @Assert\Length(
      *     min=2,
      *     max=50,
-     *     minMessage="Le champ 'description et infos' accepte au minimim 2 caractères",
-     *     maxMessage="Le champ 'description et infos' accepte au maximum 50 caractères"
+     *     minMessage="Le champ 'description et infos' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'description et infos' accepte au maximum {{ limit }} caractères"
      * )
      */
     private $nom;
@@ -38,7 +38,7 @@ class Sortie
      *      type = "\DateTime",
      *      message = "Date et heure de la sortie doit être conforme au format date",
      * )
-     * @Assert\GreaterThan("+3 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ value }}")
+     * @Assert\GreaterThan("+4 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ compared_value }}")
      * @Assert\Expression(
      *     "this.getDateLimiteInscription() < this.getDateHeureDebut()",
      *     message="La date limite d'incriptions doit être inférieure à la date de début de la sortie"
@@ -70,7 +70,7 @@ class Sortie
      *      type = "\DateTime",
      *      message = "Date et heure de la limite d'inscriptions doit être conforme au format date",
      * )
-
+     * @Assert\GreaterThanOrEqual("+2 minutes", message="La date et heure d'inscriptions à la sortie doivent être supérieures à {{ compared_value }}")
      */
     private $dateLimiteInscription; //* @Assert\GreaterThan("+2 minutes", message="La date et heure de début de la sortie doit être supérieure à {{ value }}")
 

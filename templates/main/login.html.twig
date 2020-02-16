@@ -24,6 +24,9 @@
 
 
         <form action="{{ path('login') }}" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
             <div class="contact_form-container">
                 <div class="row">
                     <label for="login">Login (mail ou pseudo) :</label>
@@ -38,7 +41,7 @@
                         <input type="checkbox" id="remember_me" name="_remember_me" checked/>
                     </div>
                     <div class="col-10">
-                        <label for="remember_me">Rester connecté ?</label>
+                        <label for="remember_me">Se souvenir de moi</label>
                     </div>
 
                 </div>

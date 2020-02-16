@@ -25,7 +25,7 @@
                                         {{ form_errors(sortieFormView.nom) }}
                                     </div>
                                     <div class="mt-3">
-                                        <label>Date limite d'inscription :</label>
+                                        <label>Date limite d'inscriptions :</label>
                                         {{ form_widget(sortieFormView.dateLimiteInscription, {'attr': {'class': ''} }) }}
                                         {{ form_errors(sortieFormView.dateLimiteInscription) }}
                                     </div>
@@ -140,7 +140,7 @@
                 });
         });
 
-
+/*
         let listeLieu = document.getElementById('sortie_lieuListe');
         let villeListe = document.getElementById('sortie_lieu_villeListe');
         let nomLieu = document.getElementById('sortie_lieu_nom');
@@ -195,7 +195,7 @@
             }
         }
 
-
+*/
         let legend = document.getElementsByTagName("legend");
         for (let legendElement of legend) {
             legendElement.textContent = "";

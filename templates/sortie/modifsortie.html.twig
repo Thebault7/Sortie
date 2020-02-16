@@ -88,22 +88,24 @@
 
                         </div>
 
-                        <div class="d-flex justify-content-center ">
+                        <div class="row "> <!--justify-content-center -->
                             <!-- boutons -->
-                            <div class="ml-1 mr-1">
-                                {{ form_widget(sortieFormView.creer, { 'label': 'Enregistrer', 'attr': {'class': 'bouton1'}  }) }}
-                            </div>
-                            <div class="ml-1 mr-1">
-                                {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'bouton1'}  }) }}
-                            </div>
-                            <div class="ml-1 mr-1">
-                                {% if sortie.participant.mail is same as(app.user.mail) and sortie.etat.libelle is same as("Créé") %}
-                                    <a class="bouton1" href="{{ path('sortie_supprimer', {'id': sortie.id}) }}">Supprimer</a>
-                                {% endif %}
-                            </div>
-                            <div class="ml-1 mr-1">
-                                <a class="bouton1" href="{{ path('accueil') }}">Annuler</a>
-                            </div>
+
+                                <div class="col-12 col-sm-12 col-md-3  d-flex justify-content-center">
+                                    {{ form_widget(sortieFormView.creer, { 'label': 'Enregistrer', 'attr': {'class': 'bouton1'}  }) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-3  d-flex justify-content-center">
+                                    {{ form_widget(sortieFormView.publier, { 'label': 'Publier', 'attr': {'class': 'bouton1'}  }) }}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-3  d-flex justify-content-center">
+                                    {% if sortie.participant.mail is same as(app.user.mail) and sortie.etat.libelle is same as("Créé") %}
+                                        <a class="bouton1" href="{{ path('sortie_supprimer', {'id': sortie.id}) }}">Supprimer</a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-3 d-flex justify-content-center">
+                                    <a class="bouton1" href="{{ path('accueil') }}">Annuler</a>
+                                </div>
+
                         </div>
                     </div>
                     {{ form_end(sortieFormView) }}
