@@ -4,7 +4,7 @@
 namespace App\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Participants;
+use App\Entity\Sortie;
 
 class ContientUser
 {
@@ -18,12 +18,10 @@ class ContientUser
     {
         $contientUser = false;
 
-        $participantsRepository = $entityManager->getRepository(Participants::class);
-        $listParticipants = $participantsRepository->findAll();
+        $listParticipants = $this->sortie->getParticipants();
 
         for ($j = 0; $j < count($listParticipants); $j++) {
-            if ($listParticipants[$j]->getSortie()->getId() === $this->sortie->getId()
-                && $listParticipants[$j]->getParticipant()->getId() === $this->user->getId()) {
+            if ($listParticipants[$j]->getId() === $this->user->getId()) {
                 $contientUser = true;
             }
         }

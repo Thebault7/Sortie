@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block body %}
+
     <section class="contact_section layout_padding mt-0 pt-5">
         <div class="container">
 
             <div class="row">
                 {% set i = 0 %}
-                {%  for label, messages in app.flashes %}
+                {% for label, messages in app.flashes %}
                     {% for message in messages %}
-
                         <div class="alert-{{ label }} mx-auto"> {{ message }}</div>
-                    {%  endfor %}
-                {%  endfor %}
+                    {% endfor %}
+                {% endfor %}
             </div>
 
             <div class="">
@@ -24,51 +24,50 @@
 
             <form action="{{ path('recherche') }}" method="post">
                 <div class="contact_form-container">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <div class="row">
-                            <div class="col-5">
-                                <label for="site" class="font-weight-bold">Site :</label>
-                            </div>
-                            <div class="col-7">
-                                <select>
-                                    <option id="tous_sites" value="tous_sites">Tous les sites</option>
-                                    {% for site in sites %}
-                                        <option id="site_{{ site.id }}" value="{{ site.id }}">
-                                            {{ site.nom }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="row">
                                 <div class="col-5">
-                                    <label for="nom_sortie" class="font-weight-bold">Le nom contient :</label>
+                                    <label for="site" class="font-weight-bold">Site :</label>
                                 </div>
-                                <div class="col-6">
-                                <input type="text"
-                                       id="nom"
-                                       name="nom_sortie">
+                                <div class="col-7">
+                                    <select>
+                                        <option id="tous_sites" value="tous_sites">Tous les sites</option>
+                                        {% for site in sites %}
+                                            <option id="site_{{ site.id }}" value="{{ site.id }}">
+                                                {{ site.nom }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <label for="nom_sortie" class="font-weight-bold">Le nom contient :</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" id="nom" name="nom_sortie">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <span class="font-weight-bold">Entre :</span>
+                                        <input type="date" id="date_debut" name="date_debut">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <span class="font-weight-bold"> et :</span>
+                                        <input type="date" class="input1 form-control" id="date_fin" name="date_fin">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                    <span class="font-weight-bold">Entre :</span> <input type="date" id="date_debut" name="date_debut">
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                    <span class="font-weight-bold">
-                                    et :</span>
-                                    <input type="date" class="input1 form-control" id="date_fin" name="date_fin">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="row">
+
                                 <div class="col-2">
                                     <input type="checkbox" name="organisateur">
                                 </div>
@@ -76,85 +75,87 @@
                                     <label for="organisateur">Sorties dont je suis l'organisateur/trice</label>
                                 </div>
                             </div>
-
-                        <div class="row">
-                            <div class="col-2">
-                                <input type="checkbox" name="passees" value="passees">
+                            <div class="row">
+                                <div class="col-2">
+                                    <input type="checkbox" name="passees" value="passees">
+                                </div>
+                                <div class="col-10">
+                                    <label for="passees">Sorties passées</label>
+                                </div>
                             </div>
-                            <div class="col-10">
-                                <label for="passees">Sorties passées</label>
+
+                            <fieldset class="border p-2">
+                                <legend class="w-auto" style="font-size: 16px">Inscript ?</legend>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="checkbox" id="radio_inscript_check" name="inscript_activate"
+                                               value="inscript_activate">
+                                    </div>
+                                    <div class="col-10">
+                                        <label for="inscript_activate">Activer l'option ci-dessous</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="radio" id="radio_inscript_oui" name="inscrit" value="inscrit"
+                                               disabled checked>
+                                    </div>
+                                    <div class="col-10">
+                                        <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="radio" id="radio_inscript_non" name="inscrit" value="pas_inscrit"
+                                               disabled>
+                                    </div>
+                                    <div class="col-10">
+                                        <label for="pas_inscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="">
+                                <button type="submit" class="bouton1 mx-auto"
+                                        name="rechercher">Rechercher
+                                </button>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-2">
-                                <input type="radio" name="inscrit" value="inscrit" checked>
-                            </div>
-                            <div class="col-10">
-                                <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
-                            </div>
-                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-2">
-                                <input type="radio" name="inscrit" value="pas_inscrit">
-                            </div>
-                            <div class="col-10">
-                                <label for="pas_inscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
-                            </div>
-                        </div>
+                    <div class="container table-wrapper-scroll-y my-custom-scrollbar"
+                         style="position: relative; height: 200px; width: 100%; overflow: auto">
 
-                        <div class="">
-                            <button type="submit" class="bouton1 mx-auto"
-                                    name="rechercher">Rechercher
-                            </button>
-                        </div>
+                        <br>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Nom de la sortie</th>
+                                <th>Date de la sortie</th>
+                                <th>clôture</th>
+                                <th>Inscrits/places</th>
+                                <th>Etat</th>
+                                <th>Inscrit</th>
+                                <th>Organisateur</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="corps_tableau">
+                            {% include 'main/tableauAccueil.html.twig' %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="bouton1" name="creer">Créer une sortie
+                        </button>
                     </div>
                 </div>
-
-
-
-                <div class="container table-wrapper-scroll-y my-custom-scrollbar"
-                     style="position: relative; height: 200px; width: 100%; overflow: auto">
-                    <br>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Nom de la sortie</th>
-                            <th>Date de la sortie</th>
-                            <th>clôture</th>
-                            <th>Inscrits/places</th>
-                            <th>Etat</th>
-                            <th>Inscrit</th>
-                            <th>Organisateur</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody id="corps_tableau">
-                        {% include 'main/tableauAccueil.html.twig' %}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div>
-                    <button type="submit" class="bouton1" name="creer">Créer une sortie
-                    </button>
-                </div>
-                </div>
             </form>
-
-
         </div>
     </section>
-
-
-
-
-
-
-
-
-
 
 {% endblock %}
 
@@ -174,6 +175,16 @@
                 document.getElementById("corps_tableau").innerHTML = response;
             });
         }, false);
+
+        document.getElementById("radio_inscript_check").addEventListener("change", function () {
+            if (document.getElementById("radio_inscript_check").checked === true) {
+                document.getElementById("radio_inscript_oui").disabled = false;
+                document.getElementById("radio_inscript_non").disabled = false;
+            } else {
+                document.getElementById("radio_inscript_oui").disabled = true;
+                document.getElementById("radio_inscript_non").disabled = true;
+            }
+        });
 
     </script>
 {% endblock %}
