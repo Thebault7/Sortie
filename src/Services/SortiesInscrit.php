@@ -32,7 +32,7 @@ class SortiesInscrit
         return $tableauFinal;
     }
 
-    public function sortiesNonInscrit($entityManager)
+    public function sortiesNonInscrit()
     {
         $tableauFinal = [];
         for ($i = 0; $i < count($this->sorties); $i++) {
@@ -40,7 +40,7 @@ class SortiesInscrit
                 $tableauFinal[$i] = false;
             } else {
                 $contientUserClass = new ContientUser($this->sorties[$i], $this->user);
-                $contientUser = $contientUserClass->contientUser($entityManager);
+                $contientUser = $contientUserClass->contientUser();
                 if ($contientUser) {
                     $tableauFinal[$i] = false;
                 } else {

@@ -1,24 +1,24 @@
 <?php
 
-// src/Service/OrganisateurFilter.php
+// src/Service/DateDebutFiltre.php
 namespace App\Services;
 
-class OrganisateurFilter
+class DateDebutFiltre
 {
-    public function __construct($sorties, $user)
+    public function __construct($sorties, $dateDebut)
     {
         $this->sorties = $sorties;
-        $this->user = $user;
+        $this->dateDebut = $dateDebut;
     }
 
-    function organisateur()
+    public function dateDebutFiltre()
     {
         $tableauFinal = [];
         for ($i = 0; $i < count($this->sorties); $i++) {
             if ($this->sorties[$i] === false) {
                 $tableauFinal[$i] = false;
             } else {
-                if ($this->sorties[$i]->getParticipant()->getId() === $this->user->getId()) {
+                if ($this->dateDebut <= date_format($this->sorties[$i]->getDateHeureDebut(), "Y-m-d")) {
                     $tableauFinal[$i] = $this->sorties[$i];
                 } else {
                     $tableauFinal[$i] = false;

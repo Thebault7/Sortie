@@ -12,6 +12,9 @@ use App\Services\OrganisateurFilter;
 use App\Services\SortiesPassees;
 use App\Services\SortiesInscrit;
 use App\Services\ContientUser;
+use App\Services\NomSortieFiltre;
+use App\Services\DateDebutFiltre;
+use App\Services\DateFinFiltre;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,6 +92,13 @@ class MainController extends Controller
      */
     public function recherche(Request $request, EntityManagerInterface $entityManager)
     {
+        // Si l'utilisateur fait une recherche sur la page d'accueil, puis ensuite click 'entrer' sur
+        // l'url 'http://localhost/sortie/public/recherche', il y a une erreur 500 qui est levée.
+        // Pour l'éviter, on réoriente sur la page d'accueil sans la recherche:
+        if (isset($_POST['nom_sortie']) === false) {
+            return $this->redirect($this->generateUrl('accueil'));
+        }
+
         // Cette fonction s'occupe de filtrer les sorties en fonction des filtres à appliquer.
         // Pour ce faire, on charge toutes les sorties de la base de données dans un tableau.
         // Ensuite, dans ce tableau chaque filtre remplace par 'false' les sorties qui ne
@@ -123,12 +133,30 @@ class MainController extends Controller
             if ($_POST['inscrit'] === 'inscrit') {
                 // Le service 'sortiesInscrit' remplace par 'false' toutes les sorties où l'utilisateur
                 // n'est pas inscrit.
-                $sorties = $sortiesInscrit->sortiesInscrit($entityManager);
+                $sorties = $sortiesInscrit->sortiesInscrit();
             } else {
                 // Autrement la méthode 'sortiesNonInscrit' remplace par 'false' toutes les sorties où
                 // l'utilisateur est inscrit.
-                $sorties = $sortiesInscrit->sortiesNonInscrit($entityManager);
+                $sorties = $sortiesInscrit->sortiesNonInscrit();
             }
+        }
+
+        if ($_POST['nom_sortie'] !== "") {
+            // on filtre par le string écrit dans "le nom contient :"
+            $nomSortieFiltre = new NomSortieFiltre($sorties, $_POST['nom_sortie']);
+            $sorties = $nomSortieFiltre->nomSortieFiltre();
+        }
+
+        if ($_POST['date_debut'] !== "") {
+            // on filtre par date de début
+            $dateDebutFiltre = new DateDebutFiltre($sorties, $_POST['date_debut']);
+            $sorties = $dateDebutFiltre->dateDebutFiltre();
+        }
+
+        if ($_POST['date_fin'] !== "") {
+            // on filtre par date de fin
+            $dateFinFiltre = new DateFinFiltre($sorties, $_POST['date_fin']);
+            $sorties = $dateFinFiltre->dateFinFiltre();
         }
 
         $sorties = array_filter($sorties);
@@ -142,6 +170,4 @@ class MainController extends Controller
     public function test(){
         return $this->render('index.html.twig');
     }
-
-
 }
