@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 
 /**
@@ -34,28 +35,27 @@ class SortieController extends Controller
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
             $etatRepository = $entityManager->getRepository(Etat::class);
-            $etat = $etatRepository->find(1);
+
+            $lieu = $sortieForm->get('lieuListe')->getData();
+            if($lieu !== null){
+                $sortie->setLieu($lieu);
+            }
+
+            $sortie
+                ->setParticipant($this->getUser())
+                ->setSite($site);
 
            if($sortieForm->get('creer')->isClicked()){
-
-            $site = $this->getUser()->getSite();
-
-               $lieu = $sortieForm->get('lieuListe')->getData();
-               if($lieu !== null){
-                        $sortie->setLieu($lieu);
-               }
-
-               $sortie
-                   ->setEtat($etat)
-                   ->setParticipant($this->getUser())
-                   ->setSite($site);
-
-               $entityManager->persist($sortie);
-               $entityManager->flush();
+               $etat = $etatRepository->find(1);
+               $sortie->setEtat($etat);
            }
            elseif ($sortieForm->get('publier')->isClicked()){
-
+               $etat = $etatRepository->find(2);
+               $sortie->setEtat($etat);
            }
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
 
             $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
 
@@ -84,6 +84,12 @@ class SortieController extends Controller
 
         $participants = $sortie->getParticipants();
 
+        // inscription impossible pour l'organisateur de la sortie
+          if($user->getId() === $sortie->getParticipant()->getId()){
+            $this->addFlash('warning', 'Echec inscription. Vous êtes l\'organisateur de cette sortie...');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
         // si le participant essaie de s'incrire une 2eme fois a la sortie
         foreach ($participants as $participant){
             if($participant->getId() === $user->getId()){
@@ -96,6 +102,20 @@ class SortieController extends Controller
         $nbInscripMax = $sortie->getNbInscriptionMax();
         if(count($participants) >= $nbInscripMax ){
             $this->addFlash('danger', 'Le nombre maximal d\'inscriptions a dèjà été atteint!');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        //si etat nest pas "ouvert"
+        $etat = $sortie->getEtat();
+        if($etat->getLibelle() !== "Ouvert"){
+            $this->addFlash('danger', 'Il n\'est pas possible de s\'inscrire à cette sortie. Il est uniquement possible de s\'inscrire aux sorties dont l\'état est égal à "ouvert". ');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        //si la date limite d'inscriptions est dépassée
+        $dateLimiteInscriptions = $sortie->getDateLimiteInscription();
+        if($dateLimiteInscriptions <= new \DateTime('now')){
+            $this->addFlash('danger', 'La date limite d\'inscriptions a été dépassée.');
             return $this->redirectToRoute('sortie_afficher', compact('id'));
         }
 
@@ -116,18 +136,36 @@ class SortieController extends Controller
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
 
-        // verifier si le user est bien inscrit a cette sortie avant de le supprimer de la liste
         $participants = $sortie->getParticipants();
+        $etat = $sortie->getEtat();
+        $dateDebutSortie = $sortie->getDateHeureDebut();
 
-        if($participants->contains($user)){
+        //desistement impossible si je suis l'organisateur de la sortie
+        if($user->getId() === $sortie->getParticipant()->getId()) {
+            $this->addFlash('warning', 'Echec désistement. Vous êtes l\'organisateur de cette sortie...');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        //verifier si l'etat est egal a "ouvert" --> sinon desistement n'est pas possible
+        if($etat->getLibelle() !== "Ouvert"){
+            $this->addFlash('danger', 'L\'option \'désistement\' n\'est plus valide! ');
+        }
+        //si user n'est pas sur la liste des participants
+        elseif(!($participants->contains($user))){
+            $this->addFlash('danger', 'Vous ne pouvez pas désister car vous ne participez pas à cette sortie!');
+        }
+        // verif si la sortie n'a pas déja débuté
+        elseif($dateDebutSortie <= new \DateTime('now')){
+            $this->addFlash('danger', 'Sortie est dèjà en cours! Impossible de désister!');
+        }
+        // verifier encore si le user est bien inscrit a cette sortie avant de le supprimer de la liste
+        elseif($participants->contains($user)){
             // suppression de participant
             $sortie->removeParticipant($user);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre désistement a été pris en compte!');
-        }else{
-            $this->addFlash('danger', 'Vous ne pouvez pas désister car vous ne participez pas à cette sortie!');
         }
 
         return $this->redirectToRoute('sortie_afficher', compact('id'));
@@ -138,8 +176,16 @@ class SortieController extends Controller
      * @Route("/supprimer/{id}", name="supprimer", requirements={"id": "\d+"})
      */
     public function supprimer($id, EntityManagerInterface $entityManager){
-        die();
+
         return $this->render('sortie/supprimer.html.twig', compact('sortie'));
+    }
+
+    /**
+     * @Route("/messorties", name="messorties")
+     */
+    public function lister(EntityManagerInterface $entityManager){
+
+        return $this->render('sortie/messorties.html.twig');
     }
 
     /**
@@ -150,43 +196,77 @@ class SortieController extends Controller
      */
     public function modifsortie($id, Request $request, EntityManagerInterface $entityManager)
     {
-        $site = $this->getUser()->getSite();
-
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
+        $etatRepository = $entityManager->getRepository(Etat::class);
+        $etat = $sortie->getEtat();
+        $site = $this->getUser()->getSite();
+        $user = $this->getUser();
+        $organisateur = $sortie->getParticipant();
+
+        //modification possible si je suis l'organisateur de la sortie
+        if($user->getId() !== $organisateur->getId()){
+            $this->addFlash('danger', 'Impossible de modifier la sortie dont vous n\'êtes pas l\'organisateur!');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        //modification possible uniquement si la sortie est a etat "créé"
+       if($etat->getLibelle() !== "Créé"){
+            $this->addFlash('danger', 'Impossible de modifier la sortie déjà publiée!');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+        //modification PAS possible si la date limite d'inscriptions supérieure au moment présent
+        $dateLimiteInscriptions = $sortie->getDateLimiteInscription();
+        if($dateLimiteInscriptions <= new \DateTime('now')){
+            $this->addFlash('danger', 'Modification n\'est pas possible si la date limite d\'inscriptions a été dépassée.');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            $etatRepository = $entityManager->getRepository(Etat::class);
-            $etat = $etatRepository->find(1);
+
+            $lieu = $sortieForm->get('lieuListe')->getData();
+            if ($lieu !== null) {
+                $sortie->setLieu($lieu);
+            }
+
+            $sortie
+                ->setParticipant($this->getUser())
+                ->setSite($site);
 
             if($sortieForm->get('creer')->isClicked()){
-                $site = $this->getUser()->getSite();
-
-                $lieu = $sortieForm->get('lieuListe')->getData();
-                if($lieu !== null){
-                    $sortie->setLieu($lieu);
-                }
-
-                $sortie
-                    ->setEtat($etat)
-                    ->setParticipant($this->getUser())
-                    ->setSite($site);
-
-
-                $entityManager->persist($sortie);
-                $entityManager->flush();
+                $etat = $etatRepository->find(1);
+                $sortie->setEtat($etat);
             }
             elseif ($sortieForm->get('publier')->isClicked()){
-
+                $etat = $etatRepository->find(2);
+                $sortie->setEtat($etat);
             }
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
             $this->addFlash('success', 'La sortie a bien été modifiée!');
-            return $this->redirectToRoute("accueil");
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
         }
 
         return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site, 'sortie'=>$sortie]);
 
     }
 }
+/*
+
+
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
+
+            return $this->redirectToRoute("accueil");
+        }
+        return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
+
+ */

@@ -132,7 +132,10 @@ afficher une sortie
 
             <div class="row">
                 <div class="mx-auto">
-                    {% if sortie.participant.mail is same as(app.user.mail) and sortie.etat.libelle is same as("Créé") %}
+                    {% if sortie.participant.mail is same as(app.user.mail)
+                        and sortie.etat.libelle is same as("Créé")
+                        and sortie.dateLimiteInscription|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
+                    %}
                         <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1">
                             Modifier
                         </a>
