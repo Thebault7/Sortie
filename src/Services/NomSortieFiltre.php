@@ -1,24 +1,25 @@
 <?php
 
-// src/Service/OrganisateurFilter.php
+// src/Service/NomSortieFiltre.php
 namespace App\Services;
 
-class OrganisateurFilter
+class NomSortieFiltre
 {
-    public function __construct($sorties, $user)
+    public function __construct($sorties, $nom)
     {
         $this->sorties = $sorties;
-        $this->user = $user;
+        $this->nom = $nom;
     }
 
-    function organisateur()
+    public function nomSortieFiltre()
     {
         $tableauFinal = [];
         for ($i = 0; $i < count($this->sorties); $i++) {
             if ($this->sorties[$i] === false) {
                 $tableauFinal[$i] = false;
             } else {
-                if ($this->sorties[$i]->getParticipant()->getId() === $this->user->getId()) {
+                // utilise une regex pour déterminer si $nom est contenu dans le nom d'une sortie
+                if (preg_match('/\w*' . $this->nom . '\w*/', $this->sorties[$i]->getNom())) {
                     $tableauFinal[$i] = $this->sorties[$i];
                 } else {
                     $tableauFinal[$i] = false;

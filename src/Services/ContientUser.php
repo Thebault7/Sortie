@@ -14,7 +14,7 @@ class ContientUser
         $this->user = $user;
     }
 
-    public function contientUser(EntityManagerInterface $entityManager)
+    public function contientUser()
     {
         $contientUser = false;
 
