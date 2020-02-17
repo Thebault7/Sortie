@@ -149,13 +149,14 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <div>
-                        <button type="submit" class="bouton1" name="creer">Créer une sortie
-                        </button>
-                    </div>
                 </div>
             </form>
+            <div>
+                <form action="{{ path('sortie_add') }}" methode="post">
+                    <button type="submit" class="bouton1" name="creer">Créer une sortie
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 

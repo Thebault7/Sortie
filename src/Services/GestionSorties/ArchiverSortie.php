@@ -5,20 +5,22 @@ namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ArchiverSortie
 {
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
     }
 
-    public function archiverSortie($entityManager)
+    public function archiverSortie()
     {
         // On sélectionne toutes les sorties qui sont finies en base de données
-        $etatRepository = $entityManager->getRepository(Etat::class);
-        $etatFini = $etatRepository->findOneBy(['libelle' => 'Fini']);
-        $etatArchive = $etatRepository->findOneBy(['libelle' => 'Archive']);
-        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $etatRepository = $this->entityManager->getRepository(Etat::class);
+        $etatFini = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
+        $etatArchive = $etatRepository->findOneBy(['libelle' => 'Archivé']);
+        $sortieRepository = $this->entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findByEtat($etatFini->getId());
 
         $dateDuJour = new \DateTime('now');
@@ -33,8 +35,8 @@ class ArchiverSortie
 
             if (date_format($dateSortiePlusUnMois, 'Y-m-d') <= date_format($dateDuJour, "Y-m-d")) {
                 $sorties[$i]->setEtat($etatArchive);
-                $entityManager->persist($sorties[$i]);
-                $entityManager->flush();
+                $this->entityManager->persist($sorties[$i]);
+                $this->entityManager->flush();
             }
         }
     }

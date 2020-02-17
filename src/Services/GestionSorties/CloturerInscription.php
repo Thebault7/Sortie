@@ -17,7 +17,7 @@ class CloturerInscription
         // si le nombre d'inscripts atteint le nombre max, on clôture la sortie
         $etatRepository = $entityManager->getRepository(Etat::class);
         $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
-        $etatFerme = $etatRepository->findOneBy(['libelle' => 'Fermé']);
+        $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findByEtat($etatOuvert->getId());
 
