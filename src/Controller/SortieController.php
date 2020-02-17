@@ -69,7 +69,7 @@ class SortieController extends Controller
      */
     public function afficherSortie($id, EntityManagerInterface $entityManager){
             $sortieRepository = $entityManager->getRepository(Sortie::class);
-            $sortie = $sortieRepository->find(2); //find($id);
+            $sortie = $sortieRepository->find($id);
             return $this->render('sortie/afficher.html.twig', compact('sortie'));
     }
 
@@ -185,7 +185,12 @@ class SortieController extends Controller
      */
     public function lister(EntityManagerInterface $entityManager){
 
-        return $this->render('sortie/messorties.html.twig');
+        $idUser = $this->getUser()->getId();
+
+        $sortiesOrganisateur = $entityManager->getRepository(Sortie::class)->findSortieDontJeSuisOrganisateur($idUser);
+        $sortiesParticipant = $entityManager->getRepository(Sortie::class)->findSortieAuxquellesJeSuisInscrit($idUser);
+
+        return $this->render('sortie/messorties.html.twig', compact('sortiesOrganisateur', 'sortiesParticipant'));
     }
 
     /**
@@ -253,20 +258,5 @@ class SortieController extends Controller
         }
 
         return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site, 'sortie'=>$sortie]);
-
     }
 }
-/*
-
-
-
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Une nouvelle sortie a été ajoutée!');
-
-            return $this->redirectToRoute("accueil");
-        }
-        return $this->render('sortie/add.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'site'=>$site]);
-
- */

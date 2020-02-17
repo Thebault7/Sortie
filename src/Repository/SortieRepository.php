@@ -47,6 +47,23 @@ class SortieRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findSortieDontJeSuisOrganisateur($idUser){
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.participant = :val1')
+            ->setParameter('val1', $idUser)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findSortieAuxquellesJeSuisInscrit($idUser){
+        return $this->createQueryBuilder('s')
+            ->join('s.participants', 'p')
+            ->where('p.id = :val1')
+            ->setParameter('val1', $idUser)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

@@ -46,7 +46,7 @@ class Sortie
      *
      */
 
-    private $dateHeureDebut; //
+    private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer", nullable=true)

@@ -6,7 +6,15 @@
         <td>nbPersonnes / {{ sortie.nbInscriptionMax }}</td>
         <td>{{ sortie.etat.libelle }}</td>
         <td>???</td>
-        <td>???</td>
+        <td>
+            <a href="{{ path('afficherprofil', {'id': sortie.participant.id }) }}">
+            {% if sortie.participant.pseudo is not null %}
+                {{ sortie.participant.pseudo }}
+            {% else %}
+                {{ sortie.participant.prenom }} {{ sortie.participant.nom|first }}.
+            {% endif %}
+            </a>
+        </td>
         <td>???</td>
     </tr>
 {% endfor %}

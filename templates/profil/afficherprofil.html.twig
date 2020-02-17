@@ -19,35 +19,19 @@
         <!-- titre de la page-->
         <div class="heading_container mb-0 pb-0">
             <h2>
-                Mon profil
+                {{ participant.prenom }} {{ participant.nom }}
             </h2>
         </div>
 
         {% if participant.photo is not null %}
-        <div class="row mt-1 mb-2">
+        <div class="row mt-2 mb-3">
             <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~participant.photo) }}" alt="" style="border-radius:50%; width: 200px">
         </div>
         {% endif %}
 
-        <div class="row mt-2">
-            <div class="col-3 offset-4">
-                <b>Prénom</b>
-            </div>
-            <div class="col-5">
-                {{ participant.prenom }}
-            </div>
-        </div>
 
-        <div class="row mt-1">
-            <div class="col-3 offset-4">
-                <b>Nom</b>
-            </div>
-            <div class="col-5">
-                {{ participant.nom }}
-            </div>
-        </div>
     {% if participant.pseudo is not null %}
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3 offset-4">
                 <b>Pseudo</b>
             </div>
@@ -56,7 +40,7 @@
             </div>
         </div>
     {% endif %}
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3 offset-4">
                 <b>Téléphone</b>
             </div>
@@ -65,7 +49,7 @@
             </div>
         </div>
 
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3 offset-4">
                 <b>E-mail</b>
             </div>
@@ -74,7 +58,7 @@
             </div>
         </div>
 
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col-3 offset-4">
                 <b>Lieu d'études</b>
             </div>
@@ -86,11 +70,13 @@
 
         <div class="d-flex justify-content-center ">
             <!-- boutons -->
+            {% if app.user.id is same as(participant.id)  %}
+                <div class="ml-1 mr-1">
+                    <a class="bouton1" href="{{ path('modifprofil') }}">Modifier</a>
+                </div>
+            {% endif %}
             <div class="ml-1 mr-1">
-                <a class="bouton1" href="{{ path('modifprofil') }}">Modifier</a>
-            </div>
-            <div class="ml-1 mr-1">
-                <a class="bouton1" href="{{ path('accueil') }}">Retour</a>
+                <a class="bouton1" href="{{ app.request.headers.get('referer') }}">Retour</a>
             </div>
 
         </div>
@@ -99,4 +85,4 @@
     </section>
 
 {% endblock %}
-{% block title %}mon profil{% endblock %}
+{% block title %}profil{% endblock %}

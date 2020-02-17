@@ -45,7 +45,6 @@
             color: white;
             border-radius: 0;
             margin-top: 35px;
-
         }
 
         .bouton1:hover {
@@ -74,6 +73,21 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        .detail-box {
+            margin: 5px 5px 5px 5px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .detail-box a{
+            display: inline-block;
+            padding: 5px 25px;
+            background-color: black;
+            color: white;
+            border-radius: 40px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body class="sub_page">
@@ -94,7 +108,7 @@
     {% if app.user %}
         <p class="mr-1 mb-0 pb-1 pt-1 align-self-center">
             Bienvenue <span class="font-weight-bold">{{ app.user.prenom }} {{ app.user.nom }}</span>!
-            Date du jour : <span class="font-weight-bold">{{ 'now'|localizeddate('none', 'none', 'fr', null, 'd MMMM Y') }}</span>!
+            Date du jour : <span class="font-weight-bold">{{ 'now'|localizeddate('none', 'none', 'fr', null, 'd MMMM Y') }}</span>
         </p>
     {% endif %}
 </div>

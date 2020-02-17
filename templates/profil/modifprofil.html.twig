@@ -105,7 +105,7 @@
                             <button class="bouton1" type="submit">Enregistrer</button>
                         </div>
                         <div class="col-5">
-                       <a class="bouton1" href="{{ path('afficherprofil') }}">Annuler</a>
+                       <a class="bouton1" href="{{ path('afficherprofil', {'id': user.id}) }}">Annuler</a>
                         </div>
 
                 </div>
@@ -123,6 +123,10 @@
     let legend = document.getElementsByTagName('legend')[0];
    legend.textContent = " ";*/
 
+        let pseudoELt = document.getElementById("modif_profil_pseudo");
+        if(pseudoELt.hasAttribute('required')){
+            pseudoELt.removeAttribute('required');
+        }
 
     </script>
 {% endblock %}

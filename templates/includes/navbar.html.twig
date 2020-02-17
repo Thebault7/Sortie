@@ -24,7 +24,7 @@
                     <a class="nav-link" href="{{ path('sortie_add') }}">Créer une sortie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('afficherprofil') }}">Mon profil</a>
+                    <a class="nav-link" href="{{ path('afficherprofil', {'id': app.user.id}) }}">Mon profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>

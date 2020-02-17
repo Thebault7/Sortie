@@ -25,13 +25,54 @@
             </div>
 
 
-            <div class="row">
-                <h6><span clas="font-weight-bold">Sortie dont je suis l'organisateur/trice</span></h6>
-            </div>
-            <div class="row">
-                <h6><span clas="font-weight-bold">Sortie auxquelles je suis inscrite</span></h6>
+            <div class="row mt-4 mb-4">
+                <h6><b>Sortie dont je suis l'organisateur/trice</b></h6>
             </div>
 
+            {% if sortiesOrganisateur|length is not same as(0) %}
+                <div class="row d.flex justify-content-center">
+                    {% for sortie in sortiesOrganisateur %}
+                        <div class="col-3">
+                            <div class="card detail-box h-100" style="width: 15rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ sortie.nom}}</h5>
+                                    <p>Date : {{ sortie.dateHeureDebut|date("d/m/Y H:i") }} </p>
+                                    <p>Ville : {{ sortie.lieu.ville.nom }}</p>
+                                    <a href="{{ path('sortie_afficher', {'id': sortie.id }) }}" class="card-link">Afficher</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row d.flex justify-content-center">
+                    <p class="">Aucune sortie dont vous êtes organisateur/trice.</p>
+                </div>
+            {% endif %}
+
+            <div class="row mt-4 mb-4">
+                <h6><b>Sortie auxquelles je suis inscrit/e</b></h6>
+            </div>
+            {% if sortiesParticipant|length is not same as(0) %}
+                <div class="row d.flex justify-content-center">
+                    {% for sortieP in sortiesParticipant %}
+                        <div class="col-3">
+                            <div class="card detail-box h-100" style="width: 15rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ sortieP.nom}}</h5>
+                                    <p>Date : {{ sortieP.dateHeureDebut|date("d/m/Y H:i") }} </p>
+                                    <p>Ville : {{ sortieP.lieu.ville.nom }}</p>
+                                    <a href="{{ path('sortie_afficher', {'id': sortieP.id }) }}" class="card-link">Afficher</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row d.flex justify-content-center">
+                    <p class="">Aucune sortie à laquelle vous êtes inscrit/e.</p>
+                </div>
+            {% endif %}
 
         </div>
     </section>

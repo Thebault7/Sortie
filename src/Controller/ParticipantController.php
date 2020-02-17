@@ -21,11 +21,12 @@ class ParticipantController extends Controller
     }
 
     /**
-     * @Route("/afficherprofil", name="afficherprofil")
+     * @Route("/afficherprofil/{id}", name="afficherprofil", requirements={"id": "\d+"})
      */
-    public function afficherprofil(EntityManagerInterface $entityManager)
+    public function afficherprofil($id, EntityManagerInterface $entityManager)
     {
-        $participant = $this->getUser();
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participant = $participantRepository->find($id);
 
         return $this->render
         (
@@ -91,7 +92,6 @@ class ParticipantController extends Controller
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
-
 
                 $this->addFlash("success", "Modification du profil réussie.");
                 return $this->redirectToRoute('afficherprofil');
