@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query\Expr\Expr\Comparison;
+//use Doctrine\Common\Collections\Expr\Comparison;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -48,18 +50,33 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findSortieDontJeSuisOrganisateur($idUser){
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.participant = :val1')
-            ->setParameter('val1', $idUser)
-            ->getQuery()
-            ->getResult();
+           // $etat1 = "Annulé";
+            $etat2 = "Archivé";
+
+            return $this->createQueryBuilder('s')
+                ->join('s.etat', 'e')
+                ->andWhere('s.participant = :val1')
+                //->andWhere('e.libelle != :etat1')
+                ->andWhere('e.libelle != :etat2')
+                ->setParameter('val1', $idUser)
+               // ->setParameter('etat1', $etat1)
+                ->setParameter('etat2', $etat2)
+                ->getQuery()
+                ->getResult();
+
     }
 
     public function findSortieAuxquellesJeSuisInscrit($idUser){
+
+        $etat2 = "Archivé";
+
         return $this->createQueryBuilder('s')
             ->join('s.participants', 'p')
+            ->join('s.etat', 'e')
             ->where('p.id = :val1')
+            ->andWhere('e.libelle != :etat2')
             ->setParameter('val1', $idUser)
+            ->setParameter('etat2', $etat2)
             ->getQuery()
             ->getResult();
     }

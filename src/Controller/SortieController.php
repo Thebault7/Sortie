@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
+use App\Entity\Annulation;
 use App\Entity\Lieu;
 use App\Form\LieuType;
+use App\Form\AnnulationType;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
@@ -185,11 +187,85 @@ class SortieController extends Controller
 
 
     /**
+     * @Route("/annuler/{id}", name="annuler", requirements={"id": "\d+"})
+     */
+    public function annuler($id, EntityManagerInterface $entityManager, Request $request){
+
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+        $annulation = new Annulation();
+        $annulationForm = $this->createForm(AnnulationType::class, $annulation);
+
+
+        // echec annulation si user n'est pas organisateur
+        if($this->getUser()->getId() !== $sortie->getParticipant()->getId()){
+            $this->addFlash('danger', 'Vous ne pouvez pas annuler la sortie dont vous n\'êtes pas l\'organisateur!');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+        // echec annulation si la date de debut de la sortie depassee
+        if($sortie->getDateHeureDebut() < new \DateTime()){
+            $this->addFlash('danger', "Impossible d'annuler la sortie dont la date de début a été déjà dépassée");
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        //echec annulation si l'etat n'est pas ouvert ou cloture
+        $etatLibelle = $sortie->getEtat()->getLibelle();
+
+        if($etatLibelle === 'Annulé'){
+            $this->addFlash('danger', "Impossible d'annuler une sortie déjà annulée !");
+            return $this->redirectToRoute('sortie_afficher', compact('id'));        }
+
+        if($etatLibelle !== 'Ouvert' && $etatLibelle !== 'Clôturé'){
+            $this->addFlash('danger', "Impossible d'annuler la sortie qui dont l'état n'est pas 'ouvert' ou 'clôturé'!");
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        $annulationForm->handleRequest($request);
+
+        if($annulationForm->isSubmitted() && $annulationForm->isValid()) {
+
+            $annulation->setSortie($sortie);
+            $entityManager->persist($annulation);
+            // set etat sortie a annule
+            $etat = $entityManager->getRepository(Etat::class)->find(6);
+            $sortie->setEtat($etat);
+            $entityManager->flush();
+
+            $this->addFlash('success', "La sortie a été annulée");
+            $id = $sortie->getId();
+            return $this->redirectToRoute('accueil');
+
+        }
+
+
+        return $this->render('sortie/annuler.html.twig', ['sortie'=>$sortie, 'annulationFormView'=>$annulationForm->createView()]);
+    }
+
+    /**
      * @Route("/supprimer/{id}", name="supprimer", requirements={"id": "\d+"})
      */
     public function supprimer($id, EntityManagerInterface $entityManager){
 
-        return $this->render('sortie/supprimer.html.twig', compact('sortie'));
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+        $etatLibelle = $sortie->getEtat()->getLibelle();
+
+        // echec suppresion si user n'est pas organisateur
+        if($this->getUser()->getId() !== $sortie->getParticipant()->getId()){
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer la sortie dont vous n\'êtes pas l\'organisateur!');
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+
+        // possibilite de supprimer une sortie uniquement avec etat 'cree'
+        if($etatLibelle !== 'Créé'){
+            $this->addFlash('danger', "Impossible de supprimé une sortie déjà publiée!");
+            $id = $sortie->getId();
+            return $this->redirectToRoute('sortie_afficher', compact('id'));
+        }
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('success', "Sortie supprimée!");
+
+        return $this->redirectToRoute('accueil');
     }
 
     /**
