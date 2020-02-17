@@ -28,6 +28,18 @@ class VilleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByCodePostalEtNom($codePostal, $nom){
+
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.codePostal = :val1')
+            ->andWhere('v.nom = :val2')
+            ->setParameter('val1', $codePostal)
+            ->setParameter('val2', $nom)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Ville[] Returns an array of Ville objects
     //  */

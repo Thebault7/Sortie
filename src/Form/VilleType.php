@@ -19,6 +19,18 @@ class VilleType extends AbstractType
         ;
     }
 
+
+
+    public function findByCodePostalEtNom($codePostal, $nom){
+
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.codePostal = :val1', 'v.nom = :val2')
+            ->setParameter('val1', $codePostal)
+            ->setParameter('val2', $nom)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
