@@ -1,7 +1,7 @@
 <?php
 
 // src/Service/CloturerInscription.php
-namespace App\Services;
+namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;

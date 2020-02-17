@@ -1,7 +1,7 @@
 <?php
 
 // src/Service/ArchiverSortie.php
-namespace App\Services;
+namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;

@@ -16,7 +16,7 @@ use App\Services\NomSortieFiltre;
 use App\Services\DateDebutFiltre;
 use App\Services\DateFinFiltre;
 use App\Services\SiteFiltre;
-use App\Services\CloturerInscription;
+use App\Services\GestionSorties\CloturerInscription;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
