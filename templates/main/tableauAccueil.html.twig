@@ -25,7 +25,30 @@
                 {% endif %}
             </a>
         </td>
-        <td>???</td>
+        <td>
+            {% if sortie.etat.libelle is same as ('Archivé') %}
+            {% else %}
+                {% if sortie.participant is same as (user) %}
+                    {% if sortie.etat.libelle is same as ('Créé') %}
+                        modifier -- publier
+                    {% else %}
+                        afficher -- annuler
+                    {% endif %}
+                {% else %}
+                    {% for participant in sortie.participants %}
+                        {% set inscrit = false %}
+                        {% if participant is same as (user) %}
+                            {% set inscrit = true %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if inscrit is same as (true) %}
+                        afficher -- se désister
+                    {% else %}
+                        afficher -- s'inscrire
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </td>
     </tr>
 {% endfor %}
 
