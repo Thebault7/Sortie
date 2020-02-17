@@ -3,7 +3,7 @@
         <td>{{ sortie.nom }}</td>
         <td>{{ sortie.dateHeureDebut | date('d/m/Y h:i') }}</td>
         <td>{{ sortie.dateLimiteInscription | date('d/m/Y h:i') }}</td>
-        <td>nbPersonnes / {{ sortie.nbInscriptionMax }}</td>
+        <td>{{ sortie.participants | length }} / {{ sortie.nbInscriptionMax }}</td>
         <td>{{ sortie.etat.libelle }}</td>
         <td>???</td>
         <td>
