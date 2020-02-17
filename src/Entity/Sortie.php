@@ -125,6 +125,7 @@ class Sortie
      */
     private $participants;
 
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -282,4 +283,5 @@ class Sortie
 
         return $this;
     }
+
 }

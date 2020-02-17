@@ -56,11 +56,11 @@
                                         <label>Lieu : </label>
                                         <div class="row">
                                             <div class="col-9">
-                                                {{ form_widget(sortieFormView.lieuListe, {'attr': {'class': ''} })}}
-                                                {{ form_errors(sortieFormView.lieuListe) }}
+                                                {{ form_widget(sortieFormView.lieu, {'attr': {'class': ''} })}}
+                                                {{ form_errors(sortieFormView.lieu) }}
                                             </div>
                                             <div class="col-2">
-                                                <i class="fa fa-plus-square fa-2x" ></i>
+                                                <i class="fa fa-plus-square fa-2x"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -98,104 +98,100 @@
             </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal -->
+    <div class="modal fade" id="ajout_lieu" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-                    <h4 class="modal-title">Ajouter un nouveau lieu</h4>
 
-                </div>
+                <div class="contact_form-container" style="padding: 0; margin : 0">
+
+               <div class="row">
+                   <div class="col-5">
+                        <h4 style="margin-top: 5px;margin-left: 10px;">Définir un lieu</h4>
+                   </div>
+                   <div class="col-3 offset-4">
+                        <button type="button" class="close " data-dismiss="modal" aria-label="Close" style="margin-top: 0px;margin-right: 0px;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                   </div>
+               </div>
                 <div class="modal-body">
-                    One fine body…
+<div class="col-8 offset-2">
+                    {{ form_start(lieuFormView) }}
+                        <div class="mt-3">
+                            <label>Nom du lieu: </label>
+                            {{ form_widget(lieuFormView.nom) }}
+                            {{ form_errors(lieuFormView.nom) }}
+                        </div>
+                        <div class="mt-3">
+                            <label>Rue : </label>
+                            {{ form_widget(lieuFormView.rue) }}
+                            {{ form_errors(lieuFormView.rue) }}
+                        </div>
+
+                        <div class="mt-3">
+                            <label>Ville : </label>
+                            {{ form_widget(lieuFormView.villeListe) }}
+                            {{ form_errors(lieuFormView.villeListe) }}
+                        </div>
+
+                        <div class="mt-3">
+                            <label>Définir une nouvelle ville : </label>
+                            {{ form_widget(lieuFormView.ville.nom, {'attr': {'placeholder' : 'nom ville'}}) }}
+                            {{ form_errors(lieuFormView.ville.nom) }}
+
+                            {{ form_widget(lieuFormView.ville.codePostal, {'attr': {'placeholder' : 'code postal'}}) }}
+                            {{ form_errors(lieuFormView.ville.codePostal) }}
+                        </div>
+
+                        <div class="d-flex justify-content-around">
+                            <button type="button" class="btn btn-secondary ml-1 mr-1" data-dismiss="modal">Retour</button>
+                            <button type="button" class="btn btn-primary ml-1 mr-1" id="save_lieu_btn" data-dismiss="modal">Enregistrer</button>
+                        </div>
+
+                    {{ form_end(lieuFormView) }}
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div> <!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+
+            </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 
 
     <script>
 
-        $('#ajout_lieu').click(function(e) {
+        $('.fa-plus-square').click(function(e) {
+            console.log('clic')
             e.preventDefault();
-            $('#myModal').modal();
+            $('#ajout_lieu').modal();
         });
 
-        $("#g").click(function(){
-           console.log("cliqué");
+        $("#save_lieu_btn").click(function(){
+           console.log("cliqué enregisrer");
 
             $.ajax({
                 //à cette url... voir le contrôleur !
-                url: "{{ url("lieu_ajout")}}"
+                url: "{{ url('lieu_ajout')}}",
+                data : $("#ajout_lieu form").serialize()
             })
                 //lorsque la requête sera terminée, cette fct se déclenchera
                 .done(function(response){
 
+                    $option = document.createElement('option');
+                    $option.setAttribute('value', response.id);
+                    $option.textContent = response.nom;
+                    $option.setAttribute('selected', 'true');
+                    $select = document.getElementsByTagName('select')[0];
+                    $select.appendChild($option);
+                    console.log($option);
+
+
                 });
         });
 
-/*
-        let listeLieu = document.getElementById('sortie_lieuListe');
-        let villeListe = document.getElementById('sortie_lieu_villeListe');
-        let nomLieu = document.getElementById('sortie_lieu_nom');
-        let rue = document.getElementById('sortie_lieu_rue');
-        let ville = document.getElementById('sortie_lieu_ville_nom');
-        let codePostal = document.getElementById('sortie_lieu_ville_codePostal');
-        let selectElts = document.querySelectorAll('select');
-
-        let bckInputColor = '#e6e6e6';
-
-        listeLieu.setAttribute('onchange', 'disableLieux()')
-        villeListe.setAttribute('onchange', 'disableVille()')
-
-
-        function disableVille() {
-            if(villeListe.options[villeListe.selectedIndex].value==0){
-                ville.disabled=false;
-                ville.setAttribute('style', 'background-color:'+bckInputColor);
-            }else{
-                ville.disabled=true;
-                ville.setAttribute('style', 'background-color: #AFEEEE');
-            }
-        }
-
-
-        function disableLieux() {
-            if(listeLieu.options[listeLieu.selectedIndex].value==0){
-                villeListe.disabled=false;
-                nomLieu.disabled=false;
-                rue.disabled=false;
-                ville.disabled=false;
-                codePostal.disabled=false;
-
-                villeListe.setAttribute('style', 'background-color:'+bckInputColor);
-                nomLieu.setAttribute('style', 'background-color:'+bckInputColor);
-                rue.setAttribute('style', 'background-color:'+bckInputColor);
-                ville.setAttribute('style', 'background-color:'+bckInputColor);
-                codePostal.setAttribute('style', 'background-color:'+bckInputColor);
-            }
-            else{
-                villeListe.disabled=true;
-                nomLieu.disabled=true;
-                rue.disabled=true;
-                ville.disabled=true;
-                codePostal.disabled=true;
-
-                villeListe.setAttribute('style', 'background-color: #AFEEEE');
-                nomLieu.setAttribute('style', 'background-color: #AFEEEE');
-                rue.setAttribute('style', 'background-color: #AFEEEE');
-                ville.setAttribute('style', 'background-color: #AFEEEE');
-                codePostal.setAttribute('style', 'background-color: #AFEEEE');
-            }
-        }
-
-*/
         let legend = document.getElementsByTagName("legend");
         for (let legendElement of legend) {
             legendElement.textContent = "";
