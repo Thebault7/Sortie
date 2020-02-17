@@ -3,16 +3,26 @@
         <td>{{ sortie.nom }}</td>
         <td>{{ sortie.dateHeureDebut | date('d/m/Y h:i') }}</td>
         <td>{{ sortie.dateLimiteInscription | date('d/m/Y h:i') }}</td>
-        <td>nbPersonnes / {{ sortie.nbInscriptionMax }}</td>
+        <td>{{ sortie.participants | length }} / {{ sortie.nbInscriptionMax }}</td>
         <td>{{ sortie.etat.libelle }}</td>
-        <td>???</td>
+        <td>
+            {% if sortie.participants | length is same as (0) %}
+
+            {% else %}
+                {% for participant in sortie.participants %}
+                    {% if participant is same as (user) %}
+                        X
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </td>
         <td>
             <a href="{{ path('afficherprofil', {'id': sortie.participant.id }) }}">
-            {% if sortie.participant.pseudo is not null %}
-                {{ sortie.participant.pseudo }}
-            {% else %}
-                {{ sortie.participant.prenom }} {{ sortie.participant.nom|first }}.
-            {% endif %}
+                {% if sortie.participant.pseudo is not null %}
+                    {{ sortie.participant.pseudo }}
+                {% else %}
+                    {{ sortie.participant.prenom }} {{ sortie.participant.nom|first }}.
+                {% endif %}
             </a>
         </td>
         <td>???</td>

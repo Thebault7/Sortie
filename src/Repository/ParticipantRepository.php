@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
  * @method Participant|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +13,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Participant[]    findAll()
  * @method Participant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ParticipantRepository extends ServiceEntityRepository
+class ParticipantRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -37,6 +38,14 @@ class ParticipantRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function loadUserByUsername($usernameOrEmail)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.pseudo = :query OR u.mail = :query')
+            ->setParameter('query', $usernameOrEmail)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     // /**
     //  * @return Participant[] Returns an array of Participant objects

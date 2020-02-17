@@ -149,13 +149,14 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <div>
-                        <button type="submit" class="bouton1" name="creer">Créer une sortie
-                        </button>
-                    </div>
                 </div>
             </form>
+            <div>
+                <form action="{{ path('sortie_add') }}" methode="post">
+                    <button type="submit" class="bouton1" name="creer">Créer une sortie
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -175,7 +176,7 @@
         // de site site sélectionné dans la liste déroulante.
         document.querySelector("select").addEventListener("change", function () {
             $.ajax({
-                url: "http://localhost/sortie/public/",
+                url: "http://localhost/sortie/public/",     {# {{ path(url('accueil')) }}  #}
                 data: {'id_site': this.value}
             }).done(function (response) {
                 document.getElementById("corps_tableau").innerHTML = response;

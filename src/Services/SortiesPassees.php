@@ -17,7 +17,7 @@ class SortiesPassees
             if ($this->sorties[$i] === false) {
                 $tableauFinal[$i] = false;
             } else {
-                if ($this->sorties[$i]->getEtat()->getLibelle() === 'Fini') {
+                if ($this->sorties[$i]->getEtat()->getLibelle() === 'Clôturé') {
                     $tableauFinal[$i] = $this->sorties[$i];
                 } else {
                     $tableauFinal[$i] = false;

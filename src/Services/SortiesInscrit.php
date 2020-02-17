@@ -13,7 +13,7 @@ class SortiesInscrit
         $this->user = $user;
     }
 
-    public function sortiesInscrit($entityManager)
+    public function sortiesInscrit()
     {
         $tableauFinal = [];
         for ($i = 0; $i < count($this->sorties); $i++) {
@@ -21,7 +21,7 @@ class SortiesInscrit
                 $tableauFinal[$i] = false;
             } else {
                 $contientUserClass = new ContientUser($this->sorties[$i], $this->user);
-                $contientUser = $contientUserClass->contientUser($entityManager);
+                $contientUser = $contientUserClass->contientUser();
                 if ($contientUser) {
                     $tableauFinal[$i] = $this->sorties[$i];
                 } else {
