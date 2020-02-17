@@ -20,7 +20,7 @@ class ModifProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo',  TextType::class, ['label' => 'Pseudo :', 'mapped' => false, 'attr'=>['required'=>false]])
+            ->add('pseudo',  TextType::class, ['label' => 'Pseudo :', 'attr'=>['required'=>false]])
             ->add('nom', TextType::class, ['label' => 'Nom :'])
             ->add('prenom',  TextType::class, ['label' => 'Prénom :'])
             ->add('telephone',  TextType::class, ['label' => 'Téléphone :'])
@@ -58,7 +58,6 @@ class ModifProfilType extends AbstractType
                 ],
             ])
             //->add('save',    SubmitType::class, ['label' => 'Enregistrer'])
-
         ;
     }
 

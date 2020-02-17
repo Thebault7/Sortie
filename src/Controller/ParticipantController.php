@@ -94,7 +94,7 @@ class ParticipantController extends Controller
                 $entityManager->flush();
 
                 $this->addFlash("success", "Modification du profil réussie.");
-                return $this->redirectToRoute('afficherprofil');
+                return $this->redirectToRoute('afficherprofil', 'user');
 
             } else {
                 $this->addFlash("échec", "Ce pseudo existe déjà. Veuillez en choisir un autre.");

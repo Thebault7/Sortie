@@ -61,20 +61,17 @@ class MainController extends Controller
         $siteRepository = $entityManager->getRepository(Site::class);
         $sites = $siteRepository->findAll();
 
-        // on recherche en base de données les sorties qui sont actuellement ouvertes et qui
-        // correspondent au site de l'utilisateur
-        $etatRepository = $entityManager->getRepository(Etat::class);
-        $etat = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
+        // on recherche en base de données les sorties qui correspondent au site de l'utilisateur
         $sortieRepository = $entityManager->getRepository(Sortie::class);
 
         if ($request->query->get('id_site') === null) {
-            $sorties = $sortieRepository->findBySiteAndEtat($user->getSite(), $etat);
+            $sorties = $sortieRepository->findBySite($user->getSite());
         } elseif ($request->query->get('id_site') === 'tous_sites') {
-            $sorties = $sortieRepository->findByEtat($etat);
+            $sorties = $sortieRepository->findAll();
 
             return $this->render('main/tableauAccueil.html.twig', compact('sites', 'sorties', 'user'));
         } else {
-            $sorties = $sortieRepository->findBySiteAndEtat($request->query->get('id_site'), $etat);
+            $sorties = $sortieRepository->findBySite($request->query->get('id_site'));
 
             if ($sorties === []) {
                 $this->addFlash("echec", "aucune sortie correspondant aux critères de recherche n'a été trouvée.");
@@ -166,9 +163,6 @@ class MainController extends Controller
             $siteFiltre = new SiteFiltre($sorties, $_POST['select_sites']);
             $sorties = $siteFiltre->siteFiltre();
         }
-
-        $essai = new CloturerInscription();
-        $essai->cloturerInscriptionNbMax($entityManager);
 
         $sorties = array_filter($sorties);
 
