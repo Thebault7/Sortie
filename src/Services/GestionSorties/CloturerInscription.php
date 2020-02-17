@@ -5,11 +5,15 @@ namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CloturerInscription
 {
-    public function __construct()
+    private $em;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
+            $this->em = $entityManager;
     }
 
     public function cloturerInscriptionNbMax($entityManager)
@@ -18,6 +22,7 @@ class CloturerInscription
         $etatRepository = $entityManager->getRepository(Etat::class);
         $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
         $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
+
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findByEtat($etatOuvert->getId());
 
