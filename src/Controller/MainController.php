@@ -16,6 +16,7 @@ use App\Services\NomSortieFiltre;
 use App\Services\DateDebutFiltre;
 use App\Services\DateFinFiltre;
 use App\Services\SiteFiltre;
+use App\Services\ArchiverSortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -165,6 +166,9 @@ class MainController extends Controller
             $siteFiltre = new SiteFiltre($sorties, $_POST['select_sites']);
             $sorties = $siteFiltre->siteFiltre();
         }
+
+        $archiverSortie = new ArchiverSortie();
+        $archiverSortie->archiverSortie($entityManager);
 
         $sorties = array_filter($sorties);
 
