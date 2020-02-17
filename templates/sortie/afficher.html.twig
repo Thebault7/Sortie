@@ -27,7 +27,7 @@ afficher une sortie
             </div>
             <div>
                 <div class="row">
-                    <div class="col-10 col-sm-10 col-md-6 col-lg-6">
+                    <div class="col-10 col-sm-10 col-md-12 col-lg-6">
                         <div class="row">
                             <div class="col-6">Organisateur : </div>
                             <div class="col-6"><a href="{{ path('afficherprofil', {'id': sortie.participant.id }) }}">{{ sortie.participant.prenom }} {{ sortie.participant.nom }}</a></div>
@@ -114,9 +114,9 @@ afficher une sortie
                             </table>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <div class="row mt-5 mb-5" style="display: flex; flex-direction: column">
-                            <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="row d-flex justify-content-center" style="display: flex; flex-direction: column">
+                            <div class="row mt-5">
                                 <div class="mx-auto">
                                      <h6 class="font-weight-bold">Géolocalisation</h6>
                                 </div>
@@ -142,14 +142,22 @@ afficher une sortie
                         </a>
                     {% endif %}
 
-                 {% if sortie.dateLimiteInscription|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
-                     and sortie.etat.libelle is same as("Ouvert")
-                     and sortie.participant.mail is not same as(app.user.mail)
-                     and app.user not in sortie.participants%}
-                        <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1 ">
-                            S'inscrire
-                        </a>
-                {% endif %}
+                    {% if sortie.participant.mail is same as(app.user.mail)
+                        and (sortie.etat.libelle is same as("Ouvert") or sortie.etat.libelle is same as("Clôturé"))
+                        and (sortie.dateHeureDebut("d/m/Y H:i:s") > "now"|date("d/m/Y H:i:s"))
+                    %}
+                        <a class="ml-1 mr-1 bouton1" href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annulation</a>
+                    {% endif %}
+
+
+                     {% if sortie.dateLimiteInscription|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
+                         and sortie.etat.libelle is same as("Ouvert")
+                         and sortie.participant.mail is not same as(app.user.mail)
+                         and app.user not in sortie.participants%}
+                            <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1 ">
+                                S'inscrire
+                            </a>
+                    {% endif %}
 
                     {% if sortie.dateHeureDebut|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
                         and (sortie.etat.libelle is same as("Ouvert") or sortie.etat.libelle is same as("Créé"))
@@ -160,7 +168,7 @@ afficher une sortie
                             Désister
                         </a>
                     {% endif %}
-                    <a href="{{ app.request.headers.get('referer') }}" class="ml-1 mr-1 bouton1">Retour</a>
+                    <a href="{{ path('sortie_messorties') }}" class="ml-1 mr-1 bouton1">Retour</a>
                 </div>
             </div>
         </div>
