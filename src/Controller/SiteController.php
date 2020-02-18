@@ -163,6 +163,32 @@ class SiteController extends Controller
         $siteRepository = $entityManager->getRepository(Site::class);
         $sites = $siteRepository->findByName($nomAChercher);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // mise en base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($site);
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('site_index'));
+        }
+
+        return $this->render(
+            'site/index.html.twig',
+            [
+                'SiteForm' => $form->createView(),
+                'Sites' => $sites,
+            ]
+        );
+
+
+
+
+
+
+
+
+
+
         return $this->render(
             'site/index.html.twig',
             [
