@@ -160,8 +160,8 @@ class SortieController extends Controller
             return $this->redirectToRoute('sortie_afficher', compact('id'));
         }
 
-        //verifier si l'etat est egal a "ouvert" --> sinon desistement n'est pas possible
-        if($etat->getLibelle() !== "Ouvert"){
+        //verifier si l'etat est egal a "ouvert" ou "cloture" --> sinon desistement n'est pas possible
+        if($etat->getLibelle() !== "Ouvert" && $etat->getLibelle() !== 'Clôturé'){
             $this->addFlash('danger', 'L\'option \'désistement\' n\'est plus valide! ');
         }
         //si user n'est pas sur la liste des participants

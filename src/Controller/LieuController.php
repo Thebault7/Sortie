@@ -36,8 +36,6 @@ class LieuController extends Controller
 
             $villeRepository = $entityManager->getRepository(Ville::class);
             $villeARetrouver = $villeRepository->findByCodePostalEtNom($codePostal, $nomVille);
-          /*  dump($villeARetrouver);
-            die();*/
 
             if($villeARetrouver){
                 $villeRetrouvee = $villeRepository->find($villeARetrouver[0]->getId());
@@ -50,24 +48,18 @@ class LieuController extends Controller
                 $lieu->setVille($ville);
             }
 
-
         }
         else{
             $ville = $entityManager->getRepository(Ville::class)->find($villeListe);
             $lieu->setVille($ville);
         }
 
-      //  dump($ville);
-
         $lieu
             ->setNom($nom)
             ->setRue($rue);
 
-
         $entityManager->persist($lieu);
         $entityManager->flush();
-
-        //$idLieu = $lieu->getId();
 
         return new JsonResponse([
             "id" => $lieu->getId(),

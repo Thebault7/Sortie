@@ -48,5 +48,5 @@ security:
         - { path: ^/recherche, roles: ROLE_USER }
         - { path: ^/lieu, roles: ROLE_USER }
         - { path: ^/sortie, roles: ROLE_USER }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+      #  - { path: ^/admin, roles: ROLE_ADMIN }
 

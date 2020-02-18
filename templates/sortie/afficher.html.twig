@@ -46,7 +46,7 @@ afficher une sortie
                         </div>
                         <div class="row">
                             <div class="col-6">Nombre de places : </div>
-                            <div class="col-6">{{ sortie.nbInscriptionMax}} places</div>
+                            <div class="col-6">{{ sortie.nbInscriptionMax}} place(s)</div>
                         </div>
                         <div class="row">
                             <div class="col-6">Durée : </div>
@@ -160,7 +160,7 @@ afficher une sortie
                     {% endif %}
 
                     {% if sortie.dateHeureDebut|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
-                        and (sortie.etat.libelle is same as("Ouvert") or sortie.etat.libelle is same as("Créé"))
+                        and (sortie.etat.libelle is same as("Ouvert") or sortie.etat.libelle is same as("Clôturé"))
                         and sortie.participant.mail is not same as(app.user.mail)
                         and app.user in sortie.participants
                     %}

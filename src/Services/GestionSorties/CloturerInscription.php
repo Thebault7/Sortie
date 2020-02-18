@@ -16,14 +16,14 @@ class CloturerInscription
             $this->em = $entityManager;
     }
 
-    public function cloturerInscriptionNbMax($entityManager)
+    // si le nombre d'inscripts atteint le nombre max, on clôture la sortie
+    public function cloturerInscriptionNbMax()
     {
-        // si le nombre d'inscripts atteint le nombre max, on clôture la sortie
-        $etatRepository = $entityManager->getRepository(Etat::class);
+        $etatRepository = $this->em->getRepository(Etat::class);
         $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
         $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
 
-        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortieRepository = $this->em->getRepository(Sortie::class);
         $sorties = $sortieRepository->findByEtat($etatOuvert->getId());
 
         for ($i = 0; $i < count($sorties); $i++) {
@@ -31,14 +31,30 @@ class CloturerInscription
             $nbInscrits = $sorties[$i]->getParticipants();
             if (count($nbInscrits) >= $nbParticipantsMax) {
                 $sorties[$i]->setEtat($etatFerme);
-                $entityManager->persist($sorties[$i]);
-                $entityManager->flush();
+                $this->em->persist($sorties[$i]);
+                $this->em->flush();
             }
         }
     }
-
-    public function cloturerInscriptionDate($entityManager)
+    // si la date limite d'inscription est atteinte, on clôture la sortie
+    public function cloturerDateLimite()
     {
-        // si la date limite d'inscription est atteinte, on clôture la sortie
+        $etatRepository = $this->em->getRepository(Etat::class);
+        $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
+        $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
+
+        $sortieRepository = $this->em->getRepository(Sortie::class);
+        $sorties = $sortieRepository->findAll();
+
+        for ($i = 0; $i < count($sorties); $i++) {
+            $dateLimiteInsciption = $sorties[$i]->getDateLimiteInscription();
+            $dateDebutSortie = $sorties[$i]->getDateHeureDebut();
+                    if($dateLimiteInsciption <= new \DateTime() && $dateDebutSortie > new \DateTime()){
+                        $sorties[$i]->setEtat($etatFerme);
+                        $this->em->persist($sorties[$i]);
+                        $this->em->flush();
+                    }
+        }
+
     }
 }
