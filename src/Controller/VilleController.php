@@ -161,6 +161,15 @@ class VilleController extends Controller
         $villeRepository = $entityManager->getRepository(Ville::class);
         $villes = $villeRepository->findByName($nomAChercher);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // mise en base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('ville_index'));
+        }
+
         return $this->render(
             'ville/index.html.twig',
             [

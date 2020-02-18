@@ -11,10 +11,10 @@
         <form method="POST" action="{{ path('site_filter') }}" class="wrap-input1" >
             <div class="row">
                 <div class="col-7">
-                    <input id="input_filter" type="text" name="site_filter" class="input1" style="margin-top: 6px" required>
+                    <input id="input_filter" type="text" name="site_filter" class="input1" placeholder="Rechercher un site" style="margin-top: 6px" required>
                 </div>
                 <div class="col-5">
-                    <button type="submit" class="btn contact1-form-btn">Rechercher</button>
+                    <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Rechercher</button>
                 </div>
             </div>
             <span class="shadow-input1"></span>
@@ -56,11 +56,11 @@
                     <td>
                         {{ form_start(SiteForm) }}
                         {{ form_label(SiteForm.nom) }}
-                        {{ form_widget(SiteForm.nom, {'attr': {'class': 'input1'} }) }}
+                        {{ form_widget(SiteForm.nom, {'attr': {'class': 'input1', 'placeholder': 'Site'} }) }}
                         {{ form_errors(SiteForm.nom) }}
                     </td>
                     <td>
-                        <button class="contact1-form-btn" style="margin-top: 25px; margin-left: 20px">Ajouter</button>
+                        <button class="contact1-form-btn bouton1 mx-auto" style="margin-top: 25px; margin-left: 20px">Ajouter</button>
                         {{ form_end(SiteForm) }}
                     </td>
                 </tr>
@@ -76,7 +76,7 @@
 
             <div class="row">
             <label for="site"><b>Site à modifier : </b></label>
-            <input id="input_form" type="text" name="site_modify" class="input1" style="margin-bottom: 10px" required>
+            <input id="input_form" type="text" placeholder="Site" name="site_modify" class="input1" style="margin-bottom: 10px" required>
 
             <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
 

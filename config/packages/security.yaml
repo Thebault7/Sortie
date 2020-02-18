@@ -49,4 +49,3 @@ security:
         - { path: ^/lieu, roles: ROLE_USER }
         - { path: ^/sortie, roles: ROLE_USER }
       #  - { path: ^/admin, roles: ROLE_ADMIN }
-

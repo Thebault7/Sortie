@@ -1,8 +1,14 @@
 <div class="row"></div>
 <nav class="navbar navbar-expand-lg custom_nav-container ">
-    <a class="navbar-brand" href="#">
-        <span>Sortir.com </span>
-    </a>
+    {% if app.user %}
+        <a class="navbar-brand" href="{{ path('accueil') }}">
+            <span>Sortir.com</span>
+        </a>
+    {% else %}
+        <a class="navbar-brand" href="{{ path('login') }}">
+            <span>Sortir.com</span>
+        </a>
+    {% endif %}
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,29 +20,37 @@
             <ul class="navbar-nav  ">
 
                 {% if app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('sortie_messorties') }}">Mes sorties</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('sortie_add') }}">Créer une sortie</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('afficherprofil', {'id': app.user.id}) }}">Mon profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
-                </li>
+                    {% if app.user.getRoles is same as (['ROLE_ADMIN']) %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('site_index') }}">Sites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('ville_index') }}">Villes</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('sortie_messorties') }}">Mes sorties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('sortie_add') }}">Créer une sortie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('afficherprofil', {'id': app.user.id}) }}">Mon profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+                    </li>
 
                 {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('login') }}">Se connecter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Se connecter</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

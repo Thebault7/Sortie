@@ -11,10 +11,10 @@
         <form method="POST" action="{{ path('ville_filter') }}">
             <div class="row">
                 <div class="col-7">
-                    <input id="input_filter" type="text" name="ville_filter" class="input1" style="margin-top: 6px" required>
+                    <input id="input_filter" type="text" name="ville_filter" placeholder="Rechercher une ville" class="input1" style="margin-top: 6px" required>
                 </div>
                 <div class="col-5">
-                    <button type="submit" class="btn contact1-form-btn">Rechercher</button>
+                    <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Rechercher</button>
                 </div>
             </div>
         </form>
@@ -60,16 +60,16 @@
                     <td>
                         {{ form_start(villeForm) }}
                         {{ form_label(villeForm.nom) }}
-                        {{ form_widget(villeForm.nom, {'attr': {'class': 'input1'} }) }}
+                        {{ form_widget(villeForm.nom, {'attr': {'class': 'input1', 'placeholder': 'Ville'} }) }}
                         {{ form_errors(villeForm.nom) }}
                     </td>
                     <td>
                         {{ form_label(villeForm.codePostal) }}
-                        {{ form_widget(villeForm.codePostal, {'attr': {'class': 'input1'} }) }}
+                        {{ form_widget(villeForm.codePostal, {'attr': {'class': 'input1', 'placeholder': 'Code postal'} }) }}
                         {{ form_errors(villeForm.codePostal) }}
                     </td>
                     <td>
-                        <button class="btn contact1-form-btn" style="margin-top: 27px; margin-left: 20px">Ajouter
+                        <button class="btn contact1-form-btn bouton1 mx-auto" style="margin-top: 27px; margin-left: 20px">Ajouter
                         </button>
                         {{ form_end(villeForm) }}
                     </td>
@@ -83,17 +83,17 @@
 
     <div class="form-popup" id="myForm">
         <form action="{{ path('ville_modify') }}" method="POST" class="form-container">
-            <div class="row">
+            <div class="row" >
                 <label for="ville"><b>Ville à modifier : </b></label>
-                <input id="input_nom" type="text" name="ville_modify" class="input1" required>
+                <input id="input_nom" type="text" name="ville_modify" class="input1" placeholder="Ville" required>
                 <input id="input_nom_hidden" type="text" name="ville_hidden" style="display:none">
 
                 <label for="cp"><b>Code postal à modifier : </b></label>
-                <input id="input_cp" type="text" name="cp_modify" class="input1" required>
+                <input id="input_cp" type="text" name="cp_modify" class="input1" placeholder="Code postal" required>
                 <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
 
-                <button type="submit" class="btn contact1-form-btn">Enregistrer</button>
-                <button type="button" id="close" class="btn contact1-form-btn" style="margin-left: 10px" onclick="closeForm()">Close</button>
+                <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Enregistrer</button>
+                <button type="button" id="close" class="btn contact1-form-btn bouton1 mx-auto" style="margin-left: 10px" onclick="closeForm()">Close</button>
             </div>
         </form>
     </div>
