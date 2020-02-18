@@ -176,7 +176,7 @@
         // de site site sélectionné dans la liste déroulante.
         document.querySelector("select").addEventListener("change", function () {
             $.ajax({
-                url: "http://localhost/sortie/public/",     {# {{ path(url('accueil')) }}  #}
+                url: "http://localhost/sortie/public/accueil",     {# {{ path(url('accueil')) }}  #}
                 data: {'id_site': this.value}
             }).done(function (response) {
                 document.getElementById("corps_tableau").innerHTML = response;
