@@ -27,7 +27,7 @@ class ParticipantController extends Controller
     {
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
-        
+
         return $this->render
         (
             'profil/afficherprofil.html.twig',
