@@ -24,7 +24,7 @@
 
                         <form action="{{ path('login') }}" method="post">
                             {% if error %}
-                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                <div class="alert alert-danger">Les identifiants entrés sont incorrects.</div>
                             {% endif %}
                             <div class="contact_form-container">
                                 <div class="row">
