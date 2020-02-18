@@ -179,22 +179,5 @@ class SiteController extends Controller
                 'Sites' => $sites,
             ]
         );
-
-
-
-
-
-
-
-
-
-
-        return $this->render(
-            'site/index.html.twig',
-            [
-                'SiteForm' => $form->createView(),
-                'Sites' => $sites,
-            ]
-        );
     }
 }
