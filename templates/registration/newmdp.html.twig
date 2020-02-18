@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+
+    <section class="contact_section layout_padding mt-0 pt-5">
+    <div class="container">
+
+        <!-- titre de la page-->
+        <div class="heading_container mb-0 pb-0">
+            <h2>
+                Mot de passe oublié
+            </h2>
+        </div>
+
+
+        <div class="">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+
+    <form action="{{ path('newmdp') }}"
+          method="post">
+
+                    <div class="contact_form-container">
+                        <div class="row">
+                            <label for="mdp">Renseignez votre email :</label><br>
+                            {{ form_widget(NewmdpForm.mail) }}
+                            {{ form_errors(NewmdpForm.mail) }}
+                        </div>
+
+                        <div class="d-flex justify-content-center ">
+                            <button type="submit" class="bouton1">Valider</button>
+                        </div>
+
+                    </div>
+{#                    <%#}
+{#                    if (session.getAttribute("errorPassword") != null) {#}
+{#                    %>#}
+{#                    <div class="p-2 ">#}
+{#                        <div class="alert alert-danger">#}
+{#                            <strong>ERREUR!</strong>#}
+{#                            <%=session.getAttribute("errorPassword")%>#}
+{#                        </div>#}
+
+{#                    </div>#}
+
+
+                </form>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </section>
+{% endblock %}
