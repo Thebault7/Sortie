@@ -350,4 +350,31 @@ class SortieController extends Controller
 
         return $this->render('sortie/modifsortie.html.twig', ['sortieFormView'=>$sortieForm->createView(), 'lieuFormView' => $lieuForm->createView(), 'site'=>$site, 'sortie'=>$sortie]);
     }
+
+    /**
+     * @Route("/publier/{id}", name="publier", requirements={"id": "\d+"})
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function publier($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        $etatRepository = $entityManager->getRepository(Etat::class);
+        $etats = $etatRepository->findAll();
+
+        if ($sortie->getParticipant()->getId() !== $user->getId()) {
+            $this->addFlash("échec","Vous n'êtes pas l'organisateur de cette sortie. Vous ne pouvez donc pas la publier.");
+        } else {
+            $sortie->setEtat($etats['Ouvert']->getId());
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash("success", "Publication réussie.");
+        }
+    }
 }
