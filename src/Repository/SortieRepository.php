@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constantes\EtatConstantes;
 use Doctrine\ORM\Query\Expr\Expr\Comparison;
 //use Doctrine\Common\Collections\Expr\Comparison;
 use App\Entity\Sortie;
@@ -50,8 +51,8 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findSortieDontJeSuisOrganisateur($idUser){
-           // $etat1 = "Annulé";
-            $etat2 = "Archivé";
+           // $etat1 = EtatConstantes::ANNULE;
+            $etat2 = EtatConstantes::ARCHIVE;
 
             return $this->createQueryBuilder('s')
                 ->join('s.etat', 'e')
@@ -63,12 +64,11 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('etat2', $etat2)
                 ->getQuery()
                 ->getResult();
-
     }
 
     public function findSortieAuxquellesJeSuisInscrit($idUser){
 
-        $etat2 = "Archivé";
+        $etat2 = EtatConstantes::ARCHIVE;
 
         return $this->createQueryBuilder('s')
             ->join('s.participants', 'p')

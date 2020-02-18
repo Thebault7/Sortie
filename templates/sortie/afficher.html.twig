@@ -134,7 +134,7 @@ afficher une sortie
             <div class="row">
                 <div class="mx-auto">
                     {% if sortie.participant.mail is same as(app.user.mail)
-                        and sortie.etat.libelle is same as("Créé")
+                        and sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::CREE'))
                         and sortie.dateLimiteInscription|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
                     %}
                         <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1">
@@ -143,7 +143,7 @@ afficher une sortie
                     {% endif %}
 
                     {% if sortie.participant.mail is same as(app.user.mail)
-                        and (sortie.etat.libelle is same as("Ouvert") or sortie.etat.libelle is same as("Clôturé"))
+                        and (sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::OUVERT')) or sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::CLOTURE')))
                         and (sortie.dateHeureDebut("d/m/Y H:i:s") > "now"|date("d/m/Y H:i:s"))
                     %}
                         <a class="ml-1 mr-1 bouton1" href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annulation</a>
@@ -151,7 +151,7 @@ afficher une sortie
 
 
                      {% if sortie.dateLimiteInscription|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
-                         and sortie.etat.libelle is same as("Ouvert")
+                         and sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::OUVERT'))
                          and sortie.participant.mail is not same as(app.user.mail)
                          and app.user not in sortie.participants%}
                             <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}" class="ml-1 mr-1 bouton1 ">
@@ -160,7 +160,7 @@ afficher une sortie
                     {% endif %}
 
                     {% if sortie.dateHeureDebut|date("d/m/Y H:i:s") >"now"|date("d/m/Y H:i:s")
-                        and (sortie.etat.libelle is same as("Ouvert") or sortie.etat.libelle is same as("Clôturé"))
+                        and (sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::OUVERT')) or sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::CLOTURE')))
                         and sortie.participant.mail is not same as(app.user.mail)
                         and app.user in sortie.participants
                     %}

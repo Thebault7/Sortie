@@ -5,6 +5,7 @@ namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;
+use App\Constantes\EtatConstantes;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ArchiverSortie
@@ -18,8 +19,8 @@ class ArchiverSortie
     {
         // On sélectionne toutes les sorties qui sont finies en base de données
         $etatRepository = $this->entityManager->getRepository(Etat::class);
-        $etatFini = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
-        $etatArchive = $etatRepository->findOneBy(['libelle' => 'Archivé']);
+        $etatFini = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
+        $etatArchive = $etatRepository->findOneBy(['libelle' => EtatConstantes::ARCHIVE]);
         $sortieRepository = $this->entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findByEtat($etatFini->getId());
 

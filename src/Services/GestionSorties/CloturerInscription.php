@@ -5,6 +5,7 @@ namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;
+use App\Constantes\EtatConstantes;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CloturerInscription
@@ -13,15 +14,15 @@ class CloturerInscription
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-            $this->em = $entityManager;
+        $this->em = $entityManager;
     }
 
     // si le nombre d'inscripts atteint le nombre max, on clôture la sortie
     public function cloturerInscriptionNbMax()
     {
         $etatRepository = $this->em->getRepository(Etat::class);
-        $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
-        $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
+        $etatOuvert = $etatRepository->findOneBy(['libelle' => EtatConstantes::OUVERT]);
+        $etatFerme = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
 
         $sortieRepository = $this->em->getRepository(Sortie::class);
         $sorties = $sortieRepository->findByEtat($etatOuvert->getId());
@@ -36,12 +37,12 @@ class CloturerInscription
             }
         }
     }
+
     // si la date limite d'inscription est atteinte, on clôture la sortie
     public function cloturerDateLimite()
     {
         $etatRepository = $this->em->getRepository(Etat::class);
-        $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
-        $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
+        $etatFerme = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
 
         $sortieRepository = $this->em->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();
@@ -49,12 +50,11 @@ class CloturerInscription
         for ($i = 0; $i < count($sorties); $i++) {
             $dateLimiteInsciption = $sorties[$i]->getDateLimiteInscription();
             $dateDebutSortie = $sorties[$i]->getDateHeureDebut();
-                    if($dateLimiteInsciption <= new \DateTime() && $dateDebutSortie > new \DateTime()){
-                        $sorties[$i]->setEtat($etatFerme);
-                        $this->em->persist($sorties[$i]);
-                        $this->em->flush();
-                    }
+            if ($dateLimiteInsciption <= new \DateTime() && $dateDebutSortie > new \DateTime()) {
+                $sorties[$i]->setEtat($etatFerme);
+                $this->em->persist($sorties[$i]);
+                $this->em->flush();
+            }
         }
-
     }
 }

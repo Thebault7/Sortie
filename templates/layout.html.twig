@@ -17,28 +17,28 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}"/>
 
     <!-- fonts style -->
-   <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet"/>
     <title>{% block title %}Layout{% endblock %}</title>
     <style>
-        .bouton1{
+        .bouton1 {
             display: inline-block !important;
             padding: 10px 30px !important;
             background-color: #0fcfdc;
@@ -50,10 +50,11 @@
         }
 
         .bouton1:hover {
-            background-color:#0fcfdc;
+            background-color: #0fcfdc;
             color: black !important;
         }
-        #map_box{
+
+        #map_box {
             border: 2px solid #0fcfdc;
             border-radius: 5px;
         }
@@ -65,7 +66,7 @@
             padding: 1px;
         }
 
-        .fa-plus-square{
+        .fa-plus-square {
             color: #0fcfdc;
         }
 
@@ -73,13 +74,13 @@
             color: #2a2132
         }
 
-        body{
+        body {
             font-family: 'Poppins', sans-serif;
 
         }
 
 
-        .detail-box a{
+        .detail-box a {
             display: inline-block;
             padding: 5px 10px;
             background-color: black;
@@ -97,7 +98,7 @@
 
         a:hover,
         a:focus {
-            color:black;
+            color: black;
         }
 
         a,
@@ -122,7 +123,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-11 offset-lg-1">
-{% include 'includes/navbar.html.twig' %}
+                    {% include 'includes/navbar.html.twig' %}
                 </div>
             </div>
 
@@ -132,8 +133,9 @@
 <div class="row ml-0 mr-0 d.flex flex-row-reverse " style="background-color: #F8F8F8;">
     {% if app.user %}
         <p class="mr-1 mb-0 pb-1 pt-1 align-self-center" style="font-size: 0.8rem"><i>
-            Bienvenue <span class="font-weight-bold">{{ app.user.prenom }} {{ app.user.nom }}</span>!
-            Date du jour : <span class="font-weight-bold">{{ 'now'|localizeddate('none', 'none', 'fr', null, 'd MMMM Y') }}</span>
+                Bienvenue <span class="font-weight-bold">{{ app.user.prenom }} {{ app.user.nom }}</span>!
+                Date du jour : <span
+                        class="font-weight-bold">{{ 'now'|localizeddate('none', 'none', 'fr', null, 'd MMMM Y') }}</span>
             </i>
         </p>
     {% endif %}
@@ -146,10 +148,10 @@
     </div>
 </main>
 
-
+{% include 'includes/footer.html.twig' %}
 
 {% block javascripts %}{% endblock %}
-{% include 'includes/footer.html.twig' %}
+
 </body>
 </html>
 
