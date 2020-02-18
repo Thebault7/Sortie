@@ -39,18 +39,19 @@
     <title>{% block title %}Layout{% endblock %}</title>
     <style>
         .bouton1{
-            display: inline-block;
-            padding: 10px 30px;
+            display: inline-block !important;
+            padding: 10px 30px !important;
             background-color: #0fcfdc;
-            border-radius: 5px;
+            border-radius: 5px !important;
             color: white;
             text-align: center;
             align-self: center;
-            margin-top: 30px;
+            margin-top: 30px !important;
         }
 
         .bouton1:hover {
             background-color:#0fcfdc;
+            color: black !important;
         }
         #map_box{
             border: 2px solid #0fcfdc;
@@ -72,13 +73,11 @@
             color: #2a2132
         }
 
-        p{
+        body{
             font-family: 'Poppins', sans-serif;
-        }
-
-        .detail-box {
 
         }
+
 
         .detail-box a{
             display: inline-block;
@@ -89,6 +88,31 @@
             text-transform: uppercase;
             margin-top: 10px;
         }
+
+
+        h2 {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        a:hover,
+        a:focus {
+            color:black;
+        }
+
+        a,
+        a:hover,
+        a:focus {
+            text-decoration: none;
+        }
+
+        .heading_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body class="sub_page">
@@ -107,9 +131,10 @@
 </div>
 <div class="row ml-0 mr-0 d.flex flex-row-reverse " style="background-color: #F8F8F8;">
     {% if app.user %}
-        <p class="mr-1 mb-0 pb-1 pt-1 align-self-center">
+        <p class="mr-1 mb-0 pb-1 pt-1 align-self-center" style="font-size: 0.8rem"><i>
             Bienvenue <span class="font-weight-bold">{{ app.user.prenom }} {{ app.user.nom }}</span>!
             Date du jour : <span class="font-weight-bold">{{ 'now'|localizeddate('none', 'none', 'fr', null, 'd MMMM Y') }}</span>
+            </i>
         </p>
     {% endif %}
 </div>

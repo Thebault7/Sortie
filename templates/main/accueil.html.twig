@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <section class="contact_section layout_padding mt-0 pt-5">
+    <section class="contact_section layout_padding" style="margin-top: 0; padding-top: 0">
         <div class="container">
 
             <div class="row">
@@ -20,20 +20,26 @@
                 {% endfor %}
             </div>
 
-            <div class="">
-                <h6 class="text-uppercase font-weight-bold">Filtrer les sorties</h6>
-            </div>
 
-            <form action="{{ path('recherche') }}" method="post">
-                <div class="contact_form-container">
+
+            <form action="{{ path('recherche') }}" method="post" >
+
+
+
+                <div class="contact_form-container" >
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+
+                            <div class="divFilters mt-5 mb-5">
+                                <h5 class="text-uppercase font-weight-bold mt-10">Filtrer les sorties</h5>
+                            </div>
+
                             <div class="row">
                                 <div class="col-5">
                                     <label for="site" class="font-weight-bold">Site :</label>
                                 </div>
-                                <div class="col-7">
-                                    <select id="select_sites" name="select_sites">
+                                <div class="col-6">
+                                    <select id="select_sites" name="select_sites" style=" width: 100%">
                                         <option id="tous_sites" value="tous_sites">Tous les sites</option>
                                         {% for site in sites %}
                                             <option id="site_{{ site.id }}" value="{{ site.id }}">
@@ -67,8 +73,8 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="row mt-5">
 
                                 <div class="col-2">
                                     <input type="checkbox" name="organisateur">
@@ -86,8 +92,8 @@
                                 </div>
                             </div>
 
-                            <fieldset class="border p-2">
-                                <legend class="w-auto" style="font-size: 16px">Inscript ?</legend>
+                            <fieldset class="border p-2 mt-3">
+                                <legend class="w-auto" style="font-size: 16px">Inscrit ?</legend>
                                 <div class="row">
                                     <div class="col-2">
                                         <input type="checkbox" id="radio_inscript_check" name="inscript_activate"
@@ -127,7 +133,7 @@
                     </div>
 
                     <div class="container table-wrapper-scroll-y my-custom-scrollbar"
-                         style="position: relative; height: 200px; width: 100%; overflow: auto">
+                         style="position: relative; height: 400px; width: 100%; overflow: auto">
 
                         <br>
 
@@ -151,12 +157,6 @@
                     </div>
                 </div>
             </form>
-            <div>
-                <form action="{{ path('sortie_add') }}" methode="post">
-                    <button type="submit" class="bouton1" name="creer">Créer une sortie
-                    </button>
-                </form>
-            </div>
         </div>
     </section>
 
