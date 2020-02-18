@@ -49,7 +49,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/", name="accueil")
+     * @Route("/accueil", name="accueil")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return

@@ -2,19 +2,18 @@
 
 {% block body %}
 
-
     <section class="contact_section layout_padding mt-0 pt-5">
         <div class="container">
 
             <!-- affichage des messages d'erreur ci-dessous : -->
             <div class="row mt-1 mb-2">
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }} mx-auto" role="alert">
-                        {{ message }}
-                    </div>
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mx-auto" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
             </div>
             <!-- titre de la page-->
             <div class="heading_container mb-0 pb-0">
@@ -23,118 +22,104 @@
                 </h2>
             </div>
 
-        <div class="">
-        <div class="row">
-        <div class="col-md-8 mx-auto">
-
-
-            {% if user.photo is not null %}
-                <div class="row mt-1 mb-2">
-                    <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~user.photo) }}" alt="" style="border-radius:50%; width: 200px">
-                </div>
-            {% endif %}
-
-        {{ form_start(ModifProfilForm) }}
-            <div class="contact_form-container">
+            <div class="">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Pseudo : </label>
-                        {{ form_widget(ModifProfilForm.pseudo) }}
-                        {{ form_errors(ModifProfilForm.pseudo) }}
-                    </div>
+                    <div class="col-md-8 mx-auto">
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Nom du site : </label>
-                        {{ form_widget(ModifProfilForm.site) }}
-                        {{ form_errors(ModifProfilForm.site) }}
-                    </div>
-                </div>
+                        {% if user.photo is defined %}
+                            <div class="row mt-1 mb-2">
+                                <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~user.photo) }}" alt=""
+                                     style="border-radius:50%; width: 200px">
+                            </div>
+                        {% endif %}
 
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Nom : </label>
-                        {{ form_widget(ModifProfilForm.nom) }}
-                        {{ form_errors(ModifProfilForm.nom) }}
-                    </div>
+                        {{ form_start(ModifProfilForm) }}
+                        <div class="contact_form-container">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Pseudo : </label>
+                                    {{ form_widget(ModifProfilForm.pseudo) }}
+                                    {{ form_errors(ModifProfilForm.pseudo) }}
+                                </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Prénom : </label>
-                        {{ form_widget(ModifProfilForm.prenom) }}
-                        {{ form_errors(ModifProfilForm.prenom) }}
-                    </div>
-                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Nom du site : </label>
+                                    {{ form_widget(ModifProfilForm.site) }}
+                                    {{ form_errors(ModifProfilForm.site) }}
+                                </div>
+                            </div>
 
-                <div class="row mt-1" >
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Téléphone : </label>
-                        {{ form_widget(ModifProfilForm.telephone) }}
-                        {{ form_errors(ModifProfilForm.telephone) }}
-                    </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Nom : </label>
+                                    {{ form_widget(ModifProfilForm.nom) }}
+                                    {{ form_errors(ModifProfilForm.nom) }}
+                                </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>E-mail : </label>
-                        {{ form_widget(ModifProfilForm.mail) }}
-                        {{ form_errors(ModifProfilForm.mail) }}
-                    </div>
-                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Prénom : </label>
+                                    {{ form_widget(ModifProfilForm.prenom) }}
+                                    {{ form_errors(ModifProfilForm.prenom) }}
+                                </div>
+                            </div>
 
-                <div class="row mt-1">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Mot de passe : </label>
-                        {{ form_widget(ModifProfilForm.password.first) }}
-                        {{ form_errors(ModifProfilForm.password.first) }}
-                    </div>
+                            <div class="row mt-1">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Téléphone : </label>
+                                    {{ form_widget(ModifProfilForm.telephone) }}
+                                    {{ form_errors(ModifProfilForm.telephone) }}
+                                </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <label>Confirmation du mot de passe : </label>
-                        {{ form_widget(ModifProfilForm.password.second) }}
-                        {{ form_errors(ModifProfilForm.password.second) }}
-                    </div>
-                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>E-mail : </label>
+                                    {{ form_widget(ModifProfilForm.mail) }}
+                                    {{ form_errors(ModifProfilForm.mail) }}
+                                </div>
+                            </div>
 
-                <div class="row mt-2">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <label>Ma photo : </label>
-                        {{ form_widget(ModifProfilForm.photo) }}
-                        {{ form_errors(ModifProfilForm.photo) }}
-                    </div>
-                </div>
+                            <div class="row mt-1">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Mot de passe : </label>
+                                    {{ form_widget(ModifProfilForm.password.first) }}
+                                    {{ form_errors(ModifProfilForm.password.first) }}
+                                </div>
 
-                <div class="d-flex justify-content-center ">
-                        <div class="col-5">
-                            <button class="bouton1" type="submit">Enregistrer</button>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label>Confirmation du mot de passe : </label>
+                                    {{ form_widget(ModifProfilForm.password.second) }}
+                                    {{ form_errors(ModifProfilForm.password.second) }}
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                    <label>Ma photo : </label>
+                                    {{ form_widget(ModifProfilForm.photo) }}
+                                    {{ form_errors(ModifProfilForm.photo) }}
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center ">
+                                <div class="col-5">
+                                    <button class="bouton1" type="submit">Enregistrer</button>
+                                </div>
+                                <div class="col-5">
+                                    <a class="bouton1" type="button" href="{{ path('afficherprofil', {'id': user.id}) }}">Annuler</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-5">
-                       <a class="bouton1" href="{{ path('afficherprofil', {'id': user.id}) }}">Annuler</a>
-                        </div>
-
+                        {{ form_end(ModifProfilForm) }}
+                    </div>
                 </div>
             </div>
-        {{ form_end(ModifProfilForm) }}
         </div>
-        </div>
-        </div>
-        </div>
-
-
-
-
     </section>
 
     <script>
-
-
-
-        /*
-
-    let legend = document.getElementsByTagName('legend')[0];
-   legend.textContent = " ";*/
-
         let pseudoELt = document.getElementById("modif_profil_pseudo");
-        if(pseudoELt.hasAttribute('required')){
+        if (pseudoELt.hasAttribute('required')) {
             pseudoELt.removeAttribute('required');
         }
-
     </script>
 {% endblock %}
 {% block title %}modifier mon profil{% endblock %}
