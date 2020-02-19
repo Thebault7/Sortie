@@ -80,12 +80,10 @@
                 </div>
                 {% if app.user.administrateur is same as(true) %}
                     <div class="ml-1 mr-1">
-                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': false}) }}" class="bouton2">inactiver le compte
-                            utilisateur</a>
+                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': false}) }}" class="bouton2">Inactiver</a>
                     </div>
                     <div class="ml-1 mr-1">
-                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': true}) }}" class="bouton3">supprimer le compte
-                            utilisateur</a>
+                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': true}) }}" class="bouton3">Supprimer</a>
                     </div>
                 {% endif %}
             </div>
