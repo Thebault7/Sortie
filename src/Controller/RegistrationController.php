@@ -48,7 +48,7 @@ class RegistrationController extends Controller
                 )
             );
 
-            $participant->setPhoto(null);
+            $participant->setPhoto('silhouette.jpg');
             // mise en base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
@@ -71,8 +71,12 @@ class RegistrationController extends Controller
      * @param EntityManagerInterface $entityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete($id, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, Request $request): Response
-    {
+    public function delete(
+        $id,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        Request $request
+    ): Response {
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
 
@@ -107,31 +111,44 @@ class RegistrationController extends Controller
         }
 
         if ($participantPeutEtreSupprime) {
-            $participant->setActif(false);
+            if ($request->query->get('a_supprimer') === "1") {
+                $entityManager->remove($participant);
+                $entityManager->flush();    // si suppression totale, on enlève l'utilisateur de la base de données
 
-            if ($request->query->get('change_password') === "1") {
-                $motDePasse = "";
-                // génération d'un mot de passe aléatoire de 10 chiffres
-                for ($i = 0; $i < 10; $i++) {
-                    $motDePasse = $motDePasse.rand() % (10);
-                }
-
-                // cryptage du mot de passe
-                $participant->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $participant,
-                        $motDePasse
-                    )
-                );
+            } else {
+                $participant->setActif(false);
+                $entityManager->persist($participant);
+                $entityManager->flush();    // si inactivation du compte, on ne fait que changer le booléen 'actif'
             }
-            $entityManager->persist($participant);
-            $entityManager->flush();
         } else {
             $this->addFlash(
                 "warning",
-                "L'utilisateur est encore actif. Veuillez supprimer toutes ses inscriptions et ses sorties avant de pouvoir supprimer sont compte."
+                "L'utilisateur est encore actif. Veuillez supprimer toutes ses inscriptions et ses sorties avant de pouvoir inactiver ou supprimer son compte."
             );
         }
+
+        return $this->redirectToRoute('accueil');
+    }
+
+    /**
+     * @Route("/admin/activate/{id}", name="activate_user")
+     * @param $id
+     * @param EntityManagerInterface $entityManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function activate(
+        $id,
+        EntityManagerInterface $entityManager,
+        Request $request
+    ): Response {
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participant = $participantRepository->find($id);
+
+        $participant->setActif(true);
+
+        $entityManager->persist($participant);
+        $entityManager->flush();
+
         return $this->redirectToRoute('accueil');
     }
 }

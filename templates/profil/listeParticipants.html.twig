@@ -32,25 +32,23 @@
                 </thead>
                 <tbody>
                 {% for participant in participants %}
-                    {% if participant.actif is same as (true) %}
-                        <tr>
-                            <td>
-                                {{ participant.nom }}
-                            </td>
-                            <td>
-                                {{ participant.prenom }}
-                            </td>
-                            <td>
-                                <a href="{{ path('afficherprofil', {'id': participant.id }) }}">
-                                    {% if participant.pseudo is not null %}
-                                        {{ participant.pseudo }}
-                                    {% else %}
-                                        {{ participant.prenom }} {{ participant.nom|first }}.
-                                    {% endif %}
-                                </a>
-                            </td>
-                        </tr>
-                    {% endif %}
+                    <tr>
+                        <td>
+                            {{ participant.nom }}
+                        </td>
+                        <td>
+                            {{ participant.prenom }}
+                        </td>
+                        <td>
+                            <a href="{{ path('afficherprofil', {'id': participant.id }) }}">
+                                {% if participant.pseudo is not null %}
+                                    {{ participant.pseudo }}
+                                {% else %}
+                                    {{ participant.prenom }} {{ participant.nom|first }}.
+                                {% endif %}
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
