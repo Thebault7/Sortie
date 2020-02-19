@@ -147,6 +147,13 @@ class SortieController extends Controller
             return $this->redirectToRoute('sortie_afficher', compact('id'));
         }
 
+        // si, lors de l'inscription, le nombre maximum d'inscrits est atteint, il faut changer l'état
+        // de la sortie de Ouvert à Clôturé
+        if (count($sortie->getParticipants()) >= $sortie->getNbInscriptionMax() - 1) {
+            $etatCloture = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
+            $sortie->setEtat($etatCloture);
+        }
+
         $sortie->addParticipant($user);
         $entityManager->persist($sortie);
         $entityManager->flush();
@@ -194,6 +201,12 @@ class SortieController extends Controller
         elseif ($participants->contains($user)) {
             // suppression de participant
             $sortie->removeParticipant($user);
+
+            // on vérifie que la sortie d'où l'utilisateur s'est désisté était remplie. Si oui, une place vient de se libérer
+            // et il faut donc la remettre ouverte.
+            if ($sortie->getEtat()->getLibelle() === $etatCloture->getLibelle()) {
+                $sortie->setEtat($etatOuvert);
+            }
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -425,7 +438,6 @@ class SortieController extends Controller
         $sortie = $sortieRepository->find($id);
 
 
-
         $etatRepository = $entityManager->getRepository(Etat::class);
         $etatOuvert = $etatRepository->findOneBy(['libelle' => EtatConstantes::OUVERT]);
 
@@ -441,6 +453,7 @@ class SortieController extends Controller
 
             $this->addFlash("success", "Publication réussie.");
         }
+
         return $this->redirect($this->generateUrl('accueil'));
     }
 }
