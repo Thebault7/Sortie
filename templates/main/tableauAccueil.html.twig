@@ -55,12 +55,21 @@
                             {% if inscrit %}      {# Si l'utilisateur est inscrit, l'option 'se désister' apparaît. #}
                                 <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
                                     href="{{ path('sortie_desister', {'id': sortie.id}) }}">se désister</a>
+                                {% if user.administrateur %}
+                                    -- <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
+                                {% endif %}
                             {% else %}          {# Sinon, on vérifie ensuite qu'il y a la possibilité de pouvoir s'inscrire, c'est-à-dire que la sortie n'est pas remplie ou clo^turée. #}
                                 {% if (sortie.nbInscriptionMax <= sortie.participants|length) or (sortie.dateLimiteInscription < "now"|date("Y-m-d")) %}
                                     <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a>
+                                    {% if user.administrateur %}
+                                        -- <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
+                                    {% endif %}
                                 {% else %}
                                     <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
                                         href="{{ path('sortie_inscription', {'id': sortie.id}) }}">s'inscrire</a>
+                                    {% if user.administrateur %}
+                                        -- <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         {% endif %}

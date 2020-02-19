@@ -22,7 +22,7 @@ class ArchiverSortie
         $etatFini = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
         $etatArchive = $etatRepository->findOneBy(['libelle' => EtatConstantes::ARCHIVE]);
         $sortieRepository = $this->entityManager->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findByEtat($etatFini->getId());
+        $sorties = $sortieRepository->findAll();
 
         $dateDuJour = new \DateTime('now');
 

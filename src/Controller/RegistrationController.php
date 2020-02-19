@@ -123,7 +123,7 @@ class RegistrationController extends Controller
         } else {
             $this->addFlash(
                 "warning",
-                "L'utilisateur est encore actif. Veuillez supprimer toutes ses inscriptions et ses sorties avant de pouvoir supprimer sont compte."
+                "L'utilisateur est encore actif. Veuillez supprimer toutes ses inscriptions et ses sorties avant de pouvoir inactiver ou supprimer son compte."
             );
         }
 
