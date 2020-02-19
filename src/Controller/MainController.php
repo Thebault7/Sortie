@@ -34,6 +34,14 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class MainController extends Controller
 {
     /**
+     * @Route("/", name="entrance")
+     */
+    public function entrance()
+    {
+        return $this->redirect($this->generateUrl('login'));
+    }
+
+    /**
      * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return
@@ -247,7 +255,6 @@ class MainController extends Controller
         ]);
 
     }
-
 
 
     /**
