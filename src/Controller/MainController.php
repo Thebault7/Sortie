@@ -201,20 +201,20 @@ class MainController extends Controller
             ->getForm();
 
         $mail = new Participant();
-        $form = $this->createForm(NewmdpType::class, $mail);
+//        $form = $this->createForm(NewmdpType::class, $mail);
 
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $email = $form->getData('mail')['mail'];
-//            var_dump($email);
+            $mail = $form->getData('mail')['mail'];
+//           var_dump($mail);
             $em = $this->getDoctrine()->getManager();
 
             $participant = $em->getRepository(Participant::class)
                 ->findOneBy([
-                    'mail' => $email
+                    'mail' => $mail
                 ]);
             if (!$participant) {
                 $this->addFlash('warning', "Cet email n'existe pas.");
