@@ -1,7 +1,8 @@
 {% for sortie in sorties %}
 
     {% if sortie.participant.actif is same as (true) %}
-        {% if not (sortie.etat.libelle is same as ( constant('\\App\\Constantes\\EtatConstantes::ARCHIVE') )) %}     {# Si la sortie est archivée, elle ne doit pas apparaître. #}
+        {% if  not((sortie.etat.libelle is same as ( constant('\\App\\Constantes\\EtatConstantes::ARCHIVE') ))
+            or  (sortie.etat.libelle is same as (constant('\\App\\Constantes\\EtatConstantes::ANNULE')))) %}     {# Si la sortie est archivée ou annulée, elle ne doit pas apparaître. #}
             {# Ci-dessous: la sortie apparait dans le tableau si l'utilisateur en est l'organisateur, ou si il ne l'est pas mais
             qu'alors la sortie a été publiée. #}
             {% if (sortie.participant is same as (user)) or
