@@ -189,8 +189,11 @@ class MainController extends Controller
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-    public function newmdp(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    public function newmdp(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): Response {
         $mail = new Participant();
         $form = $this->createForm(NewmdpType::class, $mail);
         $form->handleRequest($request);
@@ -198,7 +201,8 @@ class MainController extends Controller
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->findOneBy(['mail' => $mail]);
 
-            $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
+        $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
+
         return $this->redirectToRoute('newmdp');
 
         $mailer = $this->getMailer();
@@ -207,7 +211,7 @@ class MainController extends Controller
 
 //        génération d'un mot de passe aléatoire de 10 chiffres
         for ($i = 0; $i < 10; $i++) {
-            $motDePasse = $motDePasse . rand() % (10);
+            $motDePasse = $motDePasse.rand() % (10);
         }
 
         // cryptage du mot de passe
@@ -219,15 +223,32 @@ class MainController extends Controller
         );
 
 
-{
-$this->addFlash("échec", "Ce mail n'existe pas");
-}
+        {
+            $this->addFlash("échec", "Ce mail n'existe pas");
+        }
 
-return $this->render('registration/newmdp.html.twig', [
-    'NewmdpForm' => $form->createView(),
-            'mail' => $mail,
-        ]);
+        return $this->render(
+            'registration/newmdp.html.twig',
+            [
+                'NewmdpForm' => $form->createView(),
+                'mail' => $mail,
+            ]
+        );
 
     }
 
+
+    /**
+     * @Route("/admin/listeParticipants", name="liste_participants")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function listeParticipants(Request $request, EntityManagerInterface $entityManager)
+    {
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participants = $participantRepository->findAll();
+
+        return $this->render('profil/listeParticipants.html.twig', ['participants' => $participants]);
+    }
 }

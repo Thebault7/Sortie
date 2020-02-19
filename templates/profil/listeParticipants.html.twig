@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+
+    <section class="contact_section layout_padding mt-0 pt-5">
+        <div class="container">
+
+            <div class="row mt-1 mb-2">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mx-auto" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+            <div class="heading_container mb-0 pb-0">
+                <h2>
+                    Liste des utilisateurs actifs inscrits
+                </h2>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom de l'utilisateur</th>
+                    <th>Prénom de l'utilisateur</th>
+                    <th>Pseudo</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for participant in participants %}
+                    {% if participant.actif is same as (true) %}
+                        <tr>
+                            <td>
+                                {{ participant.nom }}
+                            </td>
+                            <td>
+                                {{ participant.prenom }}
+                            </td>
+                            <td>
+                                <a href="{{ path('afficherprofil', {'id': participant.id }) }}">
+                                    {% if participant.pseudo is not null %}
+                                        {{ participant.pseudo }}
+                                    {% else %}
+                                        {{ participant.prenom }} {{ participant.nom|first }}.
+                                    {% endif %}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
+{% block title %}profil{% endblock %}
