@@ -2,7 +2,6 @@
 
 {% block body %}
 
-
     <section class="contact_section layout_padding mt-0 pt-5">
         <div class="container">
 
@@ -79,17 +78,36 @@
                     <a class="bouton1" href="{{ app.request.headers.get('referer') }}">Retour</a>
                 </div>
                 {% if app.user.administrateur is same as(true) %}
-                    <div class="ml-1 mr-1">
-                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': false}) }}" class="bouton2">inactiver le compte
-                            utilisateur</a>
-                    </div>
-                    <div class="ml-1 mr-1">
-                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': true}) }}" class="bouton3">supprimer le compte
-                            utilisateur</a>
-                    </div>
+                    {% if participant.actif is same as(true) %}
+                        <div class="ml-1 mr-1">
+                            <a href="{{ path('delete_user', {'id': participant.id, 'change_password': false}) }}"
+                               class="bouton2">Inactiver</a>
+                        </div>
+                        <div class="ml-1 mr-1">
+                            <a href="{{ path('delete_user', {'id': participant.id, 'a_supprimer': true}) }}"
+                               class="bouton3">Supprimer</a>
+                        </div>
+                    {% else %}
+                        <div class="ml-1 mr-1">
+                            <a href="{{ path('activate_user', {'id': participant.id}) }}" class="bouton2">Réactiver</a>
+                        </div>
+                        <div class="ml-1 mr-1">
+                            <a href="{{ path('delete_user', {'id': participant.id, 'a_supprimer': true}) }}"
+                               class="bouton3">Supprimer</a>
+                        </div>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
+
+        {% if app.user.administrateur is same as(true) %}
+            {% if not (participant.actif is same as(true)) %}
+                <h3>
+                    Le compte de cet utilisateur est <span>désactivé</span>.
+                </h3>
+            {% endif %}
+        {% endif %}
+
     </section>
 
 {% endblock %}
