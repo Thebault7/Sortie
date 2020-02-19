@@ -122,7 +122,6 @@ class RegistrationController extends Controller
 
         if ($participantPeutEtreSupprime) {
             $participant->setActif(false);
-            $participant->setPassword($motDePasse);
             $entityManager->persist($participant);
             $entityManager->flush();
         } else {

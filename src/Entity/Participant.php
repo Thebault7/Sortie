@@ -280,6 +280,9 @@ class Participant implements UserInterface
         if ($this->administrateur === true) {
             $this->roles = ['ROLE_ADMIN'];
         }
+        if ($this->actif === false) {
+            $this->roles = ['ROLE_INACTIF'];
+        }
 
         return $this->roles;
     }
