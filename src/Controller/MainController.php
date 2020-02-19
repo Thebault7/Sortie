@@ -9,6 +9,7 @@ use App\Entity\Participant;
 use App\Entity\Etat;
 use App\Form\AccueilType;
 use App\Form\NewmdpType;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\Services\OrganisateurFilter;
 use App\Services\SortiesPassees;
 use App\Services\SortiesInscrit;
@@ -25,6 +26,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class MainController extends Controller
@@ -184,49 +187,155 @@ class MainController extends Controller
     /**
      * @Route("/newmdp", name="newmdp")
      * @param Request $request
+     * @param ObjectManager $objectManager
      * @param EntityManagerInterface $entityManager
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-    public function newmdp(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function newmdp(Request $request, ObjectManager $objectManager, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $mail = new Participant();
-        $form = $this->createForm(NewmdpType::class, $mail);
+        $form = $this->createFormBuilder()
+            ->add('mail', NewmdpType::class)
+            ->getForm();
+
         $form->handleRequest($request);
 
-        $participantRepository = $entityManager->getRepository(Participant::class);
-        $participant = $participantRepository->findOneBy(['mail' => $mail]);
 
-            $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
-        return $this->redirectToRoute('newmdp');
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        $mailer = $this->getMailer();
+            $email = $form->getData('mail')['mail'];
+//            var_dump($email);
+            $em = $this->getDoctrine()->getManager();
 
-        $this->getMailer()->composeAndSend();
+            $participant = $em->getRepository(Participant::class)
+                ->findOneBy([
+                    'mail' => $email
+                ]);
+            if (!$participant) {
+                $this->addFlash('warning', "Cet email n'existe pas.");
 
-//        génération d'un mot de passe aléatoire de 10 chiffres
-        for ($i = 0; $i < 10; $i++) {
-            $motDePasse = $motDePasse . rand() % (10);
+            } else {
+                $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
+
+
+                //        génération d'un mot de passe aléatoire de 10 chiffres
+                $motDePasse='';
+                for ($i = 0; $i < 10; $i++) {
+                    $motDePasse = $motDePasse . rand() % (10);
+                }
+
+
+
+
+
+
+
+
+                // cryptage du mot de passe
+                $participant->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $participant,
+                        $motDePasse
+                    )
+                );
+
+                $objectManager->persist($participant);
+                $objectManager->flush();
+
+            }
         }
-
-        // cryptage du mot de passe
-        $participant->setPassword(
-            $passwordEncoder->encodePassword(
-                $participant,
-                $motDePasse
-            )
-        );
-
-
-{
-$this->addFlash("échec", "Ce mail n'existe pas");
-}
-
-return $this->render('registration/newmdp.html.twig', [
-    'NewmdpForm' => $form->createView(),
-            'mail' => $mail,
+        return $this->render('registration/newmdp.html.twig', [
+            'NewmdpForm' => $form->createView()
         ]);
 
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        $mail = new Participant();
+//        $form = $this->createForm(NewmdpType::class, $mail);
+//        $form->handleRequest($request);
+//
+//        $participantRepository = $entityManager->getRepository(Participant::class);
+//        $participant = $participantRepository->findOneBy(['mail' => $mail]);
+//
+//        $message = (new \Swift_Message('Hello Email'))
+//            ->setFrom('send@example.com')
+//            ->setTo('recipient@example.com')
+//            ->setBody(
+//                $this->renderView(
+//                // templates/emails/registration.html.twig
+//                    'emails/registration.html.twig',
+//                    ['name' => $name]
+//                ),
+//                'text/html'
+//            )
+//
+//            // you can remove the following code if you don't define a text version for your emails
+//            ->addPart(
+//                $this->renderView(
+//                // templates/emails/registration.txt.twig
+//                    'emails/registration.txt.twig',
+//                    ['name' => $name]
+//                ),
+//                'text/plain'
+//            )
+//        ;
+
+//        $mailer->send($message);
+//
+////        génération d'un mot de passe aléatoire de 10 chiffres
+//        for ($i = 0; $i < 10; $i++) {
+//            $motDePasse = $motDePasse . rand() % (10);
+//        }
+//
+//        // cryptage du mot de passe
+//        $participant->setPassword(
+//            $passwordEncoder->encodePassword(
+//                $participant,
+//                $motDePasse
+//            )
+//        );
+//
+//        $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
+//        return $this->redirectToRoute('accueil');
+//
+//
+//        $this->addFlash("échec", "Ce mail n'existe pas");
+
+
+//return $this->render('registration/newmdp.html.twig', [
+//    'NewmdpForm' => $form->createView(),
+//            'mail' => $mail,
+//        ]);
+//
+//    }
+
+    }
 }

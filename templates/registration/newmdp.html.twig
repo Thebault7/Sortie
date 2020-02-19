@@ -13,18 +13,28 @@
                 Mot de passe oublié
             </h2>
         </div>
-
+        
+        <div class="row">
+            {% set i = 0 %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} mx-auto" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
 
         <div class="">
             <div class="row">
                 <div class="col-md-8 mx-auto">
 
-    <form action="{{ path('newmdp') }}"
-          method="post">
-
+{#    <form action="{{ path('newmdp') }}"#}
+{#          method="post">#}
+        {{ form_start(NewmdpForm) }}
                     <div class="contact_form-container">
                         <div class="row">
-                            <label for="mdp">Renseignez votre email :</label><br>
+                            <label for="mdp">Renseignez votre email </label><br>
                             {{ form_widget(NewmdpForm.mail) }}
                             {{ form_errors(NewmdpForm.mail) }}
                         </div>
@@ -45,8 +55,8 @@
 
 {#                    </div>#}
 
-
-                </form>
+        {{ form_end(NewmdpForm) }}
+{#                </form>#}
                 </div>
             </div>
         </div>
