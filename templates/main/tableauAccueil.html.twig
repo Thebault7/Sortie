@@ -1,69 +1,71 @@
 {% for sortie in sorties %}
 
-    {% if not (sortie.etat.libelle is same as ( constant('\\App\\Constantes\\EtatConstantes::ARCHIVE') )) %}     {# Si la sortie est archivée, elle ne doit pas apparaître. #}
-        {# Ci-dessous: la sortie apparait dans le tableau si l'utilisateur en est l'organisateur, ou si il ne l'est pas mais
-        qu'alors la sortie a été publiée. #}
-        {% if (sortie.participant is same as (user)) or
-            (not (sortie.participant is same as (user)) and
-            not (sortie.etat.libelle is same as (constant('\\App\\Constantes\\EtatConstantes::CREE')))) %}
-            <tr>
-                <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</td>
-                <td>{{ sortie.dateLimiteInscription|date('d/m/Y h:i') }}</td>
-                <td>{{ sortie.participants|length }} / {{ sortie.nbInscriptionMax }}</td>
-                <td>{{ sortie.etat.libelle }}</td>
-                <td>
-                    {# Une croix est placée dans cette colonne si l'utilsateur est inscrit à la sortie. #}
-                    {% if sortie.participant is same as (user) %}
-                        Organisateur
-                    {% endif %}
-                    {% if not (sortie.participants|length is same as (0)) %}
-                        {% for participant in sortie.participants %}
-                            {% if participant is same as (user) %}
-                                X
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('afficherprofil', {'id': sortie.participant.id }) }}">
-                        {% if sortie.participant.pseudo is not null %}
-                            {{ sortie.participant.pseudo }}
-                        {% else %}
-                            {{ sortie.participant.prenom }} {{ sortie.participant.nom|first }}.
+    {% if sortie.participant.actif is same as (true) %}
+        {% if not (sortie.etat.libelle is same as ( constant('\\App\\Constantes\\EtatConstantes::ARCHIVE') )) %}     {# Si la sortie est archivée, elle ne doit pas apparaître. #}
+            {# Ci-dessous: la sortie apparait dans le tableau si l'utilisateur en est l'organisateur, ou si il ne l'est pas mais
+            qu'alors la sortie a été publiée. #}
+            {% if (sortie.participant is same as (user)) or
+                (not (sortie.participant is same as (user)) and
+                not (sortie.etat.libelle is same as (constant('\\App\\Constantes\\EtatConstantes::CREE')))) %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateHeureDebut|date('d/m/Y h:i') }}</td>
+                    <td>{{ sortie.dateLimiteInscription|date('d/m/Y h:i') }}</td>
+                    <td>{{ sortie.participants|length }} / {{ sortie.nbInscriptionMax }}</td>
+                    <td>{{ sortie.etat.libelle }}</td>
+                    <td>
+                        {# Une croix est placée dans cette colonne si l'utilsateur est inscrit à la sortie. #}
+                        {% if sortie.participant is same as (user) %}
+                            Organisateur
                         {% endif %}
-                    </a>
-                </td>
-                <td>
-                    {% if sortie.participant is same as (user) %}       {# Si l'utilisateur est l'organisateur de la sortie : #}
-                        {% if sortie.etat.libelle is same as (constant('\\App\\Constantes\\EtatConstantes::CREE')) %}
-                            <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}">modifier</a> -- <a
-                                href="{{ path('sortie_publier', {'id': sortie.id}) }}">publier</a>
-                        {% else %}
-                            <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
-                                href="{{ path('sortie_annuler', {'id': sortie.id}) }}">annuler</a>
+                        {% if not (sortie.participants|length is same as (0)) %}
+                            {% for participant in sortie.participants %}
+                                {% if participant is same as (user) %}
+                                    X
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
-                    {% else %}          {# Si l'utilisateur N'est PAS l'organisateur de la sortie : #}
-                        {% set inscrit = false %}       {# On crée un booléen 'inscrit' pour tenir le compte si l'utilisateur est quelque part dans le tableau 'sortie.participants' #}
-                        {% for participant in sortie.participants %}
-                            {% if participant is same as (user) %}      {# On cherche si l'utilisateur est dans la liste des participants inscrits. #}
-                                {% set inscrit = true %}
+                    </td>
+                    <td>
+                        <a href="{{ path('afficherprofil', {'id': sortie.participant.id }) }}">
+                            {% if sortie.participant.pseudo is not null %}
+                                {{ sortie.participant.pseudo }}
+                            {% else %}
+                                {{ sortie.participant.prenom }} {{ sortie.participant.nom|first }}.
                             {% endif %}
-                        {% endfor %}
-                        {% if inscrit %}      {# Si l'utilisateur est inscrit, l'option 'se désister' apparaît. #}
-                            <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
-                                href="{{ path('sortie_desister', {'id': sortie.id}) }}">se désister</a>
-                        {% else %}          {# Sinon, on vérifie ensuite qu'il y a la possibilité de pouvoir s'inscrire, c'est-à-dire que la sortie n'est pas remplie ou clo^turée. #}
-                            {% if (sortie.nbInscriptionMax <= sortie.participants|length) or (sortie.dateLimiteInscription < "now"|date("Y-m-d")) %}
-                                <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a>
+                        </a>
+                    </td>
+                    <td>
+                        {% if sortie.participant is same as (user) %}       {# Si l'utilisateur est l'organisateur de la sortie : #}
+                            {% if sortie.etat.libelle is same as (constant('\\App\\Constantes\\EtatConstantes::CREE')) %}
+                                <a href="{{ path('sortie_modifsortie', {'id': sortie.id}) }}">modifier</a> -- <a
+                                    href="{{ path('sortie_publier', {'id': sortie.id}) }}">publier</a>
                             {% else %}
                                 <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
-                                    href="{{ path('sortie_inscription', {'id': sortie.id}) }}">s'inscrire</a>
+                                    href="{{ path('sortie_annuler', {'id': sortie.id}) }}">annuler</a>
+                            {% endif %}
+                        {% else %}          {# Si l'utilisateur N'est PAS l'organisateur de la sortie : #}
+                            {% set inscrit = false %}       {# On crée un booléen 'inscrit' pour tenir le compte si l'utilisateur est quelque part dans le tableau 'sortie.participants' #}
+                            {% for participant in sortie.participants %}
+                                {% if participant is same as (user) %}      {# On cherche si l'utilisateur est dans la liste des participants inscrits. #}
+                                    {% set inscrit = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if inscrit %}      {# Si l'utilisateur est inscrit, l'option 'se désister' apparaît. #}
+                                <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
+                                    href="{{ path('sortie_desister', {'id': sortie.id}) }}">se désister</a>
+                            {% else %}          {# Sinon, on vérifie ensuite qu'il y a la possibilité de pouvoir s'inscrire, c'est-à-dire que la sortie n'est pas remplie ou clo^turée. #}
+                                {% if (sortie.nbInscriptionMax <= sortie.participants|length) or (sortie.dateLimiteInscription < "now"|date("Y-m-d")) %}
+                                    <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a>
+                                {% else %}
+                                    <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}">afficher</a> -- <a
+                                        href="{{ path('sortie_inscription', {'id': sortie.id}) }}">s'inscrire</a>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
-                    {% endif %}
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            {% endif %}
         {% endif %}
     {% endif %}
 {% endfor %}
