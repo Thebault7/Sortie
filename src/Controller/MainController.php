@@ -193,32 +193,20 @@ class MainController extends Controller
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-<<<<<<< HEAD
+
     public function newmdp(Request $request, ObjectManager $objectManager, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createFormBuilder()
             ->add('mail', NewmdpType::class)
             ->getForm();
 
-=======
-    public function newmdp(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        UserPasswordEncoderInterface $passwordEncoder
-    ): Response {
         $mail = new Participant();
         $form = $this->createForm(NewmdpType::class, $mail);
->>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
+
         $form->handleRequest($request);
 
 
-<<<<<<< HEAD
         if ($form->isSubmitted() && $form->isValid()) {
-=======
-        $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
-
-        return $this->redirectToRoute('newmdp');
->>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
 
             $email = $form->getData('mail')['mail'];
 //            var_dump($email);
@@ -231,30 +219,19 @@ class MainController extends Controller
             if (!$participant) {
                 $this->addFlash('warning', "Cet email n'existe pas.");
 
-<<<<<<< HEAD
             } else {
                 $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
-=======
-//        génération d'un mot de passe aléatoire de 10 chiffres
-        for ($i = 0; $i < 10; $i++) {
-            $motDePasse = $motDePasse.rand() % (10);
-        }
->>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
 
+////        génération d'un mot de passe aléatoire de 10 chiffres
+//                for ($i = 0; $i < 10; $i++) {
+//                    $motDePasse = $motDePasse . rand() % (10);
+//                }
 
                 //        génération d'un mot de passe aléatoire de 10 chiffres
-                $motDePasse='';
+                $motDePasse = '';
                 for ($i = 0; $i < 10; $i++) {
                     $motDePasse = $motDePasse . rand() % (10);
                 }
-
-<<<<<<< HEAD
-
-
-
-
-
-
 
                 // cryptage du mot de passe
                 $participant->setPassword(
@@ -272,49 +249,22 @@ class MainController extends Controller
         return $this->render('registration/newmdp.html.twig', [
             'NewmdpForm' => $form->createView()
         ]);
-=======
-        {
-            $this->addFlash("warning", "Ce mail n'existe pas");
-        }
 
-        return $this->render(
-            'registration/newmdp.html.twig',
-            [
-                'NewmdpForm' => $form->createView(),
-                'mail' => $mail,
-            ]
-        );
->>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
+    }
 
-
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//        {
+//            $this->addFlash("warning", "Ce mail n'existe pas");
+//        }
+//
+//        return $this->render(
+//            'registration/newmdp.html.twig',
+//            [
+//                'NewmdpForm' => $form->createView(),
+//                'mail' => $mail,
+//            ]
+//        );
+//
+//
 
 
 //        $mail = new Participant();
@@ -376,7 +326,6 @@ class MainController extends Controller
 //
 //    }
 
-=======
     /**
      * @Route("/admin/listeParticipants", name="liste_participants")
      * @param Request $request
@@ -389,6 +338,6 @@ class MainController extends Controller
         $participants = $participantRepository->findAll();
 
         return $this->render('profil/listeParticipants.html.twig', ['participants' => $participants]);
->>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
+
     }
 }
