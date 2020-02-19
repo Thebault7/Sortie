@@ -86,7 +86,6 @@ class Participant implements UserInterface
     private $photo;
 
 
-
     public function __construct()
     {
         $this->organisateur = new ArrayCollection();
@@ -275,12 +274,16 @@ class Participant implements UserInterface
      */
     public function getRoles()
     {
-        if(empty($this->roles)){
+        if (empty($this->roles)) {
             $this->roles = ['ROLE_USER'];
         }
-        if($this->administrateur === true) {
+        if ($this->administrateur === true) {
             $this->roles = ['ROLE_ADMIN'];
         }
+        if ($this->actif === false) {
+            $this->roles = ['ROLE_INACTIF'];
+        }
+
         return $this->roles;
     }
 

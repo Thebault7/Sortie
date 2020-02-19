@@ -5,14 +5,15 @@ namespace App\Services\GestionSorties;
 
 use App\Entity\Sortie;
 use App\Entity\Etat;
+use App\Constantes\EtatConstantes;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OuvertureEtat
 {
     private $em;
 
-//$etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
-    // $etatFerme = $etatRepository->findOneBy(['libelle' => 'Clôturé']);
+//$etatOuvert = $etatRepository->findOneBy(['libelle' => EtatConstantes::OUVERT]);
+    // $etatFerme = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -24,42 +25,39 @@ class OuvertureEtat
     {
         $sorties = $this->em->getRepository(Sortie::class)->findAll();
         $etatRepository = $this->em->getRepository(Etat::class);
-        $etatOuvert = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
+        $etatOuvert = $etatRepository->findOneBy(['libelle' => EtatConstantes::OUVERT]);
 
-        for($i = 0; $i < count($sorties); $i++){
+        for ($i = 0; $i < count($sorties); $i++) {
 
             $nbInscriptionsMax = $sorties[$i]->getNbInscriptionMax();
             $participantsInscrits = count($sorties[$i]->getParticipants());
             $dateLimiteInscriptions = $sorties[$i]->getDateLimiteInscription();
 
-            if(($participantsInscrits < $nbInscriptionsMax) && (new \DateTime() < $dateLimiteInscriptions) ){
-                    $sorties[$i]->setEtat($etatOuvert);
-                    $this->em->persist($sorties[$i]);
-                    $this->em->flush();
+            if (($participantsInscrits < $nbInscriptionsMax) && (new \DateTime() < $dateLimiteInscriptions)) {
+                $sorties[$i]->setEtat($etatOuvert);
+                $this->em->persist($sorties[$i]);
+                $this->em->flush();
             }
         }
     }
 
     //supprime la sortie qui n'a pas ete publiee et dont la date d'inscriptions maximale a ete depassee
-    public function suprimerSiPasPublie(){
+    public function suprimerSiPasPublie()
+    {
 
         $sorties = $this->em->getRepository(Sortie::class)->findAll();
         $etatRepository = $this->em->getRepository(Etat::class);
-        $etatCree = $etatRepository->findOneBy(['libelle' => 'Créé']);
+        $etatCree = $etatRepository->findOneBy(['libelle' => EtatConstantes::CREE]);
         $maintenant = new \DateTime();
 
-        for($i = 0; $i < count($sorties); $i++){
-            if(
+        for ($i = 0; $i < count($sorties); $i++) {
+            if (
                 $sorties[$i]->getEtat()->getId() === $etatCree->getId() &&
-                $sorties[$i]->getDateLimiteInscription() >= $maintenant)
-            {
+                $sorties[$i]->getDateLimiteInscription() >= $maintenant) {
                 $this->em->remove($sorties[$i]);
                 dump($sorties[$i]);
                 $this->em->flush();
             }
         }
-
     }
-
-
 }

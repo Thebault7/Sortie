@@ -19,6 +19,7 @@ use App\Services\DateDebutFiltre;
 use App\Services\DateFinFiltre;
 use App\Services\SiteFiltre;
 use App\Services\GestionSorties\CloturerInscription;
+use App\Constantes\EtatConstantes;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,7 +81,7 @@ class MainController extends Controller
             $sorties = $sortieRepository->findBySite($request->query->get('id_site'));
 
             if ($sorties === []) {
-                $this->addFlash("echec", "aucune sortie correspondant aux critères de recherche n'a été trouvée.");
+                $this->addFlash("warning", "aucune sortie correspondant aux critères de recherche n'a été trouvée.");
             }
 
             return $this->render('main/tableauAccueil.html.twig', compact('sites', 'sorties', 'user'));
@@ -192,16 +193,32 @@ class MainController extends Controller
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
+<<<<<<< HEAD
     public function newmdp(Request $request, ObjectManager $objectManager, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createFormBuilder()
             ->add('mail', NewmdpType::class)
             ->getForm();
 
+=======
+    public function newmdp(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): Response {
+        $mail = new Participant();
+        $form = $this->createForm(NewmdpType::class, $mail);
+>>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
         $form->handleRequest($request);
 
 
+<<<<<<< HEAD
         if ($form->isSubmitted() && $form->isValid()) {
+=======
+        $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
+
+        return $this->redirectToRoute('newmdp');
+>>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
 
             $email = $form->getData('mail')['mail'];
 //            var_dump($email);
@@ -214,8 +231,15 @@ class MainController extends Controller
             if (!$participant) {
                 $this->addFlash('warning', "Cet email n'existe pas.");
 
+<<<<<<< HEAD
             } else {
                 $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
+=======
+//        génération d'un mot de passe aléatoire de 10 chiffres
+        for ($i = 0; $i < 10; $i++) {
+            $motDePasse = $motDePasse.rand() % (10);
+        }
+>>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
 
 
                 //        génération d'un mot de passe aléatoire de 10 chiffres
@@ -224,6 +248,7 @@ class MainController extends Controller
                     $motDePasse = $motDePasse . rand() % (10);
                 }
 
+<<<<<<< HEAD
 
 
 
@@ -247,9 +272,23 @@ class MainController extends Controller
         return $this->render('registration/newmdp.html.twig', [
             'NewmdpForm' => $form->createView()
         ]);
+=======
+        {
+            $this->addFlash("warning", "Ce mail n'existe pas");
+        }
+
+        return $this->render(
+            'registration/newmdp.html.twig',
+            [
+                'NewmdpForm' => $form->createView(),
+                'mail' => $mail,
+            ]
+        );
+>>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -337,5 +376,19 @@ class MainController extends Controller
 //
 //    }
 
+=======
+    /**
+     * @Route("/admin/listeParticipants", name="liste_participants")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function listeParticipants(Request $request, EntityManagerInterface $entityManager)
+    {
+        $participantRepository = $entityManager->getRepository(Participant::class);
+        $participants = $participantRepository->findAll();
+
+        return $this->render('profil/listeParticipants.html.twig', ['participants' => $participants]);
+>>>>>>> 3316cb5ab8bb75d4c86fd6e77453e5ca71c65cae
     }
 }

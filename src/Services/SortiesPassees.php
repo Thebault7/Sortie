@@ -3,6 +3,8 @@
 // src/Service/OsortiesPassees.php
 namespace App\Services;
 
+use App\Constantes\EtatConstantes;
+
 class SortiesPassees
 {
     public function __construct($sorties)
@@ -17,7 +19,7 @@ class SortiesPassees
             if ($this->sorties[$i] === false) {
                 $tableauFinal[$i] = false;
             } else {
-                if ($this->sorties[$i]->getEtat()->getLibelle() === 'Clôturé') {
+                if ($this->sorties[$i]->getEtat()->getLibelle() === EtatConstantes::CLOTURE) {
                     $tableauFinal[$i] = $this->sorties[$i];
                 } else {
                     $tableauFinal[$i] = false;

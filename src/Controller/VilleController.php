@@ -81,13 +81,13 @@ class VilleController extends Controller
             for ($i = 0; $i < count($villes); $i++) {
                 $entityManager->remove($villes[$i]);
                 $entityManager->flush();
-                $this->addFlash("succes", "Suppresion de la ville réussie.");
+                $this->addFlash("success", "Suppresion de la ville réussie.");
 
                 return $this->redirectToRoute('ville_index');
             }
         } else {
             $this->addFlash(
-                "echec",
+                "warning",
                 "Un ou plusieurs lieux utilisent cette ville. On ne peut pas supprimer cette ville."
             );
 
@@ -130,13 +130,13 @@ class VilleController extends Controller
         } else {
             if ($villeModify === $villeHidden) {
                 $this->addFlash(
-                    "echec",
+                    "warning",
                     "Le nom de la ville après modification est le même qu'avant. Aucune modification n'a été faite."
                 );
             }
             if ($codePostalModify === $codePostalHidden) {
                 $this->addFlash(
-                    "echec",
+                    "warning",
                     "Le code postal après modification est le même qu'avant. Aucune modification n'a été faite."
                 );
             }

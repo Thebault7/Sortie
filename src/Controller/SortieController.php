@@ -431,7 +431,7 @@ class SortieController extends Controller
 
         if ($sortie->getParticipant()->getId() !== $user->getId()) {
             $this->addFlash(
-                "échec",
+                "warning",
                 "Vous n'êtes pas l'organisateur de cette sortie. Vous ne pouvez donc pas la publier."
             );
         } else {
