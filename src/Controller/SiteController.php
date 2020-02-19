@@ -89,13 +89,13 @@ class SiteController extends Controller
                 for ($i = 0; $i < count($sitesENI); $i++) {
                     $entityManager->remove($sitesENI[$i]);
                     $entityManager->flush();
-                    $this->addFlash("succes", "Suppresion du site réussie.");
+                    $this->addFlash("success", "Suppresion du site réussie.");
 
                     return $this->redirectToRoute('site_index');
                 }
             } else {
                 $this->addFlash(
-                    "echec",
+                    "warning",
                     "Une ou plusieurs sorties sont situées sur ce site. On ne peut pas supprimer ce site."
                 );
 
@@ -103,7 +103,7 @@ class SiteController extends Controller
             }
         } else {
             $this->addFlash(
-                "echec",
+                "warning",
                 "Un ou plusieurs utilisateurs sont inscrits sur ce site. On ne peut pas supprimer ce site."
             );
 
@@ -141,7 +141,7 @@ class SiteController extends Controller
                 $entityManager->flush();
             }
         } else {
-            $this->addFlash("echec", "Le nouveau nom entré est le même que l'ancien. Aucune modification n'a été faite.");
+            $this->addFlash("warning", "Le nouveau nom entré est le même que l'ancien. Aucune modification n'a été faite.");
         }
 
         return $this->redirect($this->generateUrl('site_index'));

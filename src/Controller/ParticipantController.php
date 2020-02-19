@@ -97,7 +97,7 @@ class ParticipantController extends Controller
                 return $this->redirectToRoute('afficherprofil', ['id' => $user->getId()]);
 
             } else {
-                $this->addFlash("échec", "Ce pseudo existe déjà. Veuillez en choisir un autre.");
+                $this->addFlash("warning", "Ce pseudo existe déjà. Veuillez en choisir un autre.");
             }
         }
 

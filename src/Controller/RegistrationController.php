@@ -71,7 +71,7 @@ class RegistrationController extends Controller
      * @param EntityManagerInterface $entityManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete($id, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function delete($id, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, Request $request): Response
     {
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
@@ -106,31 +106,32 @@ class RegistrationController extends Controller
             }
         }
 
-        $motDePasse = "";
-        // génération d'un mot de passe aléatoire de 10 chiffres
-        for ($i = 0; $i < 10; $i++) {
-            $motDePasse = $motDePasse.rand() % (10);
-        }
-
-        // cryptage du mot de passe
-        $participant->setPassword(
-            $passwordEncoder->encodePassword(
-                $participant,
-                $motDePasse
-            )
-        );
-
         if ($participantPeutEtreSupprime) {
             $participant->setActif(false);
+
+            if ($request->query->get('change_password') === "1") {
+                $motDePasse = "";
+                // génération d'un mot de passe aléatoire de 10 chiffres
+                for ($i = 0; $i < 10; $i++) {
+                    $motDePasse = $motDePasse.rand() % (10);
+                }
+
+                // cryptage du mot de passe
+                $participant->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $participant,
+                        $motDePasse
+                    )
+                );
+            }
             $entityManager->persist($participant);
             $entityManager->flush();
         } else {
             $this->addFlash(
-                "failure",
+                "warning",
                 "L'utilisateur est encore actif. Veuillez supprimer toutes ses inscriptions et ses sorties avant de pouvoir supprimer sont compte."
             );
         }
-
         return $this->redirectToRoute('accueil');
     }
 }

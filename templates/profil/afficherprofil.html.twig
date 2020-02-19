@@ -79,9 +79,14 @@
                     <a class="bouton1" href="{{ app.request.headers.get('referer') }}">Retour</a>
                 </div>
                 {% if app.user.administrateur is same as(true) %}
-                <div class="ml-1 mr-1">
-                    <a href="{{ path('delete_user', {'id': participant.id}) }}" class="bouton2">supprimer le compte utilisateur</a>
-                </div>
+                    <div class="ml-1 mr-1">
+                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': false}) }}" class="bouton2">inactiver le compte
+                            utilisateur</a>
+                    </div>
+                    <div class="ml-1 mr-1">
+                        <a href="{{ path('delete_user', {'id': participant.id, 'change_password': true}) }}" class="bouton3">supprimer le compte
+                            utilisateur</a>
+                    </div>
                 {% endif %}
             </div>
         </div>

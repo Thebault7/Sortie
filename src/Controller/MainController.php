@@ -78,7 +78,7 @@ class MainController extends Controller
             $sorties = $sortieRepository->findBySite($request->query->get('id_site'));
 
             if ($sorties === []) {
-                $this->addFlash("echec", "aucune sortie correspondant aux critères de recherche n'a été trouvée.");
+                $this->addFlash("warning", "aucune sortie correspondant aux critères de recherche n'a été trouvée.");
             }
 
             return $this->render('main/tableauAccueil.html.twig', compact('sites', 'sorties', 'user'));
@@ -224,7 +224,7 @@ class MainController extends Controller
 
 
         {
-            $this->addFlash("échec", "Ce mail n'existe pas");
+            $this->addFlash("warning", "Ce mail n'existe pas");
         }
 
         return $this->render(
