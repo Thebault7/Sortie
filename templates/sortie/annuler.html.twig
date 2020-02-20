@@ -1,74 +1,72 @@
 {% extends 'layout.html.twig ' %}
 
 {% block title %}
-annulation
+    Annulation
 {% endblock %}
 
 {% block body %}
-<section class="contact_section layout_padding mt-0 pt-5">
-    <div class="container">
+    <section class="contact_section layout_padding mt-0 pt-5">
+        <div class="container">
 
-        <div class="row mb-2">
-            {% set i = 0 %}
-            {%  for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }} mx-auto" role="alert">
-                        {{ message }}
-                    </div>
-                {%  endfor %}
-            {%  endfor %}
-        </div>
-
-
-        <div class="heading_container">
-            <div class="col-10 offset-1">
-                <h2>Annuler une sortie</h2>
+            <div class="row mb-2">
+                {% set i = 0 %}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mx-auto" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
-        </div>
+
+            <div class="heading_container">
+                <div class="col-10 offset-1">
+                    <h2>Annuler une sortie</h2>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-2 offset-3">
+                    <b>Nom </b>
+                </div>
+                <div class="col-6">
+                    {{ sortie.nom }}
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-2 offset-3">
+                    <b>Date</b>
+                </div>
+                <div class="col-6">
+                    {{ sortie.dateHeureDebut|date("d/m/Y H:i:s") }}
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-2 offset-3">
+                    <b>Site</b>
+                </div>
+                <div class="col-6">
+                    {{ sortie.site.nom }}
+                </div>
+            </div>
 
 
-        <div class="row mt-4">
-            <div class="col-2 offset-3">
-                <b>Nom </b>
+            <div class="row mt-3">
+                <div class="col-2 offset-3">
+                    <b>Motif</b>
+                </div>
             </div>
-            <div class="col-6">
-                {{ sortie.nom }}
-            </div>
-        </div>
 
-        <div class="row mt-3">
-            <div class="col-2 offset-3">
-                <b>Date</b>
-            </div>
-            <div class="col-6">
-                {{ sortie.dateHeureDebut|date("d/m/Y H:i:s") }}
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-2 offset-3">
-                <b>Site</b>
-            </div>
-            <div class="col-6">
-                {{ sortie.site.nom }}
-            </div>
-        </div>
-
-
-        <div class="row mt-3">
-            <div class="col-2 offset-3">
-                <b>Motif</b>
-            </div>
-        </div>
-
-        <div class="row mt-4">
+            <div class="row mt-4">
                 <div class="col-8 offset-3 col-md-6 offset-md-3">
-                   {{ form_start(annulationFormView) }}
-                        {{ form_widget(annulationFormView.motif, {'attr': {'class': '', 'rows': '6', 'cols': '10'} }) }}
-                        {{ form_errors(annulationFormView.motif) }}
+                    {{ form_start(annulationFormView) }}
+                    {{ form_widget(annulationFormView.motif, {'attr': {'class': '', 'rows': '6', 'cols': '10', 'placeholder': "Veuillez indiquer un motif d'annulation."} }) }}
+                    {{ form_errors(annulationFormView.motif) }}
 
                     <div class="d-flex justify-content-center ">
-                        <!-- boutons -->
+                        {# <!-- boutons --> #}
                         <div class="ml-1 mr-1">
                             {{ form_widget(annulationFormView.save, {'attr': {'class': 'bouton1'}  }) }}
                         </div>
@@ -78,21 +76,9 @@ annulation
                     </div>
                     {{ form_end(annulationFormView) }}
                 </div>
-
+            </div>
         </div>
-
-
-
-
-
-
-
-
-
-    </div>
-</section>
-
-
+    </section>
 
 {% endblock %}
 

@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Participant;
 use App\Form\ModifProfilType;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -28,11 +30,22 @@ class ParticipantController extends Controller
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
 
+        if ($participant->getPhoto() === "") {
+            // le participant n'a pas de photo de définie. On lui donne une taille par défaut.
+            $widthPhoto = 250;
+            $heightPhoto = 250;
+        } else {
+            $photo = $participant->getPhoto();
+            $taillePhoto = getimagesize('assets/img/' . $photo);
+            $widthPhoto = $taillePhoto[0];
+            $heightPhoto = $taillePhoto[1];
+        }
+
         return $this->render
         (
             'profil/afficherprofil.html.twig',
-            compact( 'participant'));
-
+            compact('participant', 'widthPhoto', 'heightPhoto')
+        );
     }
 
     /**
@@ -65,14 +78,14 @@ class ParticipantController extends Controller
                 $image = $form->get('photo')->getData();
                 // tester si le champ est vide ou pas
                 if ($image) {
-
+                    $ancienNomImg = $user->getPhoto();
                     $nomOriginalImg = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                     // this is needed to safely include the file name as part of the URL
                     $safeFilename = transliterator_transliterate(
                         'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
                         $nomOriginalImg
                     );
-                    $nouveauNomImg = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+                    $nouveauNomImg = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
                     // Move the file to the directory where brochures are stored
                     try {
@@ -82,10 +95,22 @@ class ParticipantController extends Controller
                         );
                     } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
+                        $this->addFlash("danger", "Echec du téléchargement de l'image.");
                     }
 
                     // permet de stocker dans la bdd le nouveau nom du fichier
                     $user->setPhoto($nouveauNomImg);
+                }
+
+                // l'ancienne photo doit être enlevée de /assets/img pour être remplacée par la nouvelle, si
+                // une nouvelle photo a été fournie par l'utilisateur
+                if ($image) {
+                    $filesystem = new Filesystem();
+                    try {
+                        $filesystem->remove('assets/img/'.$ancienNomImg);
+                    } catch (IOExceptionInterface $exception) {
+                        $this->addFlash( "danger","Une Erreur est apparue lors de la suppression du fichier  ".$exception->getPath());
+                    }
                 }
 
                 // mise en base de données

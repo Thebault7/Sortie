@@ -1,5 +1,53 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        .milieu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: static;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .front, .arriere {
+            overflow: hidden;
+            backface-visibility: hidden;
+            position: absolute;
+            transition: transform .6s linear;
+        }
+
+        .front {
+            transform: perspective(500px) rotateY(0deg);
+            max-width: 250px;
+            max-height: 250px;
+            width: {{ widthPhoto }}px;
+            height: {{ heightPhoto }}px;
+        }
+
+        #image_user {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .arriere {
+            transform: perspective(500px) rotateY(180deg);
+            border-radius: 10%;
+            width: 250px;
+            height: 250px;
+        }
+
+        .milieu:hover > .front {
+            transform: perspective(500px) rotateY(-180deg);
+        }
+
+        .milieu:hover > .arriere {
+            transform: perspective(500px) rotateY(0deg);
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
 
     <section class="contact_section layout_padding mt-0 pt-5">
@@ -15,55 +63,66 @@
                 {% endfor %}
             </div>
 
-            <!-- titre de la page-->
-            <div class="heading_container mb-0 pb-0">
-                <h2>
-                    {{ participant.prenom }} {{ participant.nom }}
-                </h2>
-            </div>
-
-            {% if participant.photo is not null %}
-                <div class="row mt-2 mb-3">
-                    <img class="img-thumbnail mx-auto" src="{{ asset('assets/img/'~participant.photo) }}" alt=""
-                         style="border-radius:50%; width: 200px">
+            <div>
+                <!-- titre de la page-->
+                <div class="heading_container mb-0 pb-0">
+                    <h2>
+                        {{ participant.prenom }} {{ participant.nom }}
+                    </h2>
                 </div>
-            {% endif %}
 
-
-            {% if participant.pseudo is not null %}
-                <div class="row mt-2">
-                    <div class="col-3 offset-4">
-                        <b>Pseudo</b>
+                {% if participant.photo is not null %}
+                    <div class="carte milieu" style="margin-top: 125px;">
+                        <div class="row mt-2 mb-3 front" style="margin-left: 2px; ">
+                            <img class="img-thumbnail mx-auto" id="image_user"
+                                 src="{{ asset('assets/img/'~participant.photo) }}"
+                                 alt="Photo de l'utilisateur" style="border-radius: 50%;">
+                        </div>
+                        <div class="arriere">
+                            <div class="back-content milieu">
+                                <img src="{{ asset('assets/img/a garder/ENI.png') }}" style="border-radius: 20%;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-5">
-                        {{ participant.pseudo }}
+                {% endif %}
+
+                <div style="margin-top: 150px">
+                    {% if participant.pseudo is not null %}
+                        <div class="row mt-2">
+                            <div class="col-3 offset-4">
+                                <b>Pseudo</b>
+                            </div>
+                            <div class="col-5">
+                                {{ participant.pseudo }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row mt-2">
+                        <div class="col-3 offset-4">
+                            <b>Téléphone</b>
+                        </div>
+                        <div class="col-5">
+                            {{ participant.telephone }}
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-            <div class="row mt-2">
-                <div class="col-3 offset-4">
-                    <b>Téléphone</b>
-                </div>
-                <div class="col-5">
-                    {{ participant.telephone }}
-                </div>
-            </div>
 
-            <div class="row mt-2">
-                <div class="col-3 offset-4">
-                    <b>E-mail</b>
-                </div>
-                <div class="col-5">
-                    {{ participant.mail }}
-                </div>
-            </div>
+                    <div class="row mt-2">
+                        <div class="col-3 offset-4">
+                            <b>E-mail</b>
+                        </div>
+                        <div class="col-5">
+                            {{ participant.mail }}
+                        </div>
+                    </div>
 
-            <div class="row mt-2">
-                <div class="col-3 offset-4">
-                    <b>Lieu d'études</b>
-                </div>
-                <div class="col-5">
-                    {{ participant.site.nom }}
+                    <div class="row mt-2">
+                        <div class="col-3 offset-4">
+                            <b>Lieu d'études</b>
+                        </div>
+                        <div class="col-5">
+                            {{ participant.site.nom }}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -113,4 +172,11 @@
     </section>
 
 {% endblock %}
-{% block title %}profil{% endblock %}
+{% block title %}Profil{% endblock %}
+
+{% block javascripts %}
+    <script>
+        console.log(document.getElementById('image_user').width);
+        console.log(document.getElementById('image_user').height);
+    </script>
+{% endblock %}
