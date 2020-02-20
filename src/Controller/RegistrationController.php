@@ -41,7 +41,7 @@ class RegistrationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $participant->setActif(true);
             $participant->setPhoto(" ");
-            $motDePasse = "azerty";
+            $motDePasse = "Azerty44";
 
 //            // génération d'un mot de passe aléatoire de 10 chiffres
 //            for ($i = 0; $i < 10; $i++) {
