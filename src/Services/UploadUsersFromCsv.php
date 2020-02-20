@@ -19,24 +19,24 @@ class UploadUsersFromCsv
         $this->path = $path;
     }
 
-    public function uploadImages(){
-
-
-//'%kernel.root_dir%/public/usersCsv/users.csv'
-        $reader = Reader::createFromPath($this->path);//$this->getParameter('users_csv_directory'), 'r'
-//set r mode on the file to ensure it can be opened
-        $reader->setHeaderOffset(0);
-       // $header_offset = $reader->getHeaderOffset(); //returns 0
-      //  $header = $reader->getHeader();
+    public function uploadCsv(){
 
         $siteRepository = $this->entityManager->getRepository(Site::class);
 
-        $results = $reader->getRecords();
+        $reader = Reader::createFromPath($this->path); // path du fichier qu'on a recu en param
+        $reader->setHeaderOffset(0); // definir ligne de l'entete du fichier .csv
+        $results = $reader->getRecords(); // extraction des donnees
 
-
+        $message="";
         foreach ($results as $offset => $result) {
 
             $participant = new Participant();
+
+            if(
+                isset($result['NOM']) && isset($result['PRENOM']) &&
+                isset($result['TELEPHONE']) && isset($result['MAIL']) &&
+                isset($result['SITE']) && isset($result['ADMINISTRATEUR']) &&
+                isset($result['ACTIF'])){
 
             $participant
                 ->setNom($result['NOM'])
@@ -92,6 +92,19 @@ class UploadUsersFromCsv
 
             $this->entityManager->persist($participant);
             $this->entityManager->flush();
+
+            $message =  "Ajout de nouveaux utilisateurs réussi.";
+            }
+
+            else{
+
+               $message= "Echec lors de la lecture du fichier.";
+
+            }
+
     }
 
-}}
+        return $message;
+
+}
+}

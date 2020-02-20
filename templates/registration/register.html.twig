@@ -12,11 +12,12 @@
                 <h2>
                     Inscription d'un nouvel utilisateur
                 </h2>
+                <p class="mt-2">Inscrivez manuellement un nouvel utilisateur ou ajoutez un fichier .csv</p>
             </div>
 
             <div class="">
                 <div class="row">
-                    <div class="col-md-8 mx-auto">
+                    <div class="col-12 col-md-8 mx-auto">
                         {{ form_start(ParticipantForm) }}
                         <div class="contact_form-container">
 
@@ -62,7 +63,7 @@
                             </div>
                             <div class="d-flex justify-content-center ">
                                 <div>
-                                    <button class="bouton1">Register</button>
+                                    <button class="bouton1">Créer</button>
                                 </div>
                             </div>
                             {{ form_end(ParticipantForm) }}
@@ -70,6 +71,23 @@
                     </div>
                 </div>
             </div>
+
+              <div class="row" style="margin-top: 50px">
+                  <div class="col-12 col-md-8 mx-auto">
+                      {{ form_start(UploadCSVFormView) }}
+                          <label>Votre fichier .CSV : </label>
+                          {{ form_widget(UploadCSVFormView.uploadUsersCsv) }}
+                          {{ form_errors(UploadCSVFormView.uploadUsersCsv) }}
+                          <input type="submit" class="bouton1" value="Ajouter">
+                      {{ form_end(UploadCSVFormView) }}
+
+                  </div>
+              </div>
+
+
+
+
+
         </div>
     </section>
 
