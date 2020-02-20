@@ -232,8 +232,8 @@ class SortieController extends Controller
         $etatOuvert = $etatRepository->findOneBy(['libelle' => EtatConstantes::OUVERT]);
         $etatCloture = $etatRepository->findOneBy(['libelle' => EtatConstantes::CLOTURE]);
 
-        // echec annulation si user n'est pas organisateur
-        if ($this->getUser()->getId() !== $sortie->getParticipant()->getId()) {
+        // echec annulation si user n'est pas organisateur ou pas administrateur
+        if ($this->getUser()->getId() !== $sortie->getParticipant()->getId() && $this->getUser()->getAdministrateur() === false) {
             $this->addFlash('danger', 'Vous ne pouvez pas annuler la sortie dont vous n\'êtes pas l\'organisateur!');
 
             return $this->redirectToRoute('sortie_afficher', compact('id'));
@@ -274,19 +274,18 @@ class SortieController extends Controller
             $sortie->setEtat($etat);
             $entityManager->flush();
 
-            $this->addFlash('success', "La sortie a été annulée");
-            $id = $sortie->getId();
+            $this->addFlash('success', "La sortie a été annulée.");
 
             return $this->redirectToRoute('accueil');
 
         }
-
 
         return $this->render(
             'sortie/annuler.html.twig',
             ['sortie' => $sortie, 'annulationFormView' => $annulationForm->createView()]
         );
     }
+
 
     /**
      * @Route("/supprimer/{id}", name="supprimer", requirements={"id": "\d+"})
