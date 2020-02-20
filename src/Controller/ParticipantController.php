@@ -78,7 +78,7 @@ class ParticipantController extends Controller
 
                 $image = $form->get('photo')->getData();
                 // tester si le champ est vide ou pas
-                if ($image) {
+                if (isset($image) === true) {
                     $ancienNomImg = $user->getPhoto();
                     $nomOriginalImg = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                     // this is needed to safely include the file name as part of the URL
@@ -105,7 +105,7 @@ class ParticipantController extends Controller
 
                 // l'ancienne photo doit être enlevée de /assets/img pour être remplacée par la nouvelle, si
                 // une nouvelle photo a été fournie par l'utilisateur
-                if ($image) {
+                if (isset($image) === true && substr($ancienNomImg, 0, 9) !== "a garder/") {
                     $filesystem = new Filesystem();
                     try {
                         $filesystem->remove('assets/img/'.$ancienNomImg);
