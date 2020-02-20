@@ -26,16 +26,37 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=2,
+     *     max=30,
+     *     minMessage="Le champ 'nom' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'nom' accepte au maximum {{ limit }} caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=2,
+     *     max=30,
+     *     minMessage="Le champ 'prénom' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'prénom' accepte au maximum {{ limit }} caractères"
+     * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=4,
+     *     max=15,
+     *     minMessage="Le champ 'téléphone' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'téléphone' accepte au maximum {{ limit }} caractères"
+     * )
      */
     private $telephone;
 
@@ -47,16 +68,24 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="boolean")
+     *
      */
     private $administrateur;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      */
     private $actif;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true, unique=true)
+     * @Assert\Length(
+     *     min=4,
+     *     max=50,
+     *     minMessage="Le champ 'pseudo' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'pseudo' accepte au maximum {{ limit }} caractères"
+     * )
      */
     private $pseudo;
 
@@ -77,11 +106,23 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\Length(
+     *     min=8,
+     *     max=30,
+     *     minMessage="Le mot de passe accepte au minimim {{ limit }} caractères.",
+     *     maxMessage="Le champ mot de passe accepte au maximum {{ limit }} caractères."
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min=6,
+     *     max=50,
+     *     minMessage="Le nom du fichier image accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le nom du fichier image accepte au maximum {{ limit }} caractères"
+     * )
      */
     private $photo;
 

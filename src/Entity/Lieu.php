@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
@@ -20,11 +21,24 @@ class Lieu
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=2,
+     *     max=100,
+     *     minMessage="Le nom du lieu doit contenir au minimim {{ limit }} caractères",
+     *     maxMessage="Le nom du lieu doit contenir au maximum {{ limit }} caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(
+     *     min=2,
+     *     max=100,
+     *     minMessage="Le nom de la rue doit contenir au minimim {{ limit }} caractères",
+     *     maxMessage="Le nom de la rue doit contenir au maximum {{ limit }} caractères"
+     * )
      */
     private $rue;
 

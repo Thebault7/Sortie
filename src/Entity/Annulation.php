@@ -20,6 +20,12 @@ class Annulation
     /**
      * @ORM\Column(type="string", length=400, nullable=false)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=10,
+     *     max=400,
+     *     minMessage="Le motif d'annulation doit contenir au minimim {{ limit }} caractères",
+     *     maxMessage="Le motif d'annulation doit contenir au maximum {{ limit }} caractères"
+     * )
      */
     private $motif;
 
