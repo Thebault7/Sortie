@@ -1,0 +1,4 @@
+NOM,PRENOM,MAIL,ADMINISTRATEUR,ACTIF,SITE,TELEPHONE
+Smith,John,john@example.com,faux,vrai,SAINT HERBLAIN,0808080808
+Pierce,Harry,harry@example.com,faux,vrai,SAINT HERBLAIN,0707070707
+Page,Bastien,bpage@example.com,faux,vrai,LA ROCHE SUR YON,646464644
