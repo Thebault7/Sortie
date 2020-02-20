@@ -71,7 +71,7 @@
                             {{ ville.codePostal }}
                         </td>
                         <td>
-                            <a href="" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false'>
+                            <a href="#" onclick='openForm("{{ ville.nom }}", "{{ ville.codePostal }}"); return false;'>
                                 Modifier</a> - <a
                                     href="{{ path('ville_delete', {'nom': ville.nom}) }}">Supprimer</a>
                         </td>
@@ -100,26 +100,54 @@
         </table>
     </div>
 
-    <br>
 
-    <div class="form-popup" id="myForm">
-        <form action="{{ path('ville_modify') }}" method="POST" class="form-container">
-            <div class="row" >
-                <label for="ville"><b>Ville à modifier : </b></label>
-                <input id="input_nom" type="text" name="ville_modify" class="input1" placeholder="Ville" required>
-                <input id="input_nom_hidden" type="text" name="ville_hidden" style="display:none">
+            <!-- Modal -->
+            <div class="modal fade" id="modifier_ville_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
 
-                <label for="cp"><b>Code postal à modifier : </b></label>
-                <input id="input_cp" type="text" name="cp_modify" class="input1" placeholder="Code postal" required>
-                <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
+                        <div class="contact_form-container" style="padding: 0; margin : 0">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 style="margin-top: 5px;margin-left: 10px;">Modifier un site</h4>
+                                </div>
+                                <div class="col-3 offset-3">
+                                    <button type="button" class="close " data-dismiss="modal" aria-label="Close" style="margin-top: 0px;margin-right: 0px;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-8 offset-2">
+                                    <form action="{{ path('ville_modify') }}" method="POST" id="myForm">
+                                        <div class="row" >
+                                            <label for="ville"><b>Ville à modifier : </b></label>
+                                            <input id="input_nom" type="text" name="ville_modify" class="input1" placeholder="Ville" required>
+                                            <input id="input_nom_hidden" type="text" name="ville_hidden" style="display:none">
 
-                <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Enregistrer</button>
-                <button type="button" id="close" class="btn contact1-form-btn bouton1 mx-auto" style="margin-left: 10px" onclick="closeForm()">Close</button>
+                                            <label for="cp"><b>Code postal à modifier : </b></label>
+                                            <input id="input_cp" type="text" name="cp_modify" class="input1" placeholder="Code postal" required>
+                                            <input id="input_cp_hidden" type="text" name="cp_hidden" style="display:none">
+
+                                            <div class="d-flex justify-content-around">
+                                                <button type="submit" class="bouton1 ml-1 mr-1" id="save_btn" >Enregistrer</button>
+                                                <button type="button" class="bouton1 ml-1 mr-1" data-dismiss="modal">Retour</button>
+                                            </div>
+                                            
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
-    <br>
 
+        </div>
+
+</section>
 
 {% endblock %}
 
@@ -131,6 +159,7 @@
             document.getElementById("input_nom_hidden").setAttribute("value", nom);
             document.getElementById("input_cp").value = cp;
             document.getElementById("input_cp_hidden").setAttribute("value", cp);
+            $('#modifier_ville_modal').modal();
         }
 
         function closeForm() {

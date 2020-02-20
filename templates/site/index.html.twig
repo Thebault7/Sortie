@@ -8,108 +8,137 @@
      <section class="contact_section layout_padding ">
         <div class="container">
 
-
-    <div class="row" style="margin-bottom: 20px" >
-           <!-- affichage des messages d'erreur ci-dessous : -->
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }}  mx-auto">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        </div>
-
-
-        <div class="heading_container">
-            <h2>
-                Gérer les sites
-            </h2>
-        </div>
-
-
-        <form method="POST" action="{{ path('site_filter') }}" style="margin:30px 0 30px 0" >
-        <div class="row">
-            <div class="col-9 offset-3 ">
-                <h4 class="mx-auto">Filtrer les sites</h4>
-                  <div class="contact_form-container">
-                    <div class="col-7">
-                        <input id="input_filter" type="text" name="site_filter" class="input1" placeholder="Rechercher un site" style="margin-top: 6px" required>
-                    </div>
-                    <div class="col-5">
-                        <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Rechercher</button>
-                    </div>
-                </div>
-               </div>
-            </div>
-        </form>
-<div class="row">
-<div class="col-9 offset-3 ">
-    <div class="container table-wrapper-scroll-y my-custom-scrollbar"
-         style="position: relative; height: 400px; width: 600px; overflow: auto">
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Ville</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if Sites is same as([]) %}
-                <tr>
-                    <td colspan="2">
-                        <p>Aucune ville correspondant aux critères de recherche n'a été trouvée.</p>
-                    </td>
-                </tr>
-            {% else %}
-                {% for site in Sites %}
-                    <tr>
-                        <td>
-                            {{ site.nom }}
-                        </td>
-                        <td>
-                            <a href="" onclick='openForm("{{ site.nom }}"); return false'> Modifier</a> - <a
-                                    href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <td>
-                        {{ form_start(SiteForm) }}
-                        {{ form_label(SiteForm.nom) }}
-                        {{ form_widget(SiteForm.nom, {'attr': {'placeholder': 'Site'} }) }}
-                        {{ form_errors(SiteForm.nom) }}
-                    </td>
-                    <td>
-                        <button class="contact1-form-btn bouton1 mx-auto" style="margin-top: 25px; margin-left: 20px">Ajouter</button>
-                        {{ form_end(SiteForm) }}
-                    </td>
-                </tr>
-            {% endif %}
-            <tr>
-                <div class="form-popup container-contact1-form-btn" id="myForm">
-                    <form action="{{ path('site_modify') }}" method="POST" class="form-container wrap-input1">
-
-                        <div class="row">
-                            <label for="site"><b>Site à modifier : </b></label>
-                            <input id="input_form" type="text" placeholder="Site" name="site_modify" class="input1" style="margin-bottom: 10px" required>
-
-                            <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
-
-                            <button type="submit" class="btn contact1-form-btn">Enregistrer</button>
-                            <button type="button" class="btn contact1-form-btn" style="margin-left: 10px" onclick="closeForm()">Close</button>
+            <div class="row" style="margin-bottom: 20px" >
+               <!-- affichage des messages d'erreur ci-dessous : -->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}  mx-auto">
+                            {{ message }}
                         </div>
-                    </form>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+
+            <div class="heading_container">
+                <h2>
+                    Gérer les sites
+                </h2>
+            </div>
+
+            <form method="POST" action="{{ path('site_filter') }}" style="margin:30px 0 30px 0" >
+            <div class="row">
+                <div class="col-8 offset-4 ">
+                    <h4 class="mx-auto">Filtrer les sites</h4>
+                      <div class="contact_form-container">
+                        <div class="col-7">
+                            <input id="input_filter" type="text" name="site_filter" class="input1" placeholder="Rechercher un site" style="margin-top: 6px" required>
+                        </div>
+                        <div class="col-5">
+                            <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Rechercher</button>
+                        </div>
+                    </div>
+                   </div>
                 </div>
+            </form>
 
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-9 offset-2">
+                <div class="container table-wrapper-scroll-y my-custom-scrollbar"
+                 style="position: relative; height: 400px; width: 600px; overflow: auto">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Ville</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if Sites is same as([]) %}
+                        <tr>
+                            <td colspan="2">
+                                <p>Aucune ville correspondant aux critères de recherche n'a été trouvée.</p>
+                            </td>
+                        </tr>
+                    {% else %}
+                        {% for site in Sites %}
+                            <tr>
+                                <td>
+                                    {{ site.nom }}
+                                </td>
+                                <td>
+                                    <a href="#" class="modifier-site" onclick='openForm("{{ site.nom }}");  return false;'> Modifier</a> -
+                                    <a href="{{ path('site_delete', {'nom': site.nom}) }}">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                {{ form_start(SiteForm) }}
+                                {{ form_label(SiteForm.nom) }}
+                                {{ form_widget(SiteForm.nom, {'attr': {'placeholder': 'Site'} }) }}
+                                {{ form_errors(SiteForm.nom) }}
+                            </td>
+                            <td>
+                                <button class="contact1-form-btn bouton1 mx-auto" style="margin-top: 25px; margin-left: 20px">Ajouter</button>
+                                {{ form_end(SiteForm) }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+
+        </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modifier_site_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="contact_form-container" style="padding: 0; margin : 0">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 style="margin-top: 5px;margin-left: 10px;">Modifier un site</h4>
+                        </div>
+                        <div class="col-3 offset-3">
+                            <button type="button" class="close " data-dismiss="modal" aria-label="Close" style="margin-top: 0px;margin-right: 0px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-8 offset-2">
+                            <form action="{{ path('site_modify') }}" method="POST" id="myForm">
+
+                                <div class="row">
+                                    <label for="site"><b>Site à modifier : </b></label>
+                                    <input id="input_form" type="text" placeholder="Site" name="site_modify" style="margin-bottom: 10px" required>
+
+                                    <input id="input_form_hidden" type="text" name="site_hidden"   style="display:none">
+
+                                    <div class="d-flex justify-content-around">
+                                        <button type="submit" class="bouton1 ml-1 mr-1" id="save_btn" >Enregistrer</button><!--data-dismiss="modal" -->
+                                        <button type="button" class="bouton1 ml-1 mr-1" data-dismiss="modal">Retour</button>
+                                    </div>
+                                </div>
+                            </form></div>
+
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
     </div>
-</div>
 
-</div>
+     </section>
+
 
 {% endblock %}
 
@@ -119,6 +148,7 @@
             document.getElementById("myForm").style.display = "block";
             document.getElementById("input_form").value = nom;
             document.getElementById("input_form_hidden").setAttribute("value", nom);
+            $('#modifier_site_modal').modal();
         }
 
         function closeForm() {
@@ -126,5 +156,6 @@
         }
 
         closeForm();
+
     </script>
 {% endblock %}
