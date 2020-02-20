@@ -137,6 +137,7 @@
                     <a class="bouton1" href="{{ app.request.headers.get('referer') }}">Retour</a>
                 </div>
                 {% if app.user.administrateur is same as(true) %}
+
                     {% if participant.actif is same as(true) %}
                         <div class="ml-1 mr-1">
                             <a href="{{ path('delete_user', {'id': participant.id, 'change_password': false}) }}"
@@ -155,6 +156,7 @@
                                class="bouton3">Supprimer</a>
                         </div>
                     {% endif %}
+
                 {% endif %}
             </div>
         </div>

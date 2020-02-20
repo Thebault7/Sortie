@@ -131,4 +131,22 @@ class ParticipantController extends Controller
             'user' => $user,
         ]);
     }
+
+
+    /**
+     * @Route("/upload-users-csv", name="upload_users_csv")
+     */
+    public function uploadUsersCsv(Request $request, EntityManagerInterface $entityManager)
+    {
+
+        $uploadForm = $this->createForm(UploadUsersCSVType::class, ['uploadUsersCsv' => '']);
+        $uploadForm->handleRequest($request);
+
+        if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
+
+        }
+
+
+
+    }
 }
