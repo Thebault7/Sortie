@@ -57,10 +57,6 @@ class Participant implements UserInterface
      *     minMessage="Le champ 'téléphone' accepte au minimim {{ limit }} caractères",
      *     maxMessage="Le champ 'téléphone' accepte au maximum {{ limit }} caractères"
      * )
-     * @Assert\Type(
-     *   type="integer",
-     *   message="La valeur {{ value }} fournie n'est pas valide pour le type {{ type }}."
-     * )
      */
     private $telephone;
 
@@ -115,9 +111,6 @@ class Participant implements UserInterface
      *     max=30,
      *     minMessage="Le mot de passe accepte au minimim {{ limit }} caractères.",
      *     maxMessage="Le champ mot de passe accepte au maximum {{ limit }} caractères."
-     * )
-     * @Assert\Regex(
-     *     htmlPattern = "^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"
      * )
      */
     private $password;
