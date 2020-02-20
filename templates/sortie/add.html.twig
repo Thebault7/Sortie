@@ -104,7 +104,7 @@
                         <h4 style="margin-top: 20px;margin-left: 20px;">Définir un lieu</h4>
                    </div>
                    <div class="col-3 offset-4">
-                        <button type="button"  data-dismiss="modal" aria-label="Close" style="background-color: #0fcfdc; color: white; border:none; border-radius: 5px; width: 50px; height: 50px; margin-right:0"> <!-- style="margin-top: 0px;margin-right: 0px; -->
+                        <button type="button"  data-dismiss="modal" aria-label="Close" style="background-color: #0fcfdc; color: white; border:none; border-radius: 5px; width: 50px; height: 50px; outline:none"> <!-- style="margin-top: 0px;margin-right: 0px; -->
                             <span aria-hidden="true" class="">&times;</span>
                         </button>
                    </div>
@@ -154,7 +154,6 @@
 
 </section>
 
-
     <script>
 
         $('.fa-plus-square').click(function(e) {
@@ -164,7 +163,6 @@
         });
 
         $("#save_lieu_btn").click(function(){
-           console.log("cliqué enregisrer");
 
             $.ajax({
                 //à cette url... voir le contrôleur !
@@ -207,17 +205,11 @@
 
         }
 
-
-
         let textAreaElt = document.getElementsByTagName("textarea")[0];
         if(textAreaElt.hasAttribute("required")){
             textAreaElt.removeAttribute('required');
         }
 
-      /*  $.ajax({
-            url: " " // route qui va utiliser cette ajax, elle va dans un cotnroller, donc il faut créer une fonction dans un URL
-        }); //pour faire une requette ajax : param : url a laquelle je veux faire une requette ajax
-*/
     </script>
 
 {% endblock %}
