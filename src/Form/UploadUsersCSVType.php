@@ -23,10 +23,12 @@ class UploadUsersCSVType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'text/csv'
+                            'text/csv',
+                            'text/plain'
                         ],
-                        'mimeTypesMessage' => 'Ajoutez un fichier .csv, s\'il vous plaît',
-                    ])
+                        'mimeTypesMessage' => 'Ajoutez un fichier .csv, s\'il vous plaît {{ type }}' ,
+                    ]
+                    )
                 ],
             ])
          //   ->add('save',SubmitType::class, ['label' => 'Enregistrer'])

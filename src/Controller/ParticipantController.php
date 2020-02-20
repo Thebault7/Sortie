@@ -6,6 +6,7 @@ use App\Entity\Participant;
 use App\Form\ModifProfilType;
 
 use Doctrine\ORM\EntityManagerInterface;
+use League\Csv\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class ParticipantController extends Controller
         $participantRepository = $entityManager->getRepository(Participant::class);
         $participant = $participantRepository->find($id);
 
-        if ($participant->getPhoto() === "") {
+        if ($participant->getPhoto() === "" || (!$participant->getPhoto())) {
             // le participant n'a pas de photo de définie. On lui donne une taille par défaut.
             $widthPhoto = 250;
             $heightPhoto = 250;
@@ -133,20 +134,5 @@ class ParticipantController extends Controller
     }
 
 
-    /**
-     * @Route("/upload-users-csv", name="upload_users_csv")
-     */
-    public function uploadUsersCsv(Request $request, EntityManagerInterface $entityManager)
-    {
 
-        $uploadForm = $this->createForm(UploadUsersCSVType::class, ['uploadUsersCsv' => '']);
-        $uploadForm->handleRequest($request);
-
-        if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
-
-        }
-
-
-
-    }
 }

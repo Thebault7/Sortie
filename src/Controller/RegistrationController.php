@@ -8,7 +8,8 @@ use App\Entity\Etat;
 use App\Constantes\EtatConstantes;
 use App\Form\ParticipantType;
 use App\Form\RegistrationFormType;
-use Doctrine\ORM\EntityManager;
+use App\Form\UploadUsersCSVType;
+use App\Services\UploadUsersFromCsv;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,11 +26,17 @@ class RegistrationController extends Controller
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager): Response
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
+
+
+        $uploadForm = $this->createForm(UploadUsersCSVType::class, ['uploadUsersCsv' => '']);
+        $uploadForm->handleRequest($request);
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $participant->setActif(true);
@@ -58,10 +65,71 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('login');
         }
 
+
+
+
+        if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
+            $csvFile = $uploadForm->get('uploadUsersCsv')->getData();
+
+            if($csvFile){
+                $nomOriginal = pathinfo($csvFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate(
+                    'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
+                    $nomOriginal
+                );
+
+                $nouveauNom = $safeFilename .'.csv' ; //$csvFile->guessExtension()
+
+                try {
+                    $csvFile->move(
+                        $this->getParameter('users_csv_directory'),
+                        $nouveauNom
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                    $this->addFlash("danger", "Echec du téléchargement du fichier.");
+                }
+                $path=$this->getParameter('users_csv_directory');
+                $path = $path . '/' . $nouveauNom;
+
+
+                //appel service qui lit le fichier et insere les donnees dans la BDD
+                $uploadCSV = new UploadUsersFromCsv($entityManager, $passwordEncoder, $path);
+                $message = $uploadCSV->uploadCsv();
+
+                // suppression du fichier du dossier 'public'
+                if ($csvFile) {
+                    $filesystem = new Filesystem();
+                    try {
+                        $filesystem->remove($path);
+                    } catch (IOExceptionInterface $exception) {
+                        $this->addFlash( "danger","Une Erreur est apparue lors de la suppression du fichier  ".$exception->getPath());
+                    }
+                }
+
+                if($message){
+                    $this->addFlash("success", $message);
+                }
+                else{
+                    $this->addFlash("danger", $message);
+                }
+
+                return $this->redirectToRoute('accueil');
+            }else {
+                $this->addFlash("danger", "Echec lors de l'ajout de nouveaux utilisateurs.");
+                return $this->redirectToRoute('accueil');
+            }
+
+
+        }
+
+
         return $this->render(
             'registration/register.html.twig',
             [
                 'ParticipantForm' => $form->createView(),
+                'UploadCSVFormView' => $uploadForm->createView()
             ]
         );
     }

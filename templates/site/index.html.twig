@@ -4,27 +4,49 @@
 
 {% block body %}
 
-    <h1>Gérer les sites</h1>
-    <h2>Filtrer les sites</h2>
 
-    <div class="container-contact1-form-btn">
-        <form method="POST" action="{{ path('site_filter') }}" class="wrap-input1" >
-            <div class="row">
-                <div class="col-7">
-                    <input id="input_filter" type="text" name="site_filter" class="input1" placeholder="Rechercher un site" style="margin-top: 6px" required>
+     <section class="contact_section layout_padding ">
+        <div class="container">
+
+
+    <div class="row" style="margin-bottom: 20px" >
+           <!-- affichage des messages d'erreur ci-dessous : -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}  mx-auto">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+
+        <div class="heading_container">
+            <h2>
+                Gérer les sites
+            </h2>
+        </div>
+
+
+        <form method="POST" action="{{ path('site_filter') }}" style="margin:30px 0 30px 0" >
+        <div class="row">
+            <div class="col-9 offset-3 ">
+                <h4 class="mx-auto">Filtrer les sites</h4>
+                  <div class="contact_form-container">
+                    <div class="col-7">
+                        <input id="input_filter" type="text" name="site_filter" class="input1" placeholder="Rechercher un site" style="margin-top: 6px" required>
+                    </div>
+                    <div class="col-5">
+                        <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Rechercher</button>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <button type="submit" class="btn contact1-form-btn bouton1 mx-auto">Rechercher</button>
-                </div>
+               </div>
             </div>
-            <span class="shadow-input1"></span>
         </form>
-    </div>
-
-    <br>
-
+<div class="row">
+<div class="col-9 offset-3 ">
     <div class="container table-wrapper-scroll-y my-custom-scrollbar"
-         style="position: relative; height: 200px; width: 500px; overflow: auto">
+         style="position: relative; height: 400px; width: 600px; overflow: auto">
 
         <table class="table table-striped">
             <thead>
@@ -56,7 +78,7 @@
                     <td>
                         {{ form_start(SiteForm) }}
                         {{ form_label(SiteForm.nom) }}
-                        {{ form_widget(SiteForm.nom, {'attr': {'class': 'input1', 'placeholder': 'Site'} }) }}
+                        {{ form_widget(SiteForm.nom, {'attr': {'placeholder': 'Site'} }) }}
                         {{ form_errors(SiteForm.nom) }}
                     </td>
                     <td>
@@ -65,36 +87,29 @@
                     </td>
                 </tr>
             {% endif %}
+            <tr>
+                <div class="form-popup container-contact1-form-btn" id="myForm">
+                    <form action="{{ path('site_modify') }}" method="POST" class="form-container wrap-input1">
+
+                        <div class="row">
+                            <label for="site"><b>Site à modifier : </b></label>
+                            <input id="input_form" type="text" placeholder="Site" name="site_modify" class="input1" style="margin-bottom: 10px" required>
+
+                            <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
+
+                            <button type="submit" class="btn contact1-form-btn">Enregistrer</button>
+                            <button type="button" class="btn contact1-form-btn" style="margin-left: 10px" onclick="closeForm()">Close</button>
+                        </div>
+                    </form>
+                </div>
+
+            </tr>
             </tbody>
         </table>
     </div>
+</div>
 
-    <br>
-
-    <div class="form-popup container-contact1-form-btn" id="myForm">
-        <form action="{{ path('site_modify') }}" method="POST" class="form-container wrap-input1">
-
-            <div class="row">
-            <label for="site"><b>Site à modifier : </b></label>
-            <input id="input_form" type="text" placeholder="Site" name="site_modify" class="input1" style="margin-bottom: 10px" required>
-
-            <input id="input_form_hidden" type="text" name="site_hidden" style="display:none">
-
-            <button type="submit" class="btn contact1-form-btn">Enregistrer</button>
-            <button type="button" class="btn contact1-form-btn" style="margin-left: 10px" onclick="closeForm()">Close</button>
-            </div>
-        </form>
-    </div>
-    <br>
-
-    <!-- affichage des messages d'erreur ci-dessous : -->
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+</div>
 
 {% endblock %}
 
