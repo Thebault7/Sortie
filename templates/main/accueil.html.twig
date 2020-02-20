@@ -160,10 +160,15 @@
         // Sélectionne dans la liste déroulante à l'ouverture de la page le site qui correspond
         // à l'utilisateur.
         function selected() {
-            document.getElementById("site_{{ user.site.id }}").setAttribute('selected', 'selected')
+            // document.getElementById("tous_sites").removeAttribute('selected');
+            document.getElementById("site_{{ user.site.id }}").setAttribute('selected', 'selected');
         }
 
         selected();
+
+        // if (selectListeEnPageAccueilSurTousSites === true) {
+        //     document.getElementById("tous_sites").setAttribute('selected', 'selected');
+        // }
 
         // Permet de raffraîchir automatiquement la liste des sorties quand l'utilisateur change
         // de site site sélectionné dans la liste déroulante.

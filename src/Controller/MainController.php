@@ -48,19 +48,23 @@ class MainController extends Controller
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        if ($this->getUser() === null) {
+            // get the login error if there is one
+            $error = $authenticationUtils->getLastAuthenticationError();
 
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+            // last username entered by the user
+            $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render(
-            'main/login.html.twig',
-            [
-                'last_username' => $lastUsername,
-                'error' => $error,
-            ]
-        );
+            return $this->render(
+                'main/login.html.twig',
+                [
+                    'last_username' => $lastUsername,
+                    'error' => $error,
+                ]
+            );
+        }
+
+        return $this->redirectToRoute('accueil');
     }
 
     /**
@@ -181,7 +185,9 @@ class MainController extends Controller
 
         $sorties = array_filter($sorties);
 
-        return $this->render('main/accueil.html.twig', compact('sites', 'sorties', 'user'));
+        $selectListeEnPageAccueilSurTousSites = true;
+
+        return $this->render('main/accueil.html.twig', compact('sites', 'sorties', 'user', 'selectListeEnPageAccueilSurTousSites'));
     }
 
     /**

@@ -40,10 +40,7 @@ class Ville
      *     minMessage="Le champ 'code postal' accepte au minimim {{ limit }} caractères",
      *     maxMessage="Le champ 'code postal' accepte au maximum {{ limit }} caractères"
      * )
-     * @Assert\Type(
-     *   type="integer",
-     *   message="La valeur {{ value }} fournie n'est pas valide pour le type {{ type }}."
-     * )
+     * 
      */
     private $codePostal;
 
