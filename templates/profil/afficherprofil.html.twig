@@ -20,11 +20,15 @@
 
         .front {
             transform: perspective(500px) rotateY(0deg);
-
             max-width: 250px;
             max-height: 250px;
             width: {{ widthPhoto }}px;
             height: {{ heightPhoto }}px;
+        }
+
+        #image_user {
+            max-height: 100%;
+            max-width: 100%;
         }
 
         .arriere {
@@ -76,7 +80,7 @@
                         </div>
                         <div class="arriere">
                             <div class="back-content milieu">
-                                <img src="{{ asset('assets/img/ENI.png') }}" style="border-radius: 20%;">
+                                <img src="{{ asset('assets/img/a garder/ENI.png') }}" style="border-radius: 20%;">
                             </div>
                         </div>
                     </div>

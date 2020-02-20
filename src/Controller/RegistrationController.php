@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -48,7 +49,7 @@ class RegistrationController extends Controller
                 )
             );
 
-            $participant->setPhoto('silhouette.jpg');
+            $participant->setPhoto('a garder/silhouette.jpg');
             // mise en base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
@@ -92,10 +93,8 @@ class RegistrationController extends Controller
 
             // Si la sortie est archivée, on ne la considère pas pour savoir si l'utilisateur qui
             // y participait est encore actif
-            if ($sorties[$i]->getEtat() === $etatArchive) {
-                $participantPeutEtreSupprime = false;
-            } else {
-
+            if ($sorties[$i]->getEtat() !== $etatArchive) {
+                
                 // on vérifie si l'utilisateur est inscrit dans une sortie
                 for ($j = 0; $j < count($sorties[$i]->getParticipants()); $j++) {
                     if ($sorties[$i]->getParticipants()[$j]->getId() === $participant->getId()) {
@@ -112,6 +111,18 @@ class RegistrationController extends Controller
 
         if ($participantPeutEtreSupprime) {
             if ($request->query->get('a_supprimer') === "1") {
+                // on supprime le fichier image qui est dans assts/img
+                $photo = $participant->getPhoto();
+                if ($photo !== "a garder/silhouette.jpg") {
+                    $filesystem = new Filesystem();
+                    try {
+                        $filesystem->remove('assets/img/'.$photo);
+                    } catch (IOExceptionInterface $exception) {
+                        echo "Une Erreur est apparue lors de la suppression du fichier  ".$exception->getPath();
+                    }
+                }
+
+
                 $entityManager->remove($participant);
                 $entityManager->flush();    // si suppression totale, on enlève l'utilisateur de la base de données
 
