@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg custom_nav-container ">
     {% if app.user %}
         <a class="navbar-brand" href="{{ path('accueil') }}">
-            <span>Sortir.com</span>
+            <span id="titrePage">Sortir.com</span>
         </a>
     {% else %}
         <a class="navbar-brand" href="{{ path('login') }}">
@@ -21,29 +21,61 @@
             <ul class="navbar-nav  ">
 
                 {% if app.user %}
-                    {% if app.user.getRoles is same as (['ROLE_ADMIN']) %}
+             {#       {% if app.user.getRoles is same as (['ROLE_ADMIN']) %}
                         <div class="row">
                             <li class="nav-item col-12"><a href="" class="nav-link" id="admin"
                                                            onclick="displayList(); return false">Administrateur</a></li>
                             <div id="admin_list_1" style="display: none">
                                 <ul class="navbar-nav col-12 row" id="admin_list">
                                     <li class="nav-item col-12">
-                                        <a class="nav-link" href="{{ path('site_index') }}">Sites</a>
+
                                     </li>
                                     <li class="nav-item col-12">
-                                        <a class="nav-link" href="{{ path('ville_index') }}">Villes</a>
+
                                     </li>
                                     <li class="nav-item col-12">
-                                        <a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
+
                                     </li>
                                     <li class="nav-item col-12">
-                                        <a class="nav-link" href="{{ path('liste_participants') }}">Liste des
-                                            utilisateurs</a>
+
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     {% endif %}
+
+                    #}
+                {% if app.user.getRoles is same as (['ROLE_ADMIN']) %}
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administrateur
+                        </a>
+                        <div class="dropdown-menu" > <!-- aria-labelledby="navbarDropdownMenuLink" -->
+                        <ul>
+                            <li class="nav-item">
+                                        <a class="nav-link" class="dropdown-item" style="text-align: left;" href="{{ path('site_index') }}">  Sites</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link" class="dropdown-item" style="text-align: left;" href="{{ path('ville_index') }}">  Villes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="text-align: left;" href="{{ path('register') }}">  Créer un compte</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="text-align: left;" href="{{ path('liste_participants') }}">  Liste des
+                                    utilisateurs</a>
+                            </li>
+
+                        </ul>
+                        </div>
+                    </li>
+
+
+
+                {% endif %}
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
                     </li>

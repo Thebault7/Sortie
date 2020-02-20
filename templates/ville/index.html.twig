@@ -80,12 +80,12 @@
                 <tr>
                     <td>
                         {{ form_start(villeForm) }}
-                        {{ form_label(villeForm.nom) }}
+
                         {{ form_widget(villeForm.nom, {'attr': {'class': 'input1', 'placeholder': 'Ville'} }) }}
                         {{ form_errors(villeForm.nom) }}
                     </td>
                     <td>
-                        {{ form_label(villeForm.codePostal) }}
+                       
                         {{ form_widget(villeForm.codePostal, {'attr': {'class': 'input1', 'placeholder': 'Code postal'} }) }}
                         {{ form_errors(villeForm.codePostal) }}
                     </td>
@@ -133,9 +133,6 @@
                                                 <button type="submit" class="bouton1 ml-1 mr-1" id="save_btn" >Enregistrer</button>
                                                 <button type="button" class="bouton1 ml-1 mr-1" data-dismiss="modal">Retour</button>
                                             </div>
-                                            
-                                            </div>
-
                                         </div>
                                     </form>
                                 </div>
