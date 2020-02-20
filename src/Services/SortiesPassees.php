@@ -19,7 +19,7 @@ class SortiesPassees
             if ($this->sorties[$i] === false) {
                 $tableauFinal[$i] = false;
             } else {
-                if ($this->sorties[$i]->getEtat()->getLibelle() === EtatConstantes::CLOTURE) {
+                if ($this->sorties[$i]->getEtat()->getLibelle() === EtatConstantes::PASSE) {
                     $tableauFinal[$i] = $this->sorties[$i];
                 } else {
                     $tableauFinal[$i] = false;

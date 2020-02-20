@@ -25,8 +25,8 @@ class Sortie
      * @Assert\Length(
      *     min=2,
      *     max=50,
-     *     minMessage="Le champ 'description et infos' accepte au minimim {{ limit }} caractères",
-     *     maxMessage="Le champ 'description et infos' accepte au maximum {{ limit }} caractères"
+     *     minMessage="Le champ 'nom' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'nom' accepte au maximum {{ limit }} caractères"
      * )
      */
     private $nom;

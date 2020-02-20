@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VilleRepository")
@@ -20,11 +21,29 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage="Le champ 'nom' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'nom' accepte au maximum {{ limit }} caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min=5,
+     *     max=10,
+     *     minMessage="Le champ 'code postal' accepte au minimim {{ limit }} caractères",
+     *     maxMessage="Le champ 'code postal' accepte au maximum {{ limit }} caractères"
+     * )
+     * @Assert\Type(
+     *   type="integer",
+     *   message="La valeur {{ value }} fournie n'est pas valide pour le type {{ type }}."
+     * )
      */
     private $codePostal;
 

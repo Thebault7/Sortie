@@ -202,39 +202,39 @@ class MainController extends Controller
      * @return Response
      */
 
-    public function newmdp(Request $request, ObjectManager $objectManager, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    public function newmdp(
+        Request $request,
+        ObjectManager $objectManager,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): Response {
         $form = $this->createFormBuilder()
             ->add('mail', NewmdpType::class)
             ->getForm();
 
-        $mail = new Participant();
-//        $form = $this->createForm(NewmdpType::class, $mail);
-
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $mail = $form->getData('mail')['mail'];
-//           var_dump($mail);
             $em = $this->getDoctrine()->getManager();
 
             $participant = $em->getRepository(Participant::class)
-                ->findOneBy([
-                    'mail' => $mail
-                ]);
+                ->findOneBy(
+                    [
+                        'mail' => $mail,
+                    ]
+                );
             if (!$participant) {
                 $this->addFlash('warning', "Cet email n'existe pas.");
 
             } else {
                 $this->addFlash("success", "Un mot de passe provisoire vous a été envoyé sur votre adresse mail.");
 
-
                 //        génération d'un mot de passe aléatoire de 10 chiffres
                 $motDePasse = '';
                 for ($i = 0; $i < 10; $i++) {
-                    $motDePasse = $motDePasse . rand() % (10);
+                    $motDePasse = $motDePasse.rand() % (10);
                 }
 
                 // cryptage du mot de passe
@@ -247,12 +247,15 @@ class MainController extends Controller
 
                 $objectManager->persist($participant);
                 $objectManager->flush();
-
             }
         }
-        return $this->render('registration/newmdp.html.twig', [
-            'NewmdpForm' => $form->createView()
-        ]);
+
+        return $this->render(
+            'registration/newmdp.html.twig',
+            [
+                'NewmdpForm' => $form->createView(),
+            ]
+        );
 
     }
 
@@ -269,6 +272,5 @@ class MainController extends Controller
         $participants = $participantRepository->findAll();
 
         return $this->render('profil/listeParticipants.html.twig', ['participants' => $participants]);
-
     }
 }
