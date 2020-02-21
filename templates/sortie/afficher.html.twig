@@ -144,7 +144,7 @@ afficher une sortie
 
                     {% if sortie.participant.mail is same as(app.user.mail)
                         and (sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::OUVERT')) or sortie.etat.libelle is same as(constant('\\App\\Constantes\\EtatConstantes::CLOTURE')))
-                        and (sortie.dateHeureDebut("d/m/Y H:i:s") < "now"|date("d/m/Y H:i:s"))
+                        and (sortie.dateHeureDebut("d/m/Y H:i:s") > "now"|date("d/m/Y H:i:s"))
                     %}
                         <a class="ml-1 mr-1 bouton1" href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annulation</a>
                     {% endif %}
