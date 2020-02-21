@@ -1,8 +1,10 @@
-/*!
+/*
+/!*!
   * Bootstrap v4.3.1 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  */
+  *!/
+
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
@@ -68,17 +70,17 @@
     subClass.__proto__ = superClass;
   }
 
-  /**
+  /!**
    * --------------------------------------------------------------------------
    * Bootstrap (v4.3.1): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
-   */
-  /**
+   *!/
+  /!**
    * ------------------------------------------------------------------------
    * Private TransitionEnd Helpers
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var TRANSITION_END = 'transitionend';
   var MAX_UID = 1000000;
@@ -121,11 +123,11 @@
     $.fn.emulateTransitionEnd = transitionEndEmulator;
     $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
   }
-  /**
+  /!**
    * --------------------------------------------------------------------------
    * Public Util Api
    * --------------------------------------------------------------------------
-   */
+   *!/
 
 
   var Util = {
@@ -223,11 +225,11 @@
   };
   setTransitionEndSupport();
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME = 'alert';
   var VERSION = '4.3.1';
@@ -247,16 +249,16 @@
     ALERT: 'alert',
     FADE: 'fade',
     SHOW: 'show'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Alert =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Alert(element) {
       this._element = element;
@@ -366,19 +368,19 @@
 
     return Alert;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event.CLICK_DATA_API, Selector.DISMISS, Alert._handleDismiss(new Alert()));
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME] = Alert._jQueryInterface;
   $.fn[NAME].Constructor = Alert;
@@ -388,11 +390,11 @@
     return Alert._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$1 = 'button';
   var VERSION$1 = '4.3.1';
@@ -415,16 +417,16 @@
   var Event$1 = {
     CLICK_DATA_API: "click" + EVENT_KEY$1 + DATA_API_KEY$1,
     FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1)
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Button =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Button(element) {
       this._element = element;
@@ -508,11 +510,11 @@
 
     return Button;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event$1.CLICK_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
@@ -528,11 +530,11 @@
     var button = $(event.target).closest(Selector$1.BUTTON)[0];
     $(button).toggleClass(ClassName$1.FOCUS, /^focus(in)?$/.test(event.type));
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$1] = Button._jQueryInterface;
   $.fn[NAME$1].Constructor = Button;
@@ -542,11 +544,11 @@
     return Button._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$2 = 'carousel';
   var VERSION$2 = '4.3.1';
@@ -622,16 +624,16 @@
   var PointerType = {
     TOUCH: 'touch',
     PEN: 'pen'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Carousel =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Carousel(element, config) {
       this._items = null;
@@ -1111,11 +1113,11 @@
 
     return Carousel;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event$2.CLICK_DATA_API, Selector$2.DATA_SLIDE, Carousel._dataApiClickHandler);
@@ -1128,11 +1130,11 @@
       Carousel._jQueryInterface.call($carousel, $carousel.data());
     }
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$2] = Carousel._jQueryInterface;
   $.fn[NAME$2].Constructor = Carousel;
@@ -1142,11 +1144,11 @@
     return Carousel._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$3 = 'collapse';
   var VERSION$3 = '4.3.1';
@@ -1182,16 +1184,16 @@
   var Selector$3 = {
     ACTIVES: '.show, .collapsing',
     DATA_TOGGLE: '[data-toggle="collapse"]'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Collapse =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Collapse(element, config) {
       this._isTransitioning = false;
@@ -1464,11 +1466,11 @@
 
     return Collapse;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event$3.CLICK_DATA_API, Selector$3.DATA_TOGGLE, function (event) {
@@ -1488,11 +1490,11 @@
       Collapse._jQueryInterface.call($target, config);
     });
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$3] = Collapse._jQueryInterface;
   $.fn[NAME$3].Constructor = Collapse;
@@ -1502,11 +1504,11 @@
     return Collapse._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$4 = 'dropdown';
   var VERSION$4 = '4.3.1';
@@ -1577,16 +1579,16 @@
     boundary: '(string|element)',
     reference: '(string|element)',
     display: 'string'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Dropdown =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Dropdown(element, config) {
       this._element = element;
@@ -1629,10 +1631,10 @@
 
 
       if (!this._inNavbar) {
-        /**
+        /!**
          * Check for Popper dependency
          * Popper - https://popper.js.org
-         */
+         *!/
         if (typeof Popper === 'undefined') {
           throw new TypeError('Bootstrap\'s dropdowns require Popper.js (https://popper.js.org/)');
         }
@@ -1999,11 +2001,11 @@
 
     return Dropdown;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event$4.KEYDOWN_DATA_API, Selector$4.DATA_TOGGLE, Dropdown._dataApiKeydownHandler).on(Event$4.KEYDOWN_DATA_API, Selector$4.MENU, Dropdown._dataApiKeydownHandler).on(Event$4.CLICK_DATA_API + " " + Event$4.KEYUP_DATA_API, Dropdown._clearMenus).on(Event$4.CLICK_DATA_API, Selector$4.DATA_TOGGLE, function (event) {
@@ -2014,11 +2016,11 @@
   }).on(Event$4.CLICK_DATA_API, Selector$4.FORM_CHILD, function (e) {
     e.stopPropagation();
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$4] = Dropdown._jQueryInterface;
   $.fn[NAME$4].Constructor = Dropdown;
@@ -2028,11 +2030,11 @@
     return Dropdown._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$5 = 'modal';
   var VERSION$5 = '4.3.1';
@@ -2082,16 +2084,16 @@
     DATA_DISMISS: '[data-dismiss="modal"]',
     FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
     STICKY_CONTENT: '.sticky-top'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Modal =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Modal(element, config) {
       this._config = this._getConfig(config);
@@ -2209,11 +2211,11 @@
       [window, this._element, this._dialog].forEach(function (htmlElement) {
         return $(htmlElement).off(EVENT_KEY$5);
       });
-      /**
+      /!**
        * `document` has 2 events `Event.FOCUSIN` and `Event.CLICK_DATA_API`
        * Do not move `document` in `htmlElements` array
        * It will remove `Event.CLICK_DATA_API` event that should remain
-       */
+       *!/
 
       $(document).off(Event$5.FOCUSIN);
       $.removeData(this._element, DATA_KEY$5);
@@ -2558,11 +2560,11 @@
 
     return Modal;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event$5.CLICK_DATA_API, Selector$5.DATA_TOGGLE, function (event) {
@@ -2596,11 +2598,11 @@
 
     Modal._jQueryInterface.call($(target), config, this);
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$5] = Modal._jQueryInterface;
   $.fn[NAME$5].Constructor = Modal;
@@ -2610,12 +2612,12 @@
     return Modal._jQueryInterface;
   };
 
-  /**
+  /!**
    * --------------------------------------------------------------------------
    * Bootstrap (v4.3.1): tools/sanitizer.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
-   */
+   *!/
   var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href'];
   var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
   var DefaultWhitelist = {
@@ -2650,19 +2652,19 @@
     strong: [],
     u: [],
     ul: []
-    /**
+    /!**
      * A pattern that recognizes a commonly useful subset of URLs that are safe.
      *
      * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
-     */
+     *!/
 
   };
   var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
-  /**
+  /!**
    * A pattern that matches safe data URLs. Only matches image, video and audio types.
    *
    * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
-   */
+   *!/
 
   var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i;
 
@@ -2731,11 +2733,11 @@
     return createdDocument.body.innerHTML;
   }
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$6 = 'tooltip';
   var VERSION$6 = '4.3.1';
@@ -2816,22 +2818,22 @@
     FOCUS: 'focus',
     CLICK: 'click',
     MANUAL: 'manual'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Tooltip =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Tooltip(element, config) {
-      /**
+      /!**
        * Check for Popper dependency
        * Popper - https://popper.js.org
-       */
+       *!/
       if (typeof Popper === 'undefined') {
         throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org/)');
       } // private
@@ -3433,11 +3435,11 @@
 
     return Tooltip;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $.fn[NAME$6] = Tooltip._jQueryInterface;
@@ -3448,11 +3450,11 @@
     return Tooltip._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$7 = 'popover';
   var VERSION$7 = '4.3.1';
@@ -3492,16 +3494,16 @@
     FOCUSOUT: "focusout" + EVENT_KEY$7,
     MOUSEENTER: "mouseenter" + EVENT_KEY$7,
     MOUSELEAVE: "mouseleave" + EVENT_KEY$7
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Popover =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function (_Tooltip) {
     _inheritsLoose(Popover, _Tooltip);
 
@@ -3620,11 +3622,11 @@
 
     return Popover;
   }(Tooltip);
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $.fn[NAME$7] = Popover._jQueryInterface;
@@ -3635,11 +3637,11 @@
     return Popover._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$8 = 'scrollspy';
   var VERSION$8 = '4.3.1';
@@ -3681,16 +3683,16 @@
   var OffsetMethod = {
     OFFSET: 'offset',
     POSITION: 'position'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var ScrollSpy =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function ScrollSpy(element, config) {
       var _this = this;
@@ -3911,11 +3913,11 @@
 
     return ScrollSpy;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(window).on(Event$8.LOAD_DATA_API, function () {
@@ -3928,11 +3930,11 @@
       ScrollSpy._jQueryInterface.call($spy, $spy.data());
     }
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$8] = ScrollSpy._jQueryInterface;
   $.fn[NAME$8].Constructor = ScrollSpy;
@@ -3942,11 +3944,11 @@
     return ScrollSpy._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$9 = 'tab';
   var VERSION$9 = '4.3.1';
@@ -3976,16 +3978,16 @@
     DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
     DROPDOWN_TOGGLE: '.dropdown-toggle',
     DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Tab =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Tab(element) {
       this._element = element;
@@ -4151,11 +4153,11 @@
 
     return Tab;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Data Api implementation
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $(document).on(Event$9.CLICK_DATA_API, Selector$9.DATA_TOGGLE, function (event) {
@@ -4163,11 +4165,11 @@
 
     Tab._jQueryInterface.call($(this), 'show');
   });
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   $.fn[NAME$9] = Tab._jQueryInterface;
   $.fn[NAME$9].Constructor = Tab;
@@ -4177,11 +4179,11 @@
     return Tab._jQueryInterface;
   };
 
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
-   */
+   *!/
 
   var NAME$a = 'toast';
   var VERSION$a = '4.3.1';
@@ -4213,16 +4215,16 @@
   };
   var Selector$a = {
     DATA_DISMISS: '[data-dismiss="toast"]'
-    /**
+    /!**
      * ------------------------------------------------------------------------
      * Class Definition
      * ------------------------------------------------------------------------
-     */
+     *!/
 
   };
 
   var Toast =
-  /*#__PURE__*/
+  /!*#__PURE__*!/
   function () {
     function Toast(element, config) {
       this._element = element;
@@ -4377,11 +4379,11 @@
 
     return Toast;
   }();
-  /**
+  /!**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   */
+   *!/
 
 
   $.fn[NAME$a] = Toast._jQueryInterface;
@@ -4392,12 +4394,12 @@
     return Toast._jQueryInterface;
   };
 
-  /**
+  /!**
    * --------------------------------------------------------------------------
    * Bootstrap (v4.3.1): index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
-   */
+   *!/
 
   (function () {
     if (typeof $ === 'undefined') {
@@ -4433,3 +4435,4 @@
 
 }));
 //# sourceMappingURL=bootstrap.js.map
+*/
