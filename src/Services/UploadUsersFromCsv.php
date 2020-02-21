@@ -87,7 +87,7 @@ class UploadUsersFromCsv
             );
 
             $participant
-                ->setPhoto(null)
+                ->setPhoto('a garder/silhouette.jpg')
                 ->setPseudo(null);
 
             $this->entityManager->persist($participant);
