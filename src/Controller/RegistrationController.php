@@ -79,7 +79,7 @@ class RegistrationController extends Controller
                     $nomOriginal
                 );
 
-                $nouveauNom = $safeFilename .'.csv' ; //$csvFile->guessExtension()
+                $nouveauNom = $safeFilename .'.csv';
 
                 try {
                     $csvFile->move(
