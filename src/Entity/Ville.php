@@ -40,7 +40,7 @@ class Ville
      *     minMessage="Le champ 'code postal' accepte au minimim {{ limit }} caractères",
      *     maxMessage="Le champ 'code postal' accepte au maximum {{ limit }} caractères"
      * )
-     * 
+     *
      */
     private $codePostal;
 
