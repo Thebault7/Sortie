@@ -119,7 +119,7 @@ class Participant implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
      *     min=6,
-     *     max=50,
+     *     max=255,
      *     minMessage="Le nom du fichier image accepte au minimim {{ limit }} caractères",
      *     maxMessage="Le nom du fichier image accepte au maximum {{ limit }} caractères"
      * )

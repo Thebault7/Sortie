@@ -48,6 +48,7 @@ class ModifProfilType extends AbstractType
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
+                        'maxSizeMessage' => 'La taille maximale de la photo est de 1024k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
