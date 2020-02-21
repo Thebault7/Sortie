@@ -58,9 +58,9 @@
             {% if sortiesParticipant|length is not same as(0) %}
                 <div class="row d.flex justify-content-center">
                     {% for sortieP in sortiesParticipant %}
-                        <div class="col-6 col-sm-6 col-md-4 ml-1 mr-2 mt-2">
-                            <div class="card detail-box h-100 " style="width: 15rem;">
-                                <div class="mt-2">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-3  d-flex justify-content-center mt-2"><!-- -->
+                            <div class="card detail-box h-100 " style="width: 14rem;">
+                                <div class="mt-2 ">
                                     <h5 class="card-title">{{ sortieP.nom}}</h5>
                                     <p>Date : {{ sortieP.dateHeureDebut|date("d/m/Y H:i") }} </p>
                                     <p>Ville : {{ sortieP.lieu.ville.nom }}</p>
